@@ -1,0 +1,148 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="Annotate PDF - Add Highlights, Comments & Notes | PDFMasterTool"
+  description="Annotate PDF documents with highlights, comments, sticky notes, and markup tools. Perfect for reviews and collaboration."
+  canonical="/tools/annotate-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Annotate PDF"
+    toolDescription="Add highlights, comments, sticky notes, and markup annotations to PDFs"
+    toolIcon="📝"
+    acceptedFormats={['.pdf']}
+    maxFileSize={100}
+    maxFiles={1}
+    multiple={false}
+    toolType="annotate-pdf"
+    outputFileName="converted.pdf"
+  
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Collaborative Document Review</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Add comments, highlights, and markup annotations to PDFs. Perfect for document reviews, proofreading, feedback, and collaborative editing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Annotation Types</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3 p-4 glass rounded-xl">
+            <div class="text-3xl">✏️</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Highlights</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Mark important text with colored highlights. Choose from 5 colors.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 p-4 glass rounded-xl">
+            <div class="text-3xl">💬</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Comments</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Add detailed feedback and discussion points anywhere on the document.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 p-4 glass rounded-xl">
+            <div class="text-3xl">📝</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Sticky Notes</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Quick notes that can be expanded or collapsed.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 p-4 glass rounded-xl">
+            <div class="text-3xl">🖊️</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Drawing Tools</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Freehand drawing, underlines, strikethroughs, arrows, and shapes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Perfect For</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Document Review</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Provide feedback on drafts</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Proofreading</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Mark corrections and edits</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Study Notes</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Highlight key information</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Collaboration</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Team document feedback</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-2xl border border-green-200/50 dark:border-green-800/50 bg-green-50/50 dark:bg-green-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-green-900 dark:text-green-200 mb-1">Pro Tip</p>
+            <p class="text-sm text-green-800 dark:text-green-300">
+              All annotations are preserved in the PDF and can be viewed in any PDF reader that supports annotations (Adobe Acrobat, Preview, etc.).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="PDF to JPG - Convert PDF Pages to Images Online | PDFMasterTool"
+  description="Convert PDF pages to high-quality JPG images. Extract all pages or selected pages. Fast, secure, and free PDF to image converter."
+  canonical="/tools/pdf-to-jpg"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="PDF to JPG"
+    toolDescription="Convert PDF pages to high-quality JPG images with custom DPI and quality settings"
+    toolIcon="🎨"
+    acceptedFormats={['.pdf']}
+    maxFileSize={50}
+    maxFiles={1}
+    multiple={false}
+    toolType="pdf-to-jpg"
+    outputFileName="converted.pdf"
+  
+  
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Perfect For</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="text-center p-4">
+            <div class="text-4xl mb-2">📱</div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Social Media</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Share on Instagram, Facebook</p>
+          </div>
+          <div class="text-center p-4">
+            <div class="text-4xl mb-2">🌐</div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Web Publishing</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Use on websites and blogs</p>
+          </div>
+          <div class="text-center p-4">
+            <div class="text-4xl mb-2">📧</div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Email Attachments</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Easier to view in emails</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Features</h3>
+        <div class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>High resolution output (up to 600 DPI)</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Adjustable quality settings</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Convert all pages or select specific ones</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Automatic ZIP for multiple pages</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+

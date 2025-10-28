@@ -1,0 +1,113 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+
+const toolId = 'excel-to-pdf';
+---
+
+<BaseLayout
+  title="Excel to PDF Converter - Free Online Excel to PDF | PDFMasterTool"
+  description="Convert Excel spreadsheets (XLSX, XLS) to professional PDF documents instantly. Fast, secure, and free Excel to PDF converter with table preservation."
+  canonical="/tools/excel-to-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Excel to PDF"
+    toolDescription="Convert Excel spreadsheets (XLSX, XLS) to professional PDF documents with table preservation"
+    toolIcon="📈"
+    acceptedFormats={['.xlsx', '.xls']}
+    maxFileSize={50}
+    maxFiles={10}
+    multiple={true}
+    toolType="excel-to-pdf"
+    outputFileName="converted.pdf"
+  
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How to Convert Excel to PDF</h3>
+        <ol class="space-y-4 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-6 h-6 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+            <span>Click or drag your Excel file (XLSX, XLS) into the upload area</span>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-6 h-6 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+            <span>The conversion will start automatically with table and formatting preservation</span>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-6 h-6 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+            <span>Download your professional PDF document instantly</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">✨ Key Features</h3>
+        <ul class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+          <li class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Preserves tables and data structure</span>
+          </li>
+          <li class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Multiple sheets support</span>
+          </li>
+          <li class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Print-ready output</span>
+          </li>
+          <li class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Batch processing available</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">🔒 Privacy & Security</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Your files are processed securely with automatic deletion after conversion. 
+          We never store, share, or access your documents.
+        </p>
+        <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+          <li class="flex items-center space-x-2">
+            <span class="text-green-500">✓</span>
+            <span>Encrypted file transmission</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-green-500">✓</span>
+            <span>Auto-delete after 1 hour</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-green-500">✓</span>
+            <span>GDPR & CCPA compliant</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ToolTemplate>
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+

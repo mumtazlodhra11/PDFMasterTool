@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+import { mergePDFs } from '@/utils/pdfUtils';
+---
+
+<BaseLayout
+  title="Merge PDF - Combine Multiple PDFs into One | PDFMasterTool"
+  description="Merge multiple PDF files into a single document. Drag and drop to reorder pages. Fast, secure, and free PDF merger tool."
+  canonical="/tools/merge-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Merge PDF"
+    toolDescription="Combine multiple PDF files into one document with drag-and-drop reordering"
+    toolIcon="🔗"
+    acceptedFormats={['.pdf']}
+    maxFileSize={150}
+    maxFiles={50}
+    multiple={true}
+    toolType="merge-pdf"
+    outputFileName="merged.pdf"
+  >
+    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How to Merge PDFs</h3>
+      <ol class="space-y-4 text-gray-600 dark:text-gray-400">
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+          <p>Upload multiple PDF files by dragging and dropping or clicking to browse</p>
+        </li>
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+          <p>Reorder files by dragging them to your desired sequence</p>
+        </li>
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+          <p>Click "Process Files" to merge all PDFs into one</p>
+        </li>
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+          <p>Download your merged PDF file instantly</p>
+        </li>
+      </ol>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+

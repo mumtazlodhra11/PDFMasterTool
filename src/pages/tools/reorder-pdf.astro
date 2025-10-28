@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="Reorder PDF Pages - Rearrange PDF Pages Online | PDFMasterTool"
+  description="Reorder and rearrange PDF pages with intuitive drag-and-drop interface. Change page order quickly and easily."
+  canonical="/tools/reorder-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Reorder PDF Pages"
+    toolDescription="Rearrange PDF pages with drag-and-drop interface for perfect page order"
+    toolIcon="🔄"
+    acceptedFormats={['.pdf']}
+    maxFileSize={100}
+    maxFiles={1}
+    multiple={false}
+    toolType="reorder-pdf"
+    outputFileName="converted.pdf"
+  
+  
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 bg-blue-50/50 dark:bg-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-blue-900 dark:text-blue-200 mb-1">Coming Soon: Visual Reordering</p>
+            <p class="text-sm text-blue-800 dark:text-blue-300">
+              We're adding a visual drag-and-drop interface! For now, the tool reorders pages based on your specifications. Drag-and-drop UI coming in next update!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How to Reorder PDF Pages</h3>
+        <ol class="space-y-4 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+            <p>Upload your PDF file</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+            <p>Visual thumbnails will display all pages</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+            <p>Drag and drop pages to rearrange them</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+            <p>Download your reordered PDF</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Common Use Cases</h3>
+        <div class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+            </svg>
+            <p>Fix scanned documents with pages in wrong order</p>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+            </svg>
+            <p>Reorganize reports and presentations</p>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+            </svg>
+            <p>Arrange chapters in books or manuals</p>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+            </svg>
+            <p>Customize document flow for presentations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+

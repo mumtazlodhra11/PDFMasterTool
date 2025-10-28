@@ -1,0 +1,92 @@
+---
+// Sentry Error Tracking
+const SENTRY_DSN = import.meta.env.PUBLIC_SENTRY_DSN;
+const ENVIRONMENT = import.meta.env.PUBLIC_ENVIRONMENT || 'production';
+---
+
+<!-- Sentry Error Tracking -->
+{SENTRY_DSN && (
+  <script is:inline define:vars={{ SENTRY_DSN, ENVIRONMENT }}>
+    (function() {
+      // Load Sentry SDK
+      const script = document.createElement('script');
+      script.src = 'https://browser.sentry-cdn.com/7.99.0/bundle.min.js';
+      script.integrity = 'sha384-'; // Add proper SRI hash in production
+      script.crossOrigin = 'anonymous';
+      script.onload = function() {
+        if (window.Sentry) {
+          Sentry.init({
+            dsn: SENTRY_DSN,
+            environment: ENVIRONMENT,
+            integrations: [
+              new Sentry.BrowserTracing(),
+              new Sentry.Replay({
+                maskAllText: true,
+                blockAllMedia: true,
+              }),
+            ],
+            
+            // Performance Monitoring
+            tracesSampleRate: 1.0,
+            
+            // Session Replay (10% of sessions)
+            replaysSessionSampleRate: 0.1,
+            replaysOnErrorSampleRate: 1.0,
+            
+            // Release tracking
+            release: 'pdfmastertool@2.0.0',
+            
+            // Privacy-first: Don't capture PII
+            beforeSend(event, hint) {
+              // Remove any potential PII from error messages
+              if (event.exception) {
+                event.exception.values = event.exception.values.map(value => {
+                  if (value.value) {
+                    // Remove file paths and names
+                    value.value = value.value.replace(/[\/\\][\w\-. ]+\.(pdf|docx|xlsx|pptx)/gi, '/***');
+                  }
+                  return value;
+                });
+              }
+              return event;
+            },
+            
+            // Ignore common browser errors
+            ignoreErrors: [
+              'ResizeObserver loop limit exceeded',
+              'Non-Error promise rejection captured',
+              'Load failed',
+            ],
+          });
+
+          // Set user context (anonymous)
+          Sentry.setUser({ id: 'anonymous' });
+
+          // Custom error tracking for PDF operations
+          window.captureException = function(error, context) {
+            Sentry.captureException(error, {
+              tags: {
+                tool: context?.tool || 'unknown',
+                operation: context?.operation || 'unknown',
+              },
+              extra: context,
+            });
+          };
+        }
+      };
+      document.head.appendChild(script);
+    })();
+  </script>
+)}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+{
+  "name": "word-to-pdf-lambda",
+  "version": "1.0.0",
+  "description": "Word to PDF conversion using LibreOffice in Lambda container",
+  "main": "word-to-pdf.js",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0"
+  }
+}
+
+
+
+
+
+
+
+
+

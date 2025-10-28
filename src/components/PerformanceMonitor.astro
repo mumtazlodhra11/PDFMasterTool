@@ -1,0 +1,148 @@
+---
+// Performance monitoring using Web Vitals
+---
+
+<script is:inline>
+  // Core Web Vitals monitoring
+  (function() {
+    // Load web-vitals library
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.textContent = `
+      import {onCLS, onFID, onFCP, onLCP, onTTFB, onINP} from 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js?module';
+
+      function sendToAnalytics(metric) {
+        const body = JSON.stringify({
+          name: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+          delta: metric.delta,
+          id: metric.id,
+          navigationType: metric.navigationType
+        });
+
+        // Send to Google Analytics
+        if (window.gtag) {
+          gtag('event', metric.name, {
+            value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+            metric_id: metric.id,
+            metric_value: metric.value,
+            metric_delta: metric.delta,
+            metric_rating: metric.rating,
+            event_category: 'Web Vitals',
+          });
+        }
+
+        // Send to Sentry (if available)
+        if (window.Sentry) {
+          Sentry.captureMessage(\`Web Vital: \${metric.name}\`, {
+            level: metric.rating === 'good' ? 'info' : metric.rating === 'needs-improvement' ? 'warning' : 'error',
+            tags: {
+              web_vital: metric.name,
+              rating: metric.rating,
+            },
+            extra: {
+              value: metric.value,
+              delta: metric.delta,
+            },
+          });
+        }
+
+        // Optional: Send to custom endpoint
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/vitals', body);
+        }
+      }
+
+      // Measure Core Web Vitals
+      onCLS(sendToAnalytics);  // Cumulative Layout Shift
+      onFID(sendToAnalytics);  // First Input Delay
+      onFCP(sendToAnalytics);  // First Contentful Paint
+      onLCP(sendToAnalytics);  // Largest Contentful Paint
+      onTTFB(sendToAnalytics); // Time to First Byte
+      onINP(sendToAnalytics);  // Interaction to Next Paint
+
+      console.log('📊 Web Vitals monitoring enabled');
+    `;
+    document.head.appendChild(script);
+
+    // Performance Observer for long tasks
+    if ('PerformanceObserver' in window) {
+      // Monitor long tasks (> 50ms)
+      try {
+        const observer = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (entry.duration > 50) {
+              console.warn('⚠️ Long task detected:', entry.duration.toFixed(2) + 'ms');
+              
+              if (window.gtag) {
+                gtag('event', 'long_task', {
+                  event_category: 'Performance',
+                  value: Math.round(entry.duration),
+                  event_label: entry.name,
+                });
+              }
+            }
+          }
+        });
+        observer.observe({ entryTypes: ['longtask'] });
+      } catch (e) {
+        console.log('Long task monitoring not supported');
+      }
+
+      // Monitor resource timing
+      try {
+        const resourceObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            // Track slow resources (> 1s)
+            if (entry.duration > 1000) {
+              console.warn('⚠️ Slow resource:', entry.name, entry.duration.toFixed(2) + 'ms');
+              
+              if (window.gtag) {
+                gtag('event', 'slow_resource', {
+                  event_category: 'Performance',
+                  value: Math.round(entry.duration),
+                  event_label: entry.name,
+                });
+              }
+            }
+          }
+        });
+        resourceObserver.observe({ entryTypes: ['resource'] });
+      } catch (e) {
+        console.log('Resource timing monitoring not supported');
+      }
+    }
+
+    // Page load time
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData) {
+          const pageLoadTime = perfData.loadEventEnd - perfData.fetchStart;
+          console.log('📈 Page load time:', (pageLoadTime / 1000).toFixed(2) + 's');
+          
+          if (window.gtag) {
+            gtag('event', 'page_load_time', {
+              event_category: 'Performance',
+              value: Math.round(pageLoadTime),
+              event_label: window.location.pathname,
+            });
+          }
+        }
+      }, 0);
+    });
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

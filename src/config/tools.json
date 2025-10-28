@@ -1,0 +1,422 @@
+{
+  "tools": [
+    {
+      "id": "word-to-pdf",
+      "name": "Word to PDF",
+      "category": "convert-to-pdf",
+      "icon": "📄",
+      "description": "Convert Word documents (DOCX, DOC) to high-quality PDF format",
+      "features": ["Maintains formatting", "Fast conversion", "Batch processing", "Cloud & local"],
+      "inputFormats": [".docx", ".doc"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "powerpoint-to-pdf",
+      "name": "PowerPoint to PDF",
+      "category": "convert-to-pdf",
+      "icon": "📊",
+      "description": "Convert PowerPoint presentations to PDF with perfect slide preservation",
+      "features": ["Preserves animations", "Maintains layout", "High quality", "Batch support"],
+      "inputFormats": [".pptx", ".ppt"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "excel-to-pdf",
+      "name": "Excel to PDF",
+      "category": "convert-to-pdf",
+      "icon": "📈",
+      "description": "Convert Excel spreadsheets to professional PDF documents",
+      "features": ["Table preservation", "Multiple sheets", "Custom page size", "Print-ready"],
+      "inputFormats": [".xlsx", ".xls"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "image-to-pdf",
+      "name": "Image to PDF",
+      "category": "convert-to-pdf",
+      "icon": "🖼️",
+      "description": "Convert images (JPG, PNG, WebP, HEIC) to PDF format",
+      "features": ["Multiple images", "Auto-optimize", "Custom layout", "Compression"],
+      "inputFormats": [".jpg", ".jpeg", ".png", ".webp", ".heic"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 20,
+      "aiEnhanced": true
+    },
+    {
+      "id": "html-to-pdf",
+      "name": "HTML to PDF",
+      "category": "convert-to-pdf",
+      "icon": "🌐",
+      "description": "Convert HTML pages and websites to PDF documents",
+      "features": ["CSS rendering", "JavaScript support", "Responsive", "URL conversion"],
+      "inputFormats": [".html", ".htm"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 10,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-to-word",
+      "name": "PDF to Word",
+      "category": "convert-from-pdf",
+      "icon": "📝",
+      "description": "Convert PDF to editable Word documents with OCR support",
+      "features": ["OCR enabled", "Editable text", "Format preservation", "Table detection"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".docx",
+      "maxFileSize": 50,
+      "aiEnhanced": true
+    },
+    {
+      "id": "pdf-to-powerpoint",
+      "name": "PDF to PowerPoint",
+      "category": "convert-from-pdf",
+      "icon": "🎭",
+      "description": "Convert PDF presentations to editable PowerPoint slides",
+      "features": ["Slide extraction", "Image quality", "Text editable", "Layout preserved"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pptx",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-to-excel",
+      "name": "PDF to Excel",
+      "category": "convert-from-pdf",
+      "icon": "📊",
+      "description": "Extract tables from PDF to editable Excel spreadsheets",
+      "features": ["Smart table detection", "Data accuracy", "Multiple sheets", "Formula support"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".xlsx",
+      "maxFileSize": 30,
+      "aiEnhanced": true
+    },
+    {
+      "id": "pdf-to-jpg",
+      "name": "PDF to JPG",
+      "category": "convert-from-pdf",
+      "icon": "🎨",
+      "description": "Convert PDF pages to high-quality JPG images",
+      "features": ["Custom DPI", "Batch export", "Quality control", "Transparent BG"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".jpg",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-to-pdfa",
+      "name": "PDF to PDF/A",
+      "category": "convert-from-pdf",
+      "icon": "📋",
+      "description": "Convert regular PDF to archival PDF/A format",
+      "features": ["Long-term storage", "ISO compliant", "Font embedding", "Color preservation"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false,
+      "hidden": true
+    },
+    {
+      "id": "merge-pdf",
+      "name": "Merge PDF",
+      "category": "organize",
+      "icon": "🔗",
+      "description": "Combine multiple PDF files into a single document",
+      "features": ["Drag & drop order", "Unlimited files", "Preview pages", "Fast merge"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 150,
+      "aiEnhanced": false
+    },
+    {
+      "id": "split-pdf",
+      "name": "Split PDF",
+      "category": "organize",
+      "icon": "✂️",
+      "description": "Split large PDF into smaller files or extract specific pages",
+      "features": ["Page ranges", "Extract pages", "Split by size", "Batch split"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 150,
+      "aiEnhanced": false
+    },
+    {
+      "id": "reorder-pdf",
+      "name": "Reorder Pages",
+      "category": "organize",
+      "icon": "🔄",
+      "description": "Rearrange PDF pages with drag-and-drop interface",
+      "features": ["Visual reordering", "Page preview", "Undo/redo", "Save layout"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "remove-pages",
+      "name": "Remove Pages",
+      "category": "organize",
+      "icon": "🗑️",
+      "description": "Delete unwanted pages from PDF documents",
+      "features": ["Select multiple", "Page preview", "Range deletion", "Quick removal"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "add-page-numbers",
+      "name": "Add Page Numbers",
+      "category": "organize",
+      "icon": "🔢",
+      "description": "Add customizable page numbers to your PDF",
+      "features": ["Position control", "Custom format", "Start number", "Skip pages"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "password-protect",
+      "name": "Password Protect PDF",
+      "category": "secure",
+      "icon": "🔐",
+      "description": "Add password protection and encryption to PDF files",
+      "features": ["AES-256 encryption", "User password", "Owner password", "Permission control"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 150,
+      "aiEnhanced": false
+    },
+    {
+      "id": "unlock-pdf",
+      "name": "Unlock PDF",
+      "category": "secure",
+      "icon": "🔓",
+      "description": "Remove password protection from PDF documents",
+      "features": ["Password removal", "Quick unlock", "Batch processing", "Secure removal"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 150,
+      "aiEnhanced": false
+    },
+    {
+      "id": "watermark-pdf",
+      "name": "Watermark PDF",
+      "category": "secure",
+      "icon": "💧",
+      "description": "Add text or image watermarks to PDF documents",
+      "features": ["Text & image", "Position control", "Opacity control", "Batch watermark"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "compress-pdf",
+      "name": "Compress PDF",
+      "category": "optimize",
+      "icon": "🗜️",
+      "description": "Reduce PDF file size while maintaining quality",
+      "features": ["Smart compression", "Quality levels", "Preview before", "Batch compress"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 150,
+      "aiEnhanced": true
+    },
+    {
+      "id": "repair-pdf",
+      "name": "Repair PDF",
+      "category": "optimize",
+      "icon": "🔧",
+      "description": "Fix corrupted or damaged PDF files",
+      "features": ["Auto repair", "Structure fix", "Font recovery", "Content restore"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": true,
+      "hidden": true
+    },
+    {
+      "id": "edit-pdf",
+      "name": "Edit PDF",
+      "category": "edit",
+      "icon": "✏️",
+      "description": "Edit PDF text, images, and shapes directly",
+      "features": ["Text editing", "Image insertion", "Shape drawing", "Color picker"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "annotate-pdf",
+      "name": "Highlight & Annotate",
+      "category": "edit",
+      "icon": "🖍️",
+      "description": "Add highlights, annotations, and comments to PDF",
+      "features": ["Highlighter", "Sticky notes", "Draw shapes", "Text comments"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "rotate-pdf",
+      "name": "Rotate Pages",
+      "category": "edit",
+      "icon": "🔄",
+      "description": "Rotate PDF pages 90°, 180°, or 270° degrees",
+      "features": ["Individual pages", "Batch rotate", "Preview rotation", "Quick rotate"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "header-footer",
+      "name": "Add Header/Footer",
+      "category": "edit",
+      "icon": "📄",
+      "description": "Add custom headers and footers to PDF pages",
+      "features": ["Custom text", "Page numbers", "Date/time", "Position control"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "esign-pdf",
+      "name": "eSign PDF",
+      "category": "esign",
+      "icon": "✍️",
+      "description": "Add electronic signatures to PDF documents",
+      "features": ["Draw signature", "Upload image", "Type signature", "Multiple signatures"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "fill-pdf-forms",
+      "name": "Fill PDF Forms",
+      "category": "esign",
+      "icon": "📝",
+      "description": "Fill out PDF forms with auto field detection",
+      "features": ["Auto-detect fields", "Save progress", "Validation", "Export data"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": true
+    },
+    {
+      "id": "ai-ocr",
+      "name": "AI OCR",
+      "category": "ai-tools",
+      "icon": "🤖",
+      "description": "Convert scanned PDFs to searchable text with AI OCR",
+      "features": ["Multi-language", "High accuracy", "Searchable PDF", "Text extraction"],
+      "inputFormats": [".pdf", ".jpg", ".png"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": true
+    },
+    {
+      "id": "ai-summarizer",
+      "name": "AI Summarizer",
+      "category": "ai-tools",
+      "icon": "📊",
+      "description": "Extract key insights and summaries from PDF documents",
+      "features": ["Key points", "Executive summary", "Topic extraction", "Smart analysis"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".txt",
+      "maxFileSize": 30,
+      "aiEnhanced": true,
+      "hidden": true
+    },
+    {
+      "id": "ai-translator",
+      "name": "AI Translator",
+      "category": "ai-tools",
+      "icon": "🌍",
+      "description": "Translate PDF content to multiple languages with AI",
+      "features": ["50+ languages", "Format preserved", "Context aware", "Batch translate"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 30,
+      "aiEnhanced": true,
+      "hidden": true
+    },
+    {
+      "id": "ai-smart-compress",
+      "name": "AI Smart Compressor",
+      "category": "ai-tools",
+      "icon": "🧠",
+      "description": "Intelligently compress PDF while preserving text quality",
+      "features": ["AI optimization", "Text preserved", "Image smart resize", "Max compression"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 150,
+      "aiEnhanced": true,
+      "hidden": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "convert-to-pdf",
+      "name": "Convert TO PDF",
+      "icon": "📥",
+      "description": "Convert various file formats to PDF"
+    },
+    {
+      "id": "convert-from-pdf",
+      "name": "Convert FROM PDF",
+      "icon": "📤",
+      "description": "Convert PDF to other formats"
+    },
+    {
+      "id": "organize",
+      "name": "Organize PDFs",
+      "icon": "📁",
+      "description": "Merge, split, and organize PDF files"
+    },
+    {
+      "id": "secure",
+      "name": "Secure & Protect",
+      "icon": "🔒",
+      "description": "Password protect and secure PDFs"
+    },
+    {
+      "id": "optimize",
+      "name": "Optimize",
+      "icon": "⚡",
+      "description": "Compress and repair PDF files"
+    },
+    {
+      "id": "edit",
+      "name": "Edit & Annotate",
+      "icon": "✏️",
+      "description": "Edit and annotate PDF documents"
+    },
+    {
+      "id": "esign",
+      "name": "eSign & Fill",
+      "icon": "✍️",
+      "description": "Sign and fill PDF forms"
+    },
+    {
+      "id": "ai-tools",
+      "name": "AI-Powered",
+      "icon": "🤖",
+      "description": "AI-enhanced PDF tools"
+    }
+  ]
+}
+
+
+

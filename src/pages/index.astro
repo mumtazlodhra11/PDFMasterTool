@@ -1,0 +1,147 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolCard } from '@/components/ToolCard';
+import toolsData from '@/config/tools.json';
+
+// Filter out hidden tools
+const { tools: allTools } = toolsData;
+const tools = allTools.filter(tool => !tool.hidden);
+const toolCount = tools.length;
+---
+
+<BaseLayout 
+  title="PDFMasterTool - 25 AI-Powered PDF Tools | Privacy-First, Ad-Free"
+  description="Next-gen PDF platform with 25 tools powered by AI and WebAssembly. Convert, edit, compress, merge PDFs instantly. No login, no ads, privacy-first."
+>
+  <Navbar />
+  
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 lg:py-32">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 animate-gradient"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+      <div class="inline-block mb-4 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full">
+        <span class="text-primary-700 dark:text-primary-300 font-semibold text-sm">🚀 Next-Gen PDF Platform</span>
+      </div>
+      
+      <h1 class="text-5xl lg:text-7xl font-black mb-6 gradient-text leading-tight">
+        25 AI-Powered<br />PDF Tools
+      </h1>
+      
+      <p class="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+        Privacy-first. Ad-free. No login required.<br />
+        Convert, edit, compress, and transform PDFs instantly in your browser.
+      </p>
+      
+      <div class="flex flex-wrap gap-4 justify-center mb-8">
+        <span class="px-6 py-3 glass rounded-full text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          100% Free Forever
+        </span>
+        <span class="px-6 py-3 glass rounded-full text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
+          <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          No Signup Required
+        </span>
+        <span class="px-6 py-3 glass rounded-full text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
+          <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+          Privacy-First
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Grid -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-black mb-4 text-gray-900 dark:text-white">
+          All {toolCount} PDF Tools
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-400">
+          Everything you need to work with PDFs, powered by AI and WebAssembly
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {tools.map((tool) => (
+          <ToolCard client:visible {...tool} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 glass-hover">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl lg:text-5xl font-black text-center mb-16 text-gray-900 dark:text-white">
+        Why Choose PDFMasterTool?
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-2xl text-center hover:scale-105 transition-transform">
+          <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+            🔒
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Privacy First</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            All processing happens in your browser. Files never leave your device. Zero tracking, zero data collection.
+          </p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl text-center hover:scale-105 transition-transform">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+            ⚡
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lightning Fast</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            WebAssembly-powered processing delivers instant results. No waiting for server uploads or downloads.
+          </p>
+        </div>
+        
+        <div class="glass p-8 rounded-2xl text-center hover:scale-105 transition-transform">
+          <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+            🤖
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">AI-Enhanced</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Powered by GPT-4o and Tesseract OCR for intelligent document processing and analysis.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-20 bg-gradient-to-br from-primary-600 to-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-5xl font-black mb-2">{toolCount}</div>
+          <div class="text-xl opacity-90">PDF Tools</div>
+        </div>
+        <div>
+          <div class="text-5xl font-black mb-2">100%</div>
+          <div class="text-xl opacity-90">Free Forever</div>
+        </div>
+        <div>
+          <div class="text-5xl font-black mb-2">0</div>
+          <div class="text-xl opacity-90">Ads or Tracking</div>
+        </div>
+        <div>
+          <div class="text-5xl font-black mb-2">∞</div>
+          <div class="text-xl opacity-90">File Conversions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

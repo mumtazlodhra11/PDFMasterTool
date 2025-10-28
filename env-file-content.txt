@@ -1,0 +1,7 @@
+PUBLIC_LAMBDA_WORD_TO_PDF=https://euptkdl3fgsgyoud66lkiti54q0nnwbx.lambda-url.eu-west-1.on.aws/
+PUBLIC_LAMBDA_PPT_TO_PDF=https://kjvlahhbpn5vgcz65eyp4as22m0qeytt.lambda-url.eu-west-1.on.aws/
+PUBLIC_LAMBDA_PDF_TO_WORD=https://xxr3sbwwhdjfanfdbaqwvsg2ea0bvzzk.lambda-url.eu-west-1.on.aws/
+PUBLIC_LAMBDA_PDF_TO_EXCEL=https://odxspqynwszdskoxt7ml2urbjq0qddvh.lambda-url.eu-west-1.on.aws/
+PUBLIC_LAMBDA_PDF_TO_PPT=https://mxw5nxnwmsic4yflfnevu4aapa0dxqbq.lambda-url.eu-west-1.on.aws/
+
+

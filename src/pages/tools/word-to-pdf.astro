@@ -1,0 +1,96 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="Word to PDF - Convert DOCX to PDF Online Free | PDFMasterTool"
+  description="Convert Word documents (DOCX, DOC) to high-quality PDF format instantly. Fast, secure, and free Word to PDF converter with format preservation."
+  canonical="/tools/word-to-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Word to PDF"
+    toolDescription="Convert Word documents (DOCX, DOC) to high-quality PDF format with perfect formatting preservation"
+    toolIcon="📄"
+    acceptedFormats={['.docx', '.doc']}
+    maxFileSize={50}
+    maxFiles={10}
+    multiple={false}
+    toolType="word-to-pdf"
+    outputFileName="converted.pdf"
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How to Convert Word to PDF</h3>
+        <ol class="space-y-4 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+            <p>Upload your Word document (.docx or .doc file)</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+            <p>Choose conversion options (orientation, quality)</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+            <p>Click "Process Files" to convert to PDF</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+            <p>Download your high-quality PDF file instantly</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Why Convert Word to PDF?</h3>
+        <div class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Universal Compatibility</p>
+              <p class="text-sm">PDFs open on any device</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Preserve Formatting</p>
+              <p class="text-sm">Maintains exact layout</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Professional Documents</p>
+              <p class="text-sm">Perfect for business</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Secure Sharing</p>
+              <p class="text-sm">Prevents unauthorized edits</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+

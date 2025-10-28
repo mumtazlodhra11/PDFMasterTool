@@ -1,0 +1,156 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="PDF to Excel - Convert PDF to XLS/XLSX Online | PDFMasterTool"
+  description="Convert PDF tables to editable Excel spreadsheets. Extract data from PDF to XLSX with intelligent table detection."
+  canonical="/tools/pdf-to-excel"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="PDF to Excel"
+    toolDescription="Convert PDF documents with tables to editable Excel spreadsheets"
+    toolIcon="📈"
+    acceptedFormats={['.pdf']}
+    maxFileSize={50}
+    maxFiles={5}
+    multiple={false}
+    toolType="pdf-to-excel"
+    outputFileName="converted.xlsx"
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+            <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+            <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Intelligent Table Extraction</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Our AI-powered converter automatically identifies tables, rows, and columns in your PDF, converting them into properly structured Excel spreadsheets with editable data.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Conversion Features</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Auto Table Detection</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Smart recognition</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Editable Cells</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Full Excel functionality</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Multiple Sheets</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">One sheet per page</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Format Preservation</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Keeps cell structure</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Common Use Cases</h3>
+        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Extract financial data from PDF statements and reports</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Convert invoices and purchase orders for data analysis</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Transform price lists and inventory catalogs to spreadsheets</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Recover editable data from PDF-only reports</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Tips for Best Results</h3>
+        <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+          <div class="flex items-start space-x-2">
+            <span class="text-green-500 font-bold">✓</span>
+            <p>Use PDFs with clear table structures</p>
+          </div>
+          <div class="flex items-start space-x-2">
+            <span class="text-green-500 font-bold">✓</span>
+            <p>Ensure text is selectable (not scanned)</p>
+          </div>
+          <div class="flex items-start space-x-2">
+            <span class="text-green-500 font-bold">✓</span>
+            <p>Convert one table type per page</p>
+          </div>
+          <div class="flex items-start space-x-2">
+            <span class="text-green-500 font-bold">✓</span>
+            <p>Use high-quality PDF scans if needed</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-2xl border border-yellow-200/50 dark:border-yellow-800/50 bg-yellow-50/50 dark:bg-yellow-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-yellow-900 dark:text-yellow-200 mb-1">Scanned PDFs</p>
+            <p class="text-sm text-yellow-800 dark:text-yellow-300">
+              For scanned PDFs or images, enable OCR option for better accuracy. This may take slightly longer but ensures accurate data extraction.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+

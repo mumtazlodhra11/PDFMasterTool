@@ -1,0 +1,8 @@
+EXACT ISSUE:
+
+Docker Desktop version 28.5.1 is installed on Windows 10 (Build 26100) but fails to start. When I run "docker ps" command in PowerShell, I get the error "Error response from daemon: Docker Desktop is unable to start". I have tried launching Docker Desktop.exe and waited for 2.5 minutes but the Docker daemon never becomes ready. This is blocking my AWS Lambda deployment because I need Docker to build 5 container images with LibreOffice for PDF conversion functions. Everything else is configured and ready (AWS credentials, ECR repositories, Lambda code, Dockerfiles) but I cannot proceed without Docker running. How can I fix Docker Desktop to start properly on Windows 10?
+
+
+
+
+

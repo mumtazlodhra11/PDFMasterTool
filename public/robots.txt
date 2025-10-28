@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://pdfmastertool.com/sitemap-index.xml
+
+# Crawl-delay
+Crawl-delay: 0
+
+# Allow all tool pages
+Allow: /tools/
+
+# Block admin/private pages (if any)
+Disallow: /admin/
+Disallow: /api/internal/
+
+# Allow common resources
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.svg$
+Allow: /*.webp$
+
+
+
+
+
+
+
+
+
+
+
+

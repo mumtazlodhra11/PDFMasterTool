@@ -1,0 +1,23 @@
+{
+  "name": "pdfmastertool-lambda",
+  "version": "1.0.0",
+  "description": "AWS Lambda functions for PDF conversion using LibreOffice",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.645.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

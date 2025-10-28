@@ -1,0 +1,17 @@
+{
+  "name": "ppt-to-pdf-lambda",
+  "version": "1.0.0",
+  "main": "ppt-to-pdf.js",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0"
+  }
+}
+
+
+
+
+
+
+
+
+

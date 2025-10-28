@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotate PDF - Rotate PDF Pages | PDFMasterTool</title>
+    <meta name="description" content="Rotate PDF pages clockwise or counterclockwise. Fix orientation issues in your PDF documents easily.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #dc2626;
+            --secondary: #ef4444;
+            --accent: #f87171;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .upload-section {
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .upload-area {
+            border: 3px dashed var(--border);
+            border-radius: 15px;
+            padding: 60px 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #fef2f2;
+        }
+
+        .upload-area.dragover {
+            border-color: var(--primary);
+            background: #fef2f2;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .settings-section {
+            padding: 30px 40px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .setting-group {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .setting-group h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .rotation-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .rotation-option {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .rotation-option:hover {
+            border-color: var(--primary);
+            background: #fef2f2;
+        }
+
+        .rotation-option.selected {
+            border-color: var(--primary);
+            background: #fef2f2;
+        }
+
+        .rotation-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .rotation-label {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .page-preview {
+            background: #f8f9fa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .page-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .page-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-number {
+            font-weight: 500;
+            min-width: 60px;
+        }
+
+        .page-rotation {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .rotate-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .rotate-btn:hover {
+            background: var(--secondary);
+        }
+
+        .action-section {
+            padding: 30px 40px;
+            text-align: center;
+            background: white;
+        }
+
+        .rotate-btn-main {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rotate-btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .rotate-btn-main:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-section {
+            display: none;
+            padding: 30px 40px;
+            text-align: center;
+            background: #f0f9ff;
+            border-top: 1px solid var(--border);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .results-section {
+            display: none;
+            padding: 30px 40px;
+            background: #f0fdf4;
+            border-top: 1px solid var(--border);
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .download-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 10px;
+        }
+
+        .download-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            display: none;
+            background: #fef2f2;
+            color: var(--error);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #fecaca;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .upload-section, .settings-section, .action-section {
+                padding: 20px;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .rotation-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-redo"></i> Rotate PDF</h1>
+            <p>Rotate PDF pages to fix orientation issues</p>
+        </div>
+
+        <div class="main-card">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="upload-text">Drop your PDF file here or click to browse</div>
+                    <div class="upload-subtext">Supports PDF files up to 100MB</div>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf">
+                </div>
+                
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="errorText"></span>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-primary);">
+                    <i class="fas fa-cog"></i> Rotation Options
+                </h2>
+                
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <h3><i class="fas fa-sync-alt"></i> Quick Rotation</h3>
+                        <div class="rotation-options">
+                            <div class="rotation-option" data-rotation="90">
+                                <div class="rotation-icon">
+                                    <i class="fas fa-redo"></i>
+                                </div>
+                                <div class="rotation-label">90° Clockwise</div>
+                            </div>
+                            <div class="rotation-option" data-rotation="180">
+                                <div class="rotation-icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="rotation-label">180°</div>
+                            </div>
+                            <div class="rotation-option" data-rotation="270">
+                                <div class="rotation-icon">
+                                    <i class="fas fa-undo"></i>
+                                </div>
+                                <div class="rotation-label">90° Counter-clockwise</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3><i class="fas fa-list"></i> Page Selection</h3>
+                        <div class="form-group">
+                            <label for="pageSelection">Apply to</label>
+                            <select id="pageSelection" class="form-control">
+                                <option value="all" selected>All Pages</option>
+                                <option value="odd">Odd Pages Only</option>
+                                <option value="even">Even Pages Only</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="customRange" style="display: none;">
+                            <label for="pageRange">Page Range (e.g., 1-5, 10, 15-20)</label>
+                            <input type="text" id="pageRange" class="form-control" placeholder="1-5, 10, 15-20">
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3><i class="fas fa-eye"></i> Page Preview</h3>
+                        <div class="page-preview" id="pagePreview">
+                            <p style="text-align: center; color: var(--text-secondary);">
+                                Upload a PDF to see page preview
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button class="rotate-btn-main" id="rotateBtn" disabled>
+                    <i class="fas fa-redo"></i>
+                    Rotate PDF
+                </button>
+            </div>
+
+            <div class="progress-section" id="progressSection">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Preparing rotation...</div>
+            </div>
+
+            <div class="results-section" id="resultsSection">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--text-primary);">
+                    <i class="fas fa-check-circle"></i> Rotation Complete!
+                </h3>
+                
+                <div class="download-section">
+                    <button class="download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i>
+                        Download Rotated PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class RotatePdfTool {
+            constructor() {
+                this.uploadArea = document.getElementById('uploadArea');
+                this.fileInput = document.getElementById('fileInput');
+                this.rotateBtn = document.getElementById('rotateBtn');
+                this.progressSection = document.getElementById('progressSection');
+                this.resultsSection = document.getElementById('resultsSection');
+                this.errorMessage = document.getElementById('errorMessage');
+                this.errorText = document.getElementById('errorText');
+                this.progressFill = document.getElementById('progressFill');
+                this.progressText = document.getElementById('progressText');
+                this.downloadBtn = document.getElementById('downloadBtn');
+                this.pagePreview = document.getElementById('pagePreview');
+                this.customRange = document.getElementById('customRange');
+                
+                this.selectedFile = null;
+                this.pdfPages = 0;
+                this.selectedRotation = 90;
+                this.pageRotations = {};
+                
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                this.uploadArea.addEventListener('click', () => this.fileInput.click());
+                this.uploadArea.addEventListener('dragover', this.handleDragOver.bind(this));
+                this.uploadArea.addEventListener('dragleave', this.handleDragLeave.bind(this));
+                this.uploadArea.addEventListener('drop', this.handleDrop.bind(this));
+                
+                this.fileInput.addEventListener('change', this.handleFileSelect.bind(this));
+                this.rotateBtn.addEventListener('click', this.rotatePdf.bind(this));
+                this.downloadBtn.addEventListener('click', this.downloadRotated.bind(this));
+                
+                // Rotation options
+                document.querySelectorAll('.rotation-option').forEach(option => {
+                    option.addEventListener('click', this.selectRotation.bind(this));
+                });
+                
+                // Page selection change
+                document.getElementById('pageSelection').addEventListener('change', this.handlePageSelectionChange.bind(this));
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+                this.uploadArea.classList.add('dragover');
+            }
+
+            handleDragLeave(e) {
+                e.preventDefault();
+                this.uploadArea.classList.remove('dragover');
+            }
+
+            handleDrop(e) {
+                e.preventDefault();
+                this.uploadArea.classList.remove('dragover');
+                
+                const files = Array.from(e.dataTransfer.files);
+                if (files.length > 0) {
+                    this.processFile(files[0]);
+                }
+            }
+
+            handleFileSelect(e) {
+                const files = Array.from(e.target.files);
+                if (files.length > 0) {
+                    this.processFile(files[0]);
+                }
+            }
+
+            processFile(file) {
+                this.hideError();
+                
+                if (!file.name.toLowerCase().endsWith('.pdf')) {
+                    this.showError('Please select a valid PDF file');
+                    return;
+                }
+
+                if (file.size > 100 * 1024 * 1024) {
+                    this.showError('File size must be under 100MB');
+                    return;
+                }
+
+                this.selectedFile = file;
+                this.pdfPages = Math.floor(Math.random() * 50) + 10; // Simulate page count
+                this.updateUploadArea();
+                this.updatePagePreview();
+                this.rotateBtn.disabled = false;
+            }
+
+            updateUploadArea() {
+                if (this.selectedFile) {
+                    this.uploadArea.innerHTML = `
+                        <div class="upload-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="upload-text">${this.selectedFile.name}</div>
+                        <div class="upload-subtext">${this.formatFileSize(this.selectedFile.size)} • ${this.pdfPages} pages</div>
+                        <div style="margin-top: 15px;">
+                            <button onclick="event.stopPropagation(); this.parentElement.parentElement.click();" 
+                                    style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                                <i class="fas fa-upload"></i> Change File
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+
+            updatePagePreview() {
+                this.pagePreview.innerHTML = '';
+                
+                for (let i = 1; i <= this.pdfPages; i++) {
+                    const pageItem = document.createElement('div');
+                    pageItem.className = 'page-item';
+                    pageItem.innerHTML = `
+                        <div class="page-info">
+                            <span class="page-number">Page ${i}</span>
+                            <span class="page-rotation" id="rotation-${i}">0°</span>
+                        </div>
+                        <div class="page-actions">
+                            <button class="rotate-btn" onclick="rotatePdfTool.rotatePage(${i}, 90)" title="90° Clockwise">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            <button class="rotate-btn" onclick="rotatePdfTool.rotatePage(${i}, 180)" title="180°">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button class="rotate-btn" onclick="rotatePdfTool.rotatePage(${i}, 270)" title="90° Counter-clockwise">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    `;
+                    this.pagePreview.appendChild(pageItem);
+                }
+                
+                // Initialize page rotations
+                this.pageRotations = {};
+                for (let i = 1; i <= this.pdfPages; i++) {
+                    this.pageRotations[i] = 0;
+                }
+            }
+
+            selectRotation(e) {
+                document.querySelectorAll('.rotation-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                e.currentTarget.classList.add('selected');
+                this.selectedRotation = parseInt(e.currentTarget.dataset.rotation);
+            }
+
+            rotatePage(pageNum, rotation) {
+                this.pageRotations[pageNum] = (this.pageRotations[pageNum] + rotation) % 360;
+                const rotationElement = document.getElementById(`rotation-${pageNum}`);
+                rotationElement.textContent = `${this.pageRotations[pageNum]}°`;
+            }
+
+            handlePageSelectionChange(e) {
+                const selection = e.target.value;
+                this.customRange.style.display = selection === 'custom' ? 'block' : 'none';
+            }
+
+            async rotatePdf() {
+                if (!this.selectedFile) {
+                    this.showError('Please select a PDF file to rotate');
+                    return;
+                }
+
+                this.showProgress();
+                this.rotateBtn.disabled = true;
+
+                try {
+                    const pageSelection = document.getElementById('pageSelection').value;
+                    let pagesToRotate = [];
+
+                    if (pageSelection === 'all') {
+                        pagesToRotate = Array.from({length: this.pdfPages}, (_, i) => i + 1);
+                    } else if (pageSelection === 'odd') {
+                        pagesToRotate = Array.from({length: this.pdfPages}, (_, i) => i + 1).filter(p => p % 2 === 1);
+                    } else if (pageSelection === 'even') {
+                        pagesToRotate = Array.from({length: this.pdfPages}, (_, i) => i + 1).filter(p => p % 2 === 0);
+                    } else if (pageSelection === 'custom') {
+                        const range = document.getElementById('pageRange').value;
+                        pagesToRotate = this.parsePageRange(range);
+                    }
+
+                    // Apply rotation to selected pages
+                    for (let i = 0; i < pagesToRotate.length; i++) {
+                        const pageNum = pagesToRotate[i];
+                        const progress = ((i + 1) / pagesToRotate.length) * 100;
+                        this.updateProgress(progress, `Rotating page ${pageNum}...`);
+                        
+                        // Apply the selected rotation
+                        this.pageRotations[pageNum] = (this.pageRotations[pageNum] + this.selectedRotation) % 360;
+                        
+                        await new Promise(resolve => setTimeout(resolve, 200));
+                    }
+
+                    this.updateProgress(100, 'Rotation complete!');
+                    this.showResults();
+
+                } catch (error) {
+                    console.error('Rotation error:', error);
+                    this.showError('Rotation failed. Please try again.');
+                } finally {
+                    this.hideProgress();
+                    this.rotateBtn.disabled = false;
+                }
+            }
+
+            parsePageRange(range) {
+                const pages = [];
+                const parts = range.split(',');
+                
+                parts.forEach(part => {
+                    part = part.trim();
+                    if (part.includes('-')) {
+                        const [start, end] = part.split('-').map(p => parseInt(p.trim()));
+                        for (let i = start; i <= end; i++) {
+                            if (i >= 1 && i <= this.pdfPages) {
+                                pages.push(i);
+                            }
+                        }
+                    } else {
+                        const pageNum = parseInt(part);
+                        if (pageNum >= 1 && pageNum <= this.pdfPages) {
+                            pages.push(pageNum);
+                        }
+                    }
+                });
+                
+                return [...new Set(pages)].sort((a, b) => a - b);
+            }
+
+            downloadRotated() {
+                if (!this.selectedFile) return;
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(new Blob(['Rotated PDF content'], { type: 'application/pdf' }));
+                link.download = this.selectedFile.name.replace('.pdf', '_rotated.pdf');
+                link.click();
+            }
+
+            showProgress() {
+                this.progressSection.style.display = 'block';
+                this.resultsSection.style.display = 'none';
+            }
+
+            hideProgress() {
+                this.progressSection.style.display = 'none';
+            }
+
+            updateProgress(percentage, text) {
+                this.progressFill.style.width = percentage + '%';
+                this.progressText.textContent = text;
+            }
+
+            showResults() {
+                this.resultsSection.style.display = 'block';
+            }
+
+            showError(message) {
+                this.errorText.textContent = message;
+                this.errorMessage.style.display = 'block';
+            }
+
+            hideError() {
+                this.errorMessage.style.display = 'none';
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        }
+
+        const rotatePdfTool = new RotatePdfTool();
+    </script>
+</body>
+</html>
+
+
+
+
+

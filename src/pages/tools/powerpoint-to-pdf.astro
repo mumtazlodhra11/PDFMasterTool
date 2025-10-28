@@ -1,0 +1,63 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="PowerPoint to PDF - Convert PPT to PDF Online Free | PDFMasterTool"
+  description="Convert PowerPoint presentations (PPTX, PPT) to PDF format. Preserve slides, animations, and layout. Fast and secure conversion."
+  canonical="/tools/powerpoint-to-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="PowerPoint to PDF"
+    toolDescription="Convert PowerPoint presentations to PDF with perfect slide preservation and layout"
+    toolIcon="📊"
+    acceptedFormats={['.pptx', '.ppt']}
+    maxFileSize={100}
+    maxFiles={10}
+    multiple={true}
+    toolType="powerpoint-to-pdf"
+    outputFileName="converted.pdf"
+  
+  >
+    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Perfect for</h3>
+      <div class="grid md:grid-cols-3 gap-4 text-gray-600 dark:text-gray-400">
+        <div class="text-center p-4">
+          <div class="text-4xl mb-2">📧</div>
+          <p class="font-semibold text-gray-900 dark:text-white">Email Sharing</p>
+          <p class="text-sm">Smaller file size</p>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-4xl mb-2">🖨️</div>
+          <p class="font-semibold text-gray-900 dark:text-white">Printing</p>
+          <p class="text-sm">Print-ready format</p>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-4xl mb-2">📱</div>
+          <p class="font-semibold text-gray-900 dark:text-white">Mobile View</p>
+          <p class="text-sm">View on any device</p>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+

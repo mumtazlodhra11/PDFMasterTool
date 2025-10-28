@@ -1,0 +1,197 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="AI Smart Compressor - Intelligent PDF Compression | PDFMasterTool"
+  description="AI-powered PDF compression that maintains quality. Smart compression removes only unnecessary data. Reduce PDF file size by up to 90%."
+  canonical="/tools/ai-smart-compressor"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="AI Smart Compressor"
+    toolDescription="AI-powered intelligent compression that maintains quality while reducing file size"
+    toolIcon="🤖"
+    acceptedFormats={['.pdf']}
+    maxFileSize={150}
+    maxFiles={5}
+    multiple={true}
+    toolType="ai-smart-compressor"
+    outputFileName="converted.pdf"
+  
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-purple-50/50 via-primary-50/50 to-blue-50/50 dark:from-purple-900/10 dark:via-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">AI-Powered Intelligent Compression</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Unlike traditional compression, our AI analyzes your document's content, usage patterns, and importance to compress intelligently. High-value content stays pristine while redundant data is removed.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How AI Smart Compression Works</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4 p-4 glass rounded-xl">
+            <div class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Document Analysis</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                AI scans your PDF to identify content types: high-res images, diagrams, text, fonts, metadata
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4 p-4 glass rounded-xl">
+            <div class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Importance Detection</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Determines which elements are critical (detailed images, graphs) vs. decorative (backgrounds, low-priority graphics)
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4 p-4 glass rounded-xl">
+            <div class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Selective Compression</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Applies aggressive compression to low-importance content, gentle compression to critical elements
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4 p-4 glass rounded-xl">
+            <div class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-1">Quality Optimization</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Removes redundancies, optimizes structure, subsets fonts - all while preserving readability
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">AI vs. Traditional Compression</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-100 dark:bg-gray-800">
+              <tr>
+                <th class="px-4 py-3 text-left">Feature</th>
+                <th class="px-4 py-3 text-left">Traditional</th>
+                <th class="px-4 py-3 text-left text-primary-600">AI Smart 🤖</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 dark:text-gray-400">
+              <tr class="border-b dark:border-gray-700">
+                <td class="px-4 py-3 font-medium">Content Analysis</td>
+                <td class="px-4 py-3">❌ Uniform</td>
+                <td class="px-4 py-3 text-green-600">✅ Intelligent</td>
+              </tr>
+              <tr class="border-b dark:border-gray-700">
+                <td class="px-4 py-3 font-medium">Quality Preservation</td>
+                <td class="px-4 py-3">⚠️ Variable</td>
+                <td class="px-4 py-3 text-green-600">✅ Optimized</td>
+              </tr>
+              <tr class="border-b dark:border-gray-700">
+                <td class="px-4 py-3 font-medium">Compression Ratio</td>
+                <td class="px-4 py-3">60-70%</td>
+                <td class="px-4 py-3 text-green-600">70-90%</td>
+              </tr>
+              <tr class="border-b dark:border-gray-700">
+                <td class="px-4 py-3 font-medium">Important Content</td>
+                <td class="px-4 py-3">❌ Generic treatment</td>
+                <td class="px-4 py-3 text-green-600">✅ Preserved</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">What AI Analyzes</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Image Quality</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Resolution & importance</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Content Type</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Text, graphics, photos</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Font Usage</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Subsetting opportunities</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Redundancies</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Duplicate elements</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-2xl border border-green-200/50 dark:border-green-800/50 bg-green-50/50 dark:bg-green-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-green-900 dark:text-green-200 mb-1">Best Results</p>
+            <p class="text-sm text-green-800 dark:text-green-300">
+              AI Smart Compression works best on PDFs with mixed content (text + images). Achieve 70-90% compression while maintaining visual quality!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+import { imagesToPDF } from '@/utils/imageUtils';
+---
+
+<BaseLayout
+  title="Image to PDF - Convert Images to PDF | PDFMasterTool"
+  description="Convert JPG, PNG, WebP, HEIC images to PDF. Multiple images to one PDF. Fast, secure, and free."
+  canonical="/tools/image-to-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Image to PDF"
+    toolDescription="Convert multiple images (JPG, PNG, WebP, HEIC) into a single PDF document"
+    toolIcon="🖼️"
+    acceptedFormats={['.jpg', '.jpeg', '.png', '.webp', '.heic']}
+    maxFileSize={20}
+    maxFiles={50}
+    multiple={true}
+    toolType="image-to-pdf"
+    outputFileName="images.pdf"
+  >
+    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Supported Formats</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+        <div class="flex items-center space-x-3">
+          <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>JPG / JPEG</span>
+        </div>
+        <div class="flex items-center space-x-3">
+          <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>PNG</span>
+        </div>
+        <div class="flex items-center space-x-3">
+          <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>WebP</span>
+        </div>
+        <div class="flex items-center space-x-3">
+          <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>HEIC</span>
+        </div>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+

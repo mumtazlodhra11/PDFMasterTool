@@ -1,0 +1,22 @@
+# Copy Lambda Function URLs Here
+# Then update .env file
+
+PUBLIC_LAMBDA_PDF_TO_WORD=
+PUBLIC_LAMBDA_WORD_TO_PDF=
+PUBLIC_LAMBDA_PDF_TO_EXCEL=
+PUBLIC_LAMBDA_PDF_TO_PPT=
+PUBLIC_LAMBDA_PPT_TO_PDF=
+
+# Example format:
+# PUBLIC_LAMBDA_PDF_TO_WORD=https://abc123xyz.lambda-url.eu-west-1.on.aws/
+
+
+
+
+
+
+
+
+
+
+

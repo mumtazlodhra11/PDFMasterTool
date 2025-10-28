@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+import { splitPDF } from '@/utils/pdfUtils';
+---
+
+<BaseLayout
+  title="Split PDF - Extract Pages from PDF | PDFMasterTool"
+  description="Split large PDF files into smaller documents or extract specific pages. Fast, secure, and free PDF splitter tool."
+  canonical="/tools/split-pdf"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Split PDF"
+    toolDescription="Split large PDF documents into smaller files or extract specific page ranges"
+    toolIcon="✂️"
+    acceptedFormats={['.pdf']}
+    maxFileSize={150}
+    maxFiles={1}
+    multiple={false}
+    toolType="split-pdf"
+    outputFileName="split.pdf"
+  >
+    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How to Split PDFs</h3>
+      <ol class="space-y-4 text-gray-600 dark:text-gray-400">
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+          <p>Upload the PDF file you want to split</p>
+        </li>
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+          <p>Choose how to split: by page range, by page count, or extract specific pages</p>
+        </li>
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+          <p>Click "Process Files" to split your PDF</p>
+        </li>
+        <li class="flex items-start space-x-3">
+          <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+          <p>Download all split PDF files as a ZIP or individually</p>
+        </li>
+      </ol>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+

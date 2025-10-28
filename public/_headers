@@ -1,0 +1,63 @@
+# Security & Performance Headers for PDFMasterTool
+
+/*
+  # Security Headers
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  
+  # Content Security Policy (Adjust domains as needed)
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://browser.sentry-cdn.com https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://sentry.io https://api.openai.com https://*.amazonaws.com; frame-ancestors 'none';
+  
+  # Performance Headers
+  Cache-Control: public, max-age=31536000, immutable
+
+/
+  # Homepage - shorter cache for updates
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/tools/*
+  # Tool pages - moderate cache
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*.js
+  # JavaScript files - long cache with immutable
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  # CSS files - long cache with immutable
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  # Font files - long cache
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+/*.svg
+  # Image files - long cache
+  Cache-Control: public, max-age=31536000, immutable
+
+/manifest.json
+  # PWA manifest - moderate cache
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/sw.js
+  # Service Worker - no cache
+  Cache-Control: public, max-age=0, must-revalidate
+
+
+
+
+
+
+
+
+
+
+
+

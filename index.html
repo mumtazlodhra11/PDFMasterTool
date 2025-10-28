@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDFMasterTool - Professional PDF Tools Suite | 18 Advanced PDF Utilities</title>
+    <meta name="description" content="Professional PDF tools suite with 18 advanced utilities. Convert, edit, compress, merge, split, protect, and transform PDFs with modern technology.">
+    <meta name="keywords" content="PDF tools, PDF converter, PDF editor, PDF compressor, PDF merger, PDF splitter, PDF protection, PDF utilities">
+    <meta name="author" content="PDFMasterTool">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pdfmastertool.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #dc2626;
+            --secondary: #ef4444;
+            --accent: #f87171;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-dark: #1f2937;
+            --border: #e2e8f0;
+            --border-radius: 12px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-hero: linear-gradient(135deg, #dc2626, #ef4444, #f87171);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Header */
+        .header {
+            background: var(--gradient-hero);
+            color: white;
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .tool-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tool-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .tool-features li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tool-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--bg-white);
+            padding: var(--spacing-xl) 0;
+            margin: var(--spacing-xl) 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-section ul li a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: var(--spacing-lg);
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header-stats {
+                gap: var(--spacing-md);
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+            
+            .nav-links {
+                gap: var(--spacing-md);
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-file-pdf"></i> PDFMasterTool</h1>
+                <p>Professional PDF Tools Suite - 18 Advanced Utilities for All Your PDF Needs</p>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">18</span>
+                        <span class="stat-label">PDF Tools</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Free</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Secure</span>
+                        <span class="stat-label">Privacy First</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">PDFMasterTool</div>
+                <ul class="nav-links">
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Tools Section -->
+            <section id="tools">
+                <div class="section-title">
+                    <h2>Professional PDF Tools</h2>
+                    <p>Choose from 18 powerful PDF utilities designed for professionals and businesses</p>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="categories">
+                    <button class="category-btn active" data-category="all">All Tools</button>
+                    <button class="category-btn" data-category="convert">Convert</button>
+                    <button class="category-btn" data-category="edit">Edit</button>
+                    <button class="category-btn" data-category="manage">Manage</button>
+                    <button class="category-btn" data-category="secure">Secure</button>
+                </div>
+
+                <!-- Tools Grid -->
+                <div class="tools-grid">
+                    <!-- PDF to Word -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <h3 class="tool-title">PDF to Word</h3>
+                        <p class="tool-description">Convert PDF documents to editable Word format with perfect formatting preservation.</p>
+                        <ul class="tool-features">
+                            <li>Preserve original formatting</li>
+                            <li>Batch conversion support</li>
+                            <li>OCR text recognition</li>
+                            <li>High-quality output</li>
+                        </ul>
+                        <a href="tools/pdf-to-word.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert PDF to Word
+                        </a>
+                    </div>
+
+                    <!-- Word to PDF -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="tool-title">Word to PDF</h3>
+                        <p class="tool-description">Convert Word documents to professional PDF format with advanced options.</p>
+                        <ul class="tool-features">
+                            <li>Maintain document structure</li>
+                            <li>Custom page settings</li>
+                            <li>Password protection</li>
+                            <li>Batch processing</li>
+                        </ul>
+                        <a href="tools/word-to-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert Word to PDF
+                        </a>
+                    </div>
+
+                    <!-- PDF to Excel -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h3 class="tool-title">PDF to Excel</h3>
+                        <p class="tool-description">Extract tables and data from PDF files into editable Excel spreadsheets.</p>
+                        <ul class="tool-features">
+                            <li>Smart table detection</li>
+                            <li>Data accuracy preservation</li>
+                            <li>Multiple sheet support</li>
+                            <li>Formula recognition</li>
+                        </ul>
+                        <a href="tools/pdf-to-excel.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert PDF to Excel
+                        </a>
+                    </div>
+
+                    <!-- PDF to PowerPoint -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </div>
+                        <h3 class="tool-title">PDF to PowerPoint</h3>
+                        <p class="tool-description">Convert PDF presentations to editable PowerPoint slides with layout preservation.</p>
+                        <ul class="tool-features">
+                            <li>Slide-by-slide conversion</li>
+                            <li>Image quality preservation</li>
+                            <li>Text editing capability</li>
+                            <li>Animation support</li>
+                        </ul>
+                        <a href="tools/pdf-to-powerpoint.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert PDF to PowerPoint
+                        </a>
+                    </div>
+
+                    <!-- PDF to Image -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="tool-title">PDF to Image</h3>
+                        <p class="tool-description">Convert PDF pages to high-quality images in various formats (PNG, JPG, etc.).</p>
+                        <ul class="tool-features">
+                            <li>Multiple image formats</li>
+                            <li>Custom resolution settings</li>
+                            <li>Batch page conversion</li>
+                            <li>Quality optimization</li>
+                        </ul>
+                        <a href="tools/pdf-to-image.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert PDF to Image
+                        </a>
+                    </div>
+
+                    <!-- PDF to HTML -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="tool-title">PDF to HTML</h3>
+                        <p class="tool-description">Convert PDF documents to responsive HTML format for web display.</p>
+                        <ul class="tool-features">
+                            <li>Responsive HTML output</li>
+                            <li>CSS styling preservation</li>
+                            <li>Interactive elements</li>
+                            <li>SEO optimization</li>
+                        </ul>
+                        <a href="tools/pdf-to-html.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert PDF to HTML
+                        </a>
+                    </div>
+
+                    <!-- PDF to Text -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="tool-title">PDF to Text</h3>
+                        <p class="tool-description">Extract plain text from PDF documents with accurate formatting.</p>
+                        <ul class="tool-features">
+                            <li>OCR text extraction</li>
+                            <li>Formatting preservation</li>
+                            <li>Batch text extraction</li>
+                            <li>Searchable output</li>
+                        </ul>
+                        <a href="tools/pdf-to-text.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Extract PDF Text
+                        </a>
+                    </div>
+
+                    <!-- Image to PDF -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <h3 class="tool-title">Image to PDF</h3>
+                        <p class="tool-description">Convert multiple images into a single PDF document with custom layouts.</p>
+                        <ul class="tool-features">
+                            <li>Multiple image formats</li>
+                            <li>Custom page layouts</li>
+                            <li>Image optimization</li>
+                            <li>Batch processing</li>
+                        </ul>
+                        <a href="tools/image-to-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert Images to PDF
+                        </a>
+                    </div>
+
+                    <!-- HTML to PDF -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="tool-title">HTML to PDF</h3>
+                        <p class="tool-description">Convert HTML pages and websites to professional PDF documents.</p>
+                        <ul class="tool-features">
+                            <li>URL to PDF conversion</li>
+                            <li>HTML file processing</li>
+                            <li>CSS styling support</li>
+                            <li>Print-ready output</li>
+                        </ul>
+                        <a href="tools/html-to-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert HTML to PDF
+                        </a>
+                    </div>
+
+                    <!-- Text to PDF -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-text"></i>
+                        </div>
+                        <h3 class="tool-title">Text to PDF</h3>
+                        <p class="tool-description">Convert plain text files to formatted PDF documents with styling options.</p>
+                        <ul class="tool-features">
+                            <li>Custom font selection</li>
+                            <li>Text formatting options</li>
+                            <li>Page layout control</li>
+                            <li>Header/footer support</li>
+                        </ul>
+                        <a href="tools/text-to-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert Text to PDF
+                        </a>
+                    </div>
+
+                    <!-- JPG to PDF -->
+                    <div class="tool-card" data-category="convert">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3 class="tool-title">JPG to PDF</h3>
+                        <p class="tool-description">Convert JPG images to PDF format with quality optimization and compression.</p>
+                        <ul class="tool-features">
+                            <li>Quality optimization</li>
+                            <li>Size compression</li>
+                            <li>Multiple JPG support</li>
+                            <li>Custom page sizes</li>
+                        </ul>
+                        <a href="tools/jpg-to-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Convert JPG to PDF
+                        </a>
+                    </div>
+
+                    <!-- PDF Editor -->
+                    <div class="tool-card" data-category="edit">
+                        <div class="tool-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h3 class="tool-title">PDF Editor</h3>
+                        <p class="tool-description">Edit PDF documents with advanced text, image, and annotation tools.</p>
+                        <ul class="tool-features">
+                            <li>Text editing and formatting</li>
+                            <li>Image insertion and editing</li>
+                            <li>Annotation tools</li>
+                            <li>Form field editing</li>
+                        </ul>
+                        <a href="tools/pdf-editor.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Edit PDF
+                        </a>
+                    </div>
+
+                    <!-- PDF Reader -->
+                    <div class="tool-card" data-category="manage">
+                        <div class="tool-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="tool-title">PDF Reader</h3>
+                        <p class="tool-description">Advanced PDF reader with annotation, bookmark, and search capabilities.</p>
+                        <ul class="tool-features">
+                            <li>Advanced search functionality</li>
+                            <li>Bookmark management</li>
+                            <li>Annotation tools</li>
+                            <li>Full-screen reading</li>
+                        </ul>
+                        <a href="tools/pdf-reader.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Read PDF
+                        </a>
+                    </div>
+
+                    <!-- Merge PDF -->
+                    <div class="tool-card" data-category="manage">
+                        <div class="tool-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="tool-title">Merge PDF</h3>
+                        <p class="tool-description">Combine multiple PDF files into a single document with custom ordering.</p>
+                        <ul class="tool-features">
+                            <li>Drag-and-drop ordering</li>
+                            <li>Batch file processing</li>
+                            <li>Page range selection</li>
+                            <li>Quality preservation</li>
+                        </ul>
+                        <a href="tools/merge-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Merge PDFs
+                        </a>
+                    </div>
+
+                    <!-- Split PDF -->
+                    <div class="tool-card" data-category="manage">
+                        <div class="tool-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <h3 class="tool-title">Split PDF</h3>
+                        <p class="tool-description">Split large PDF documents into smaller files by pages or custom ranges.</p>
+                        <ul class="tool-features">
+                            <li>Custom page ranges</li>
+                            <li>Automatic splitting</li>
+                            <li>Batch processing</li>
+                            <li>Individual page extraction</li>
+                        </ul>
+                        <a href="tools/split-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Split PDF
+                        </a>
+                    </div>
+
+                    <!-- Compress PDF -->
+                    <div class="tool-card" data-category="manage">
+                        <div class="tool-icon">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <h3 class="tool-title">Compress PDF</h3>
+                        <p class="tool-description">Reduce PDF file size while maintaining quality with advanced compression.</p>
+                        <ul class="tool-features">
+                            <li>Smart compression algorithms</li>
+                            <li>Quality level control</li>
+                            <li>Batch compression</li>
+                            <li>Size optimization</li>
+                        </ul>
+                        <a href="tools/compress-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Compress PDF
+                        </a>
+                    </div>
+
+                    <!-- Rotate PDF -->
+                    <div class="tool-card" data-category="edit">
+                        <div class="tool-icon">
+                            <i class="fas fa-redo"></i>
+                        </div>
+                        <h3 class="tool-title">Rotate PDF</h3>
+                        <p class="tool-description">Rotate PDF pages in any direction with batch processing support.</p>
+                        <ul class="tool-features">
+                            <li>90° rotation options</li>
+                            <li>Individual page control</li>
+                            <li>Batch rotation</li>
+                            <li>Preview before save</li>
+                        </ul>
+                        <a href="tools/rotate-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Rotate PDF
+                        </a>
+                    </div>
+
+                    <!-- Reorder PDF -->
+                    <div class="tool-card" data-category="edit">
+                        <div class="tool-icon">
+                            <i class="fas fa-sort"></i>
+                        </div>
+                        <h3 class="tool-title">Reorder PDF</h3>
+                        <p class="tool-description">Rearrange PDF pages with drag-and-drop interface and custom ordering.</p>
+                        <ul class="tool-features">
+                            <li>Drag-and-drop interface</li>
+                            <li>Page preview thumbnails</li>
+                            <li>Bulk reordering</li>
+                            <li>Undo/redo support</li>
+                        </ul>
+                        <a href="tools/reorder-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Reorder PDF
+                        </a>
+                    </div>
+
+                    <!-- Remove Pages -->
+                    <div class="tool-card" data-category="edit">
+                        <div class="tool-icon">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                        <h3 class="tool-title">Remove Pages</h3>
+                        <p class="tool-description">Remove unwanted pages from PDF documents with precision control.</p>
+                        <ul class="tool-features">
+                            <li>Selective page removal</li>
+                            <li>Range-based deletion</li>
+                            <li>Preview before removal</li>
+                            <li>Bulk page management</li>
+                        </ul>
+                        <a href="tools/remove-pages.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Remove Pages
+                        </a>
+                    </div>
+
+                    <!-- Watermark PDF -->
+                    <div class="tool-card" data-category="edit">
+                        <div class="tool-icon">
+                            <i class="fas fa-stamp"></i>
+                        </div>
+                        <h3 class="tool-title">Watermark PDF</h3>
+                        <p class="tool-description">Add text or image watermarks to PDF documents with custom positioning.</p>
+                        <ul class="tool-features">
+                            <li>Text and image watermarks</li>
+                            <li>Custom positioning</li>
+                            <li>Transparency control</li>
+                            <li>Batch watermarking</li>
+                        </ul>
+                        <a href="tools/watermark-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Add Watermark
+                        </a>
+                    </div>
+
+                    <!-- Protect PDF -->
+                    <div class="tool-card" data-category="secure">
+                        <div class="tool-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="tool-title">Protect PDF</h3>
+                        <p class="tool-description">Secure PDF documents with password protection and permission controls.</p>
+                        <ul class="tool-features">
+                            <li>Password protection</li>
+                            <li>Permission restrictions</li>
+                            <li>Encryption levels</li>
+                            <li>User access control</li>
+                        </ul>
+                        <a href="tools/protect-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Protect PDF
+                        </a>
+                    </div>
+
+                    <!-- Unlock PDF -->
+                    <div class="tool-card" data-category="secure">
+                        <div class="tool-icon">
+                            <i class="fas fa-unlock"></i>
+                        </div>
+                        <h3 class="tool-title">Unlock PDF</h3>
+                        <p class="tool-description">Remove password protection from PDF documents (with proper authorization).</p>
+                        <ul class="tool-features">
+                            <li>Password removal</li>
+                            <li>Permission restoration</li>
+                            <li>Batch unlocking</li>
+                            <li>Security validation</li>
+                        </ul>
+                        <a href="tools/unlock-pdf.html" class="tool-btn">
+                            <i class="fas fa-arrow-right"></i> Unlock PDF
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features" class="features-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Why Choose PDFMasterTool?</h2>
+                        <p>Professional-grade PDF tools with cutting-edge technology</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="feature-title">100% Secure</h3>
+                            <p class="feature-description">All processing happens in your browser. No files are uploaded to our servers, ensuring complete privacy and security.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="feature-title">Lightning Fast</h3>
+                            <p class="feature-description">Advanced algorithms and optimized processing ensure your PDF operations complete in seconds, not minutes.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Mobile Friendly</h3>
+                            <p class="feature-description">Fully responsive design works perfectly on desktop, tablet, and mobile devices for on-the-go PDF processing.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <h3 class="feature-title">No Limits</h3>
+                            <p class="feature-description">Process unlimited PDF files with no file size restrictions, watermarks, or hidden costs. Completely free forever.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3 class="feature-title">Advanced Features</h3>
+                            <p class="feature-description">Professional-grade tools with batch processing, custom settings, and advanced options for power users.</p>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="feature-title">User Focused</h3>
+                            <p class="feature-description">Designed with user experience in mind. Intuitive interfaces, helpful tooltips, and comprehensive documentation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>PDF Tools</h3>
+                    <ul>
+                        <li><a href="tools/pdf-to-word.html">PDF to Word</a></li>
+                        <li><a href="tools/word-to-pdf.html">Word to PDF</a></li>
+                        <li><a href="tools/merge-pdf.html">Merge PDF</a></li>
+                        <li><a href="tools/split-pdf.html">Split PDF</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Converters</h3>
+                    <ul>
+                        <li><a href="tools/pdf-to-excel.html">PDF to Excel</a></li>
+                        <li><a href="tools/pdf-to-image.html">PDF to Image</a></li>
+                        <li><a href="tools/image-to-pdf.html">Image to PDF</a></li>
+                        <li><a href="tools/html-to-pdf.html">HTML to PDF</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Security</h3>
+                    <ul>
+                        <li><a href="tools/protect-pdf.html">Protect PDF</a></li>
+                        <li><a href="tools/unlock-pdf.html">Unlock PDF</a></li>
+                        <li><a href="tools/watermark-pdf.html">Watermark PDF</a></li>
+                        <li><a href="tools/compress-pdf.html">Compress PDF</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PDFMasterTool. All rights reserved. Professional PDF tools for everyone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                const toolCards = document.querySelectorAll('.tool-card');
+                
+                toolCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: PDFMasterTool - Document Conversion Lambda Functions
+
+Globals:
+  Function:
+    Timeout: 120
+    MemorySize: 2048
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        S3_BUCKET: !Ref TempFilesBucket
+        AWS_REGION: eu-west-1
+
+Resources:
+  # S3 Bucket for temporary files
+  TempFilesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'pdfmastertool-temp-${AWS::AccountId}'
+      LifecycleConfiguration:
+        Rules:
+          - Id: DeleteOldFiles
+            Status: Enabled
+            ExpirationInDays: 1
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+            AllowedHeaders:
+              - '*'
+            MaxAge: 3000
+
+  # Lambda Functions
+  PdfToWordFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pdfmastertool-pdf-to-word
+      CodeUri: lambda/
+      Handler: pdf-to-word.handler
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:31'
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref TempFilesBucket
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - '*'
+          AllowMethods:
+            - POST
+            - OPTIONS
+          AllowHeaders:
+            - '*'
+
+  WordToPdfFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pdfmastertool-word-to-pdf
+      CodeUri: lambda/
+      Handler: word-to-pdf.handler
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:31'
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref TempFilesBucket
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - '*'
+          AllowMethods:
+            - POST
+            - OPTIONS
+          AllowHeaders:
+            - '*'
+
+  PdfToExcelFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pdfmastertool-pdf-to-excel
+      CodeUri: lambda/
+      Handler: pdf-to-excel.handler
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:31'
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref TempFilesBucket
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - '*'
+          AllowMethods:
+            - POST
+            - OPTIONS
+          AllowHeaders:
+            - '*'
+
+  PdfToPptFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pdfmastertool-pdf-to-ppt
+      CodeUri: lambda/
+      Handler: pdf-to-ppt.handler
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:31'
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref TempFilesBucket
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - '*'
+          AllowMethods:
+            - POST
+            - OPTIONS
+          AllowHeaders:
+            - '*'
+
+  PptToPdfFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pdfmastertool-ppt-to-pdf
+      CodeUri: lambda/
+      Handler: ppt-to-pdf.handler
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:31'
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref TempFilesBucket
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - '*'
+          AllowMethods:
+            - POST
+            - OPTIONS
+          AllowHeaders:
+            - '*'
+
+Outputs:
+  TempFilesBucketName:
+    Description: S3 Bucket for temporary files
+    Value: !Ref TempFilesBucket
+    Export:
+      Name: !Sub '${AWS::StackName}-BucketName'
+
+  PdfToWordFunctionUrl:
+    Description: PDF to Word Function URL
+    Value: !GetAtt PdfToWordFunctionUrl.FunctionUrl
+
+  WordToPdfFunctionUrl:
+    Description: Word to PDF Function URL
+    Value: !GetAtt WordToPdfFunctionUrl.FunctionUrl
+
+  PdfToExcelFunctionUrl:
+    Description: PDF to Excel Function URL
+    Value: !GetAtt PdfToExcelFunctionUrl.FunctionUrl
+
+  PdfToPptFunctionUrl:
+    Description: PDF to PPT Function URL
+    Value: !GetAtt PdfToPptFunctionUrl.FunctionUrl
+
+  PptToPdfFunctionUrl:
+    Description: PPT to PDF Function URL
+    Value: !GetAtt PptToPdfFunctionUrl.FunctionUrl
+
+
+
+
+
+
+
+
+
+
+

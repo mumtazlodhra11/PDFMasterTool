@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { ToolTemplate } from '@/components/ToolTemplate';
+---
+
+<BaseLayout
+  title="Add Header Footer to PDF - PDF Header Footer Tool | PDFMasterTool"
+  description="Add custom headers and footers to PDF documents. Include page numbers, dates, titles, and logos."
+  canonical="/tools/header-footer"
+>
+  <Navbar />
+
+  <ToolTemplate
+    client:load
+    toolName="Add Header & Footer"
+    toolDescription="Add professional headers and footers with page numbers, dates, and custom text to PDFs"
+    toolIcon="📄"
+    acceptedFormats={['.pdf']}
+    maxFileSize={150}
+    maxFiles={5}
+    multiple={true}
+    toolType="header-footer"
+    outputFileName="converted.pdf"
+  
+  >
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Professional Headers & Footers</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Add consistent headers and footers to all pages. Perfect for reports, proposals, and official documents that need page numbers, dates, or branding.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Dynamic Placeholders</h3>
+        <div class="space-y-4">
+          <div class="p-4 glass rounded-xl border border-primary-200/50 dark:border-primary-700/50">
+            <code class="text-primary-600 dark:text-primary-400 font-mono font-bold">{'{page}'}</code>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Current page number</p>
+            <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Example: Page 1, Page 2, Page 3...</p>
+          </div>
+          <div class="p-4 glass rounded-xl border border-primary-200/50 dark:border-primary-700/50">
+            <code class="text-primary-600 dark:text-primary-400 font-mono font-bold">{'{total}'}</code>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Total number of pages</p>
+            <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Example: 15, 32, 100...</p>
+          </div>
+          <div class="p-4 glass rounded-xl border border-primary-200/50 dark:border-primary-700/50">
+            <code class="text-primary-600 dark:text-primary-400 font-mono font-bold">{'{date}'}</code>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Current date</p>
+            <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Example: 10/25/2025</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Common Examples</h3>
+        <div class="space-y-3">
+          <div class="p-4 glass rounded-xl">
+            <p class="font-mono text-sm text-gray-900 dark:text-white mb-1">Page {'{page}'} of {'{total}'}</p>
+            <p class="text-xs text-gray-500">Simple page numbers</p>
+          </div>
+          <div class="p-4 glass rounded-xl">
+            <p class="font-mono text-sm text-gray-900 dark:text-white mb-1">Confidential | Page {'{page}'} | {'{date}'}</p>
+            <p class="text-xs text-gray-500">Professional header with date</p>
+          </div>
+          <div class="p-4 glass rounded-xl">
+            <p class="font-mono text-sm text-gray-900 dark:text-white mb-1">© 2025 Your Company - Page {'{page}'}/{'{total}'}</p>
+            <p class="text-xs text-gray-500">Footer with copyright</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Perfect For</h3>
+        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Business reports and proposals</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Academic papers and theses</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Legal documents and contracts</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Company policies and manuals</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ToolTemplate>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+
