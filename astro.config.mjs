@@ -5,7 +5,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pdfmastertool.com',
+  site: 'https://mumtazlodhra11.github.io',
+  base: '/PDFMasterTool',
   
   integrations: [
     react(),
@@ -14,13 +15,6 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
-      // Custom URLs for dynamic routes
-      customPages: [
-        'https://pdfmastertool.com/tools/merge-pdf',
-        'https://pdfmastertool.com/tools/split-pdf',
-        'https://pdfmastertool.com/tools/compress-pdf',
-        // ... all 30 tool pages
-      ],
     }),
   ],
 
