@@ -1,7 +1,7 @@
 {
   "name": "pdfmastertool",
-  "version": "2.0.0",
-  "description": "Next-gen AI-powered PDF platform with 30 tools - Privacy-first, Ad-free, No-login",
+  "version": "3.0.0",
+  "description": "43+ PDF tools - Better than iLovePDF - 100% FREE, Privacy-first, Ad-free, No-login",
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 9001",
@@ -39,11 +39,11 @@
     "@aws-sdk/client-lambda": "^3.645.0",
     "@aws-sdk/s3-request-presigner": "^3.645.0",
     "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.2"
+    "jspdf": "^2.5.2",
+    "blob-util": "^2.0.2"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.7",
-    "@types/pdfkit": "^0.13.4",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "autoprefixer": "^10.4.20",

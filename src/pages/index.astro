@@ -12,65 +12,187 @@ const toolCount = tools.length;
 ---
 
 <BaseLayout 
-  title="PDFMasterTool - 25 AI-Powered PDF Tools | Privacy-First, Ad-Free"
-  description="Next-gen PDF platform with 25 tools powered by AI and WebAssembly. Convert, edit, compress, merge PDFs instantly. No login, no ads, privacy-first."
+  title="PDFMasterTool - 43+ AI-Powered PDF Tools | Privacy-First, 100% Free"
+  description="Next-gen PDF platform with 43+ tools powered by AI. Convert, edit, compress, merge, compare PDFs instantly. No login, no ads, privacy-first. Better than iLovePDF!"
 >
   <Navbar />
   
   <!-- Hero Section -->
-  <section class="relative overflow-hidden py-20 lg:py-32">
-    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 animate-gradient"></div>
+  <section class="relative overflow-hidden py-20 lg:py-32 hero-gradient">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20 animate-gradient"></div>
+    
+    <!-- Floating Elements Background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-primary-300/20 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float" style="animation-delay: 1s;"></div>
+    </div>
     
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-      <div class="inline-block mb-4 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full">
-        <span class="text-primary-700 dark:text-primary-300 font-semibold text-sm">🚀 Next-Gen PDF Platform</span>
+      <div class="inline-block mb-4 px-5 py-2 bg-gradient-to-r from-primary-500 to-purple-500 rounded-full shadow-lg animate-bounce-once">
+        <span class="text-white font-bold text-sm flex items-center gap-2">
+          <span class="animate-pulse">🚀</span> 
+          Better than iLovePDF & SmallPDF - 100% FREE!
+        </span>
       </div>
       
-      <h1 class="text-5xl lg:text-7xl font-black mb-6 gradient-text leading-tight">
-        25 AI-Powered<br />PDF Tools
+      <h1 class="text-5xl lg:text-7xl font-black mb-6 leading-tight">
+        <span class="bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          {toolCount}+ AI-Powered<br />PDF Tools
+        </span>
       </h1>
       
-      <p class="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-        Privacy-first. Ad-free. No login required.<br />
-        Convert, edit, compress, and transform PDFs instantly in your browser.
+      <p class="text-xl lg:text-2xl text-gray-700 dark:text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed font-medium">
+        🎯 Privacy-first • 🚫 No Ads • ⚡ Lightning Fast • 🤖 AI-Enhanced<br />
+        <span class="text-lg text-gray-600 dark:text-gray-300">
+          Convert, edit, compress, compare, and transform PDFs instantly in your browser.
+        </span>
       </p>
       
-      <div class="flex flex-wrap gap-4 justify-center mb-8">
-        <span class="px-6 py-3 glass rounded-full text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
-          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+      <div class="flex flex-wrap gap-4 justify-center mb-12">
+        <div class="group px-6 py-4 glass rounded-2xl text-sm font-semibold flex items-center gap-3 hover:scale-105 hover:shadow-2xl transition-all cursor-pointer">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white">
+            ✓
+          </div>
+          <div class="text-left">
+            <div class="font-bold text-gray-900 dark:text-white">100% Free Forever</div>
+            <div class="text-xs text-gray-600 dark:text-gray-400">No hidden costs</div>
+          </div>
+        </div>
+        
+        <div class="group px-6 py-4 glass rounded-2xl text-sm font-semibold flex items-center gap-3 hover:scale-105 hover:shadow-2xl transition-all cursor-pointer">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white">
+            🔒
+          </div>
+          <div class="text-left">
+            <div class="font-bold text-gray-900 dark:text-white">Privacy-First</div>
+            <div class="text-xs text-gray-600 dark:text-gray-400">Files never leave browser</div>
+          </div>
+        </div>
+        
+        <div class="group px-6 py-4 glass rounded-2xl text-sm font-semibold flex items-center gap-3 hover:scale-105 hover:shadow-2xl transition-all cursor-pointer">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white">
+            🤖
+          </div>
+          <div class="text-left">
+            <div class="font-bold text-gray-900 dark:text-white">AI-Powered</div>
+            <div class="text-xs text-gray-600 dark:text-gray-400">Smart features others don't have</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="#tools" class="btn-premium group">
+          Start Using Free Tools
+          <svg class="inline-block w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
           </svg>
-          100% Free Forever
-        </span>
-        <span class="px-6 py-3 glass rounded-full text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
-          <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-          </svg>
-          No Signup Required
-        </span>
-        <span class="px-6 py-3 glass rounded-full text-sm font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
-          <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-          </svg>
-          Privacy-First
-        </span>
+        </a>
+        <a href="#features" class="px-8 py-3 rounded-full font-semibold border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300 hover:scale-105">
+          Explore Features →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-black mb-4 text-gray-900 dark:text-white">
+          Why We're Better Than Competitors
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          More features. Better privacy. 100% FREE.
+        </p>
+      </div>
+
+      <div class="glass rounded-2xl p-8 overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b-2 border-gray-200 dark:border-gray-700">
+              <th class="pb-4 text-lg font-bold text-gray-900 dark:text-white">Feature</th>
+              <th class="pb-4 text-center"><span class="px-4 py-2 bg-gradient-to-r from-primary-500 to-purple-500 text-white rounded-full font-bold">PDFMasterTool</span></th>
+              <th class="pb-4 text-center text-gray-600 dark:text-gray-400">iLovePDF</th>
+              <th class="pb-4 text-center text-gray-600 dark:text-gray-400">SmallPDF</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">Total PDF Tools</td>
+              <td class="py-4 text-center"><span class="text-green-600 dark:text-green-400 font-bold text-xl">{toolCount}+</span></td>
+              <td class="py-4 text-center text-gray-600 dark:text-gray-400">25</td>
+              <td class="py-4 text-center text-gray-600 dark:text-gray-400">21</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">AI Features</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">PDF Comparison</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">PDF to Quiz</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">Voice Reader</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">PDF Analytics</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">100% Free</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-gray-600 dark:text-gray-400">Limited</td>
+              <td class="py-4 text-center text-gray-600 dark:text-gray-400">Limited</td>
+            </tr>
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <td class="py-4 font-medium">No Ads</td>
+              <td class="py-4 text-center text-2xl">✅</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+              <td class="py-4 text-center text-2xl">❌</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
   <!-- Tools Grid -->
-  <section class="py-20 bg-white dark:bg-gray-900">
+  <section id="tools" class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-4xl lg:text-5xl font-black mb-4 text-gray-900 dark:text-white">
-          All {toolCount} PDF Tools
+          All {toolCount}+ PDF Tools
         </h2>
         <p class="text-xl text-gray-600 dark:text-gray-400">
           Everything you need to work with PDFs, powered by AI and WebAssembly
         </p>
+        <div class="mt-6 flex flex-wrap gap-3 justify-center">
+          <span class="ai-badge">
+            🤖 13 AI-Powered Tools
+          </span>
+          <span class="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">
+            ⚡ 30 Client-Side Tools
+          </span>
+        </div>
       </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div class="tools-grid">
         {tools.map((tool) => (
           <ToolCard client:visible {...tool} />
         ))}
@@ -79,41 +201,85 @@ const toolCount = tools.length;
   </section>
 
   <!-- Features Section -->
-  <section class="py-20 glass-hover">
+  <section id="features" class="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-4xl lg:text-5xl font-black text-center mb-16 text-gray-900 dark:text-white">
-        Why Choose PDFMasterTool?
-      </h2>
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-black mb-4 text-gray-900 dark:text-white">
+          Why Choose PDFMasterTool?
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-400">
+          Built for privacy, speed, and intelligence
+        </p>
+      </div>
       
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="glass p-8 rounded-2xl text-center hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+        <div class="group tool-card text-center">
+          <div class="feature-icon mx-auto mb-6">
             🔒
           </div>
           <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Privacy First</h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
             All processing happens in your browser. Files never leave your device. Zero tracking, zero data collection.
           </p>
+          <ul class="text-sm text-left space-y-2 text-gray-600 dark:text-gray-400">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No file uploads to servers</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No cookies or tracking</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Works offline (PWA)</li>
+          </ul>
         </div>
         
-        <div class="glass p-8 rounded-2xl text-center hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+        <div class="group tool-card text-center">
+          <div class="feature-icon mx-auto mb-6">
             ⚡
           </div>
           <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lightning Fast</h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
             WebAssembly-powered processing delivers instant results. No waiting for server uploads or downloads.
           </p>
+          <ul class="text-sm text-left space-y-2 text-gray-600 dark:text-gray-400">
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Instant processing</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No upload delays</li>
+            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Batch processing support</li>
+          </ul>
         </div>
         
-        <div class="glass p-8 rounded-2xl text-center hover:scale-105 transition-transform">
-          <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+        <div class="group tool-card text-center">
+          <div class="feature-icon mx-auto mb-6">
             🤖
           </div>
           <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">AI-Enhanced</h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-            Powered by GPT-4o and Tesseract OCR for intelligent document processing and analysis.
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Powered by advanced AI models for intelligent document processing and analysis.
           </p>
+          <ul class="text-sm text-left space-y-2 text-gray-600 dark:text-gray-400">
+            <li class="flex items-center gap-2"><span class="text-purple-500">🤖</span> PDF Comparison</li>
+            <li class="flex items-center gap-2"><span class="text-purple-500">🤖</span> Quiz Generation</li>
+            <li class="flex items-center gap-2"><span class="text-purple-500">🤖</span> Smart Analytics</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Additional Features Grid -->
+      <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+          <div class="text-3xl mb-3">📱</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Mobile Scanner</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Scan documents with your phone camera</p>
+        </div>
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+          <div class="text-3xl mb-3">🔊</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Voice Reader</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Listen to PDFs with text-to-speech</p>
+        </div>
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+          <div class="text-3xl mb-3">🔍</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">PDF Compare</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Find differences between two PDFs</p>
+        </div>
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+          <div class="text-3xl mb-3">📊</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Analytics</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Get insights from your documents</p>
         </div>
       </div>
     </div>

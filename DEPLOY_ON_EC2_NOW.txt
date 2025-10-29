@@ -1,0 +1,293 @@
+═══════════════════════════════════════════════════════════════
+🚀 EC2 TERMINAL MEIN YEH COMPLETE COMMAND PASTE KAREN
+═══════════════════════════════════════════════════════════════
+
+Yeh ek hi command mein sab kuch kar degi:
+✅ Docker Dockerfile create karegi
+✅ Lambda handler create karegi
+✅ Image build karegi (LibreOffice included)
+✅ ECR mein push karegi
+✅ Lambda functions update karegi
+✅ URLs print karegi
+
+⏱️ TIME: 10-15 minutes
+
+═══════════════════════════════════════════════════════════════
+COMMAND (copy from next line to end):
+═══════════════════════════════════════════════════════════════
+
+cat > /tmp/deploy-docker-lambda.sh << 'SCRIPT_END'
+#!/bin/bash
+set -e
+
+echo ""
+echo "════════════════════════════════════════════════════"
+echo "🚀 PDFMasterTool - Docker Lambda Deployment"
+echo "════════════════════════════════════════════════════"
+echo ""
+
+# Check Docker
+if ! command -v docker &> /dev/null; then
+    echo "⚠️  Installing Docker..."
+    sudo apt-get update
+    sudo apt-get install -y docker.io
+    sudo systemctl start docker
+    sudo usermod -aG docker $USER
+    echo "✅ Docker installed! Please run: newgrp docker"
+    echo "   Then re-run this script."
+    exit 1
+fi
+
+echo "✅ Docker is ready"
+echo ""
+
+# Get AWS details
+AWS_REGION=$(aws configure get region 2>/dev/null || echo "eu-west-1")
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
+
+if [ -z "$ACCOUNT_ID" ]; then
+    echo "❌ AWS CLI not configured. Run: aws configure"
+    exit 1
+fi
+
+echo "📋 Region: $AWS_REGION"
+echo "📋 Account: $ACCOUNT_ID"
+echo ""
+
+# ECR login
+echo "🔐 Logging in to ECR..."
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+# Create ECR repository
+echo "📦 Creating ECR repository..."
+aws ecr create-repository \
+    --repository-name pdfmastertool-lambda \
+    --region $AWS_REGION 2>/dev/null || echo "✅ Repository already exists"
+
+# Create working directory
+WORK_DIR="/tmp/pdfmaster-docker-$$"
+mkdir -p $WORK_DIR
+cd $WORK_DIR
+
+echo ""
+echo "📝 Creating Dockerfile..."
+cat > Dockerfile << 'EOF'
+FROM public.ecr.aws/lambda/nodejs:20
+
+# Install LibreOffice and dependencies
+RUN dnf install -y \
+    libreoffice \
+    libreoffice-writer \
+    libreoffice-calc \
+    libreoffice-impress \
+    libreoffice-core \
+    && dnf clean all
+
+# Copy Lambda handler
+COPY index.mjs ${LAMBDA_TASK_ROOT}/
+
+# Set handler
+CMD [ "index.handler" ]
+EOF
+
+echo "📝 Creating Lambda handler..."
+cat > index.mjs << 'EOF'
+import { execSync } from 'child_process';
+import { writeFileSync, readFileSync, unlinkSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
+export const handler = async (event) => {
+  const startTime = Date.now();
+  console.log('Lambda invoked at:', new Date().toISOString());
+  
+  try {
+    // Parse request
+    const body = JSON.parse(event.body || '{}');
+    
+    if (!body.file) {
+      throw new Error('No file provided');
+    }
+    
+    const fileBuffer = Buffer.from(body.file, 'base64');
+    const operation = body.operation || 'pdf-to-word';
+    
+    console.log('Operation:', operation);
+    console.log('File size:', fileBuffer.length, 'bytes');
+    
+    // Generate unique temp paths
+    const timestamp = Date.now();
+    const inputPath = join(tmpdir(), `input-${timestamp}.pdf`);
+    const outputDir = tmpdir();
+    
+    // Write input file
+    writeFileSync(inputPath, fileBuffer);
+    console.log('Input file written:', inputPath);
+    
+    // Determine output format
+    let outputFormat = 'docx';
+    if (operation === 'pdf-to-excel') outputFormat = 'xlsx';
+    if (operation === 'pdf-to-ppt') outputFormat = 'pptx';
+    
+    console.log('Converting to:', outputFormat);
+    
+    // Run LibreOffice conversion
+    const command = `libreoffice --headless --convert-to ${outputFormat} --outdir ${outputDir} ${inputPath}`;
+    console.log('Running command:', command);
+    
+    execSync(command, { 
+      timeout: 110000,
+      stdio: 'pipe'
+    });
+    
+    // Find output file
+    const outputPath = join(outputDir, `input-${timestamp}.${outputFormat}`);
+    console.log('Reading output from:', outputPath);
+    
+    const outputBuffer = readFileSync(outputPath);
+    console.log('Output size:', outputBuffer.length, 'bytes');
+    
+    // Cleanup
+    unlinkSync(inputPath);
+    unlinkSync(outputPath);
+    
+    const duration = Date.now() - startTime;
+    console.log('Conversion completed in', duration, 'ms');
+    
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods': '*'
+      },
+      body: JSON.stringify({
+        success: true,
+        file: outputBuffer.toString('base64'),
+        filename: `output.${outputFormat}`,
+        size: outputBuffer.length,
+        duration: duration
+      })
+    };
+    
+  } catch (error) {
+    console.error('Error:', error);
+    
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods': '*'
+      },
+      body: JSON.stringify({
+        success: false,
+        error: error.message,
+        stack: error.stack
+      })
+    };
+  }
+};
+EOF
+
+echo ""
+echo "🏗️  Building Docker image..."
+echo "    (This will take 5-10 minutes - please wait)"
+echo ""
+
+docker build -t pdfmastertool-lambda:latest . --no-cache
+
+# Tag for ECR
+ECR_URI="$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/pdfmastertool-lambda:latest"
+docker tag pdfmastertool-lambda:latest $ECR_URI
+
+echo ""
+echo "⬆️  Pushing to ECR..."
+echo "    (This may take 2-3 minutes)"
+echo ""
+
+docker push $ECR_URI
+
+echo ""
+echo "🚀 Updating Lambda functions..."
+echo ""
+
+# Lambda functions to update
+FUNCTIONS=(
+    "pdfmastertool-pdf-to-word"
+    "pdfmastertool-pdf-to-excel"
+    "pdfmastertool-pdf-to-ppt"
+)
+
+echo ""
+echo "════════════════════════════════════════════════════"
+echo "📝 YOUR LAMBDA FUNCTION URLS:"
+echo "════════════════════════════════════════════════════"
+echo ""
+
+for FUNC in "${FUNCTIONS[@]}"; do
+    echo "📦 Updating: $FUNC"
+    
+    aws lambda update-function-code \
+        --function-name $FUNC \
+        --image-uri $ECR_URI \
+        --region $AWS_REGION \
+        --no-cli-pager 2>&1 | grep -v "^{" || true
+    
+    sleep 3
+    
+    FUNC_URL=$(aws lambda get-function-url-config \
+        --function-name $FUNC \
+        --region $AWS_REGION \
+        --query 'FunctionUrl' \
+        --output text 2>/dev/null || echo "")
+    
+    if [ -n "$FUNC_URL" ]; then
+        echo "✅ $FUNC"
+        echo "   $FUNC_URL"
+    else
+        echo "⚠️  $FUNC - URL not configured"
+    fi
+    echo ""
+done
+
+echo "════════════════════════════════════════════════════"
+echo "✅ DEPLOYMENT COMPLETE!"
+echo "════════════════════════════════════════════════════"
+echo ""
+echo "🎉 Your Lambda functions now have LibreOffice!"
+echo "📝 Copy the URLs above and update your .env file"
+echo ""
+echo "🧹 Cleaning up..."
+rm -rf $WORK_DIR
+echo "✅ Done!"
+echo ""
+
+SCRIPT_END
+
+chmod +x /tmp/deploy-docker-lambda.sh
+/tmp/deploy-docker-lambda.sh
+
+═══════════════════════════════════════════════════════════════
+END OF COMMAND
+═══════════════════════════════════════════════════════════════
+
+INSTRUCTIONS:
+1. EC2 Instance Connect ya SSH se connect karen
+2. Upar wala PURA command copy karen (cat se lekar end tak)
+3. Terminal mein paste karen
+4. Enter dabayein
+5. 10-15 minutes wait karen
+
+YEH AUTOMATICALLY:
+✅ Sab files create karega
+✅ Docker build karega
+✅ Lambda update karega
+✅ URLs print karega
+
+Bas ek baar paste karen aur wait karen! 🚀
+
+
+

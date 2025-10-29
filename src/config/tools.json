@@ -316,15 +316,15 @@
     },
     {
       "id": "ai-ocr",
-      "name": "AI OCR",
+      "name": "OCR (Tesseract)",
       "category": "ai-tools",
       "icon": "🤖",
-      "description": "Convert scanned PDFs to searchable text with AI OCR",
-      "features": ["Multi-language", "High accuracy", "Searchable PDF", "Text extraction"],
+      "description": "Convert scanned PDFs to searchable text with Tesseract.js (FREE!)",
+      "features": ["Multi-language", "Browser-based", "Searchable PDF", "Text extraction"],
       "inputFormats": [".pdf", ".jpg", ".png"],
       "outputFormat": ".pdf",
       "maxFileSize": 50,
-      "aiEnhanced": true
+      "aiEnhanced": false
     },
     {
       "id": "ai-summarizer",
@@ -337,6 +337,7 @@
       "outputFormat": ".txt",
       "maxFileSize": 30,
       "aiEnhanced": true,
+      "comingSoon": true,
       "hidden": true
     },
     {
@@ -350,6 +351,7 @@
       "outputFormat": ".pdf",
       "maxFileSize": 30,
       "aiEnhanced": true,
+      "comingSoon": true,
       "hidden": true
     },
     {
@@ -363,7 +365,157 @@
       "outputFormat": ".pdf",
       "maxFileSize": 150,
       "aiEnhanced": true,
+      "comingSoon": true,
       "hidden": true
+    },
+    {
+      "id": "pdf-compare",
+      "name": "PDF Comparison",
+      "category": "ai-tools",
+      "icon": "🔍",
+      "description": "Compare two PDFs and highlight differences (Coming Soon!)",
+      "features": ["Smart diff detection", "Change highlights", "Side-by-side view", "Similarity score"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": true,
+      "comingSoon": true
+    },
+    {
+      "id": "pdf-to-quiz",
+      "name": "PDF to Quiz",
+      "category": "ai-tools",
+      "icon": "📝",
+      "description": "Generate interactive quizzes from PDF content (Coming Soon!)",
+      "features": ["Auto MCQs", "True/False", "Fill blanks", "Flashcards"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".json",
+      "maxFileSize": 30,
+      "aiEnhanced": true,
+      "comingSoon": true
+    },
+    {
+      "id": "pdf-voice-reader",
+      "name": "PDF Voice Reader",
+      "category": "ai-tools",
+      "icon": "🔊",
+      "description": "Convert PDF text to speech with natural voice (Beta - Uses browser TTS)",
+      "features": ["Natural voices", "Multi-language", "Speed control", "Free browser API"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".mp3",
+      "maxFileSize": 30,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-analytics",
+      "name": "PDF Analytics",
+      "category": "ai-tools",
+      "icon": "📈",
+      "description": "Get detailed analytics and insights from PDF documents (Coming Soon!)",
+      "features": ["Readability score", "Sentiment analysis", "Keyword density", "Quality score"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".json",
+      "maxFileSize": 30,
+      "aiEnhanced": true,
+      "comingSoon": true
+    },
+    {
+      "id": "smart-redaction",
+      "name": "Smart Redaction",
+      "category": "ai-tools",
+      "icon": "🚫",
+      "description": "Automatically detect and redact sensitive information (Coming Soon!)",
+      "features": ["Auto PII detection", "Email removal", "Phone removal", "Custom patterns"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 50,
+      "aiEnhanced": true,
+      "comingSoon": true
+    },
+    {
+      "id": "smart-organizer",
+      "name": "Smart Organizer",
+      "category": "ai-tools",
+      "icon": "🗂️",
+      "description": "Auto-categorize and organize PDFs (Coming Soon!)",
+      "features": ["Auto categorize", "Smart tags", "Priority detection", "Date sorting"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".json",
+      "maxFileSize": 20,
+      "aiEnhanced": true,
+      "comingSoon": true
+    },
+    {
+      "id": "mobile-scanner",
+      "name": "Mobile Scanner",
+      "category": "convert-to-pdf",
+      "icon": "📱",
+      "description": "Scan documents with camera and convert to PDF (Uses browser camera API)",
+      "features": ["Auto crop", "Perspective correction", "Enhancement", "Browser-based"],
+      "inputFormats": [".jpg", ".png"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 20,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-ocr-extract",
+      "name": "Extract Text (OCR)",
+      "category": "convert-from-pdf",
+      "icon": "📄",
+      "description": "Extract all text from PDF including scanned documents (Tesseract.js)",
+      "features": ["OCR support", "Multi-language", "Copy/paste ready", "Export TXT"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".txt",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-to-png",
+      "name": "PDF to PNG",
+      "category": "convert-from-pdf",
+      "icon": "🖼️",
+      "description": "Convert PDF pages to PNG images with transparency",
+      "features": ["Transparent BG", "High quality", "Custom DPI", "Batch export"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".png",
+      "maxFileSize": 50,
+      "aiEnhanced": false
+    },
+    {
+      "id": "crop-pdf",
+      "name": "Crop PDF",
+      "category": "edit",
+      "icon": "✂️",
+      "description": "Crop PDF pages to custom dimensions",
+      "features": ["Visual cropper", "Batch crop", "Margin removal", "Custom size"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "pdf-metadata",
+      "name": "Edit Metadata",
+      "category": "edit",
+      "icon": "📋",
+      "description": "View and edit PDF metadata and properties",
+      "features": ["Title/Author", "Keywords", "Date modified", "Custom fields"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
+    },
+    {
+      "id": "flatten-pdf",
+      "name": "Flatten PDF",
+      "category": "optimize",
+      "icon": "📐",
+      "description": "Flatten interactive PDF forms and annotations",
+      "features": ["Form flattening", "Annotation merge", "Non-editable", "Print-ready"],
+      "inputFormats": [".pdf"],
+      "outputFormat": ".pdf",
+      "maxFileSize": 100,
+      "aiEnhanced": false
     }
   ],
   "categories": [

@@ -80,3 +80,191 @@
   transition-duration: 150ms;
 }
 
+/* Premium Card Hover Effects */
+.tool-card {
+  @apply relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 transition-all duration-300;
+  @apply hover:shadow-2xl hover:scale-105 hover:-translate-y-1;
+  @apply cursor-pointer group;
+}
+
+.tool-card::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-br from-primary-500/0 to-primary-600/0;
+  @apply transition-all duration-300 opacity-0;
+}
+
+.tool-card:hover::before {
+  @apply opacity-10;
+}
+
+/* AI Badge Glow Effect */
+.ai-badge {
+  @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium;
+  @apply bg-gradient-to-r from-purple-500 to-pink-500 text-white;
+  @apply animate-pulse;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Shimmer Effect for Loading */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Premium Button Styles */
+.btn-premium {
+  @apply relative px-8 py-3 rounded-full font-semibold text-white overflow-hidden;
+  @apply bg-gradient-to-r from-primary-600 to-primary-500;
+  @apply hover:shadow-xl hover:scale-105 transition-all duration-300;
+}
+
+.btn-premium::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0;
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.btn-premium:hover::before {
+  transform: translateX(100%);
+}
+
+/* Category Tab Animations */
+.category-tab {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-300;
+  @apply hover:bg-gray-100 dark:hover:bg-gray-800;
+}
+
+.category-tab.active {
+  @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white;
+  @apply shadow-lg scale-105;
+}
+
+/* File Upload Zone */
+.upload-zone {
+  @apply border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12;
+  @apply transition-all duration-300 hover:border-primary-500 hover:bg-primary-50/50 dark:hover:bg-primary-900/10;
+}
+
+.upload-zone.drag-over {
+  @apply border-primary-500 bg-primary-100 dark:bg-primary-900/20 scale-105;
+  @apply shadow-2xl;
+}
+
+/* Success/Error Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-bounce-once {
+  animation: bounce 0.5s ease;
+}
+
+/* Hero Section Gradient */
+.hero-gradient {
+  @apply bg-gradient-to-br from-primary-50 via-purple-50 to-pink-50;
+  @apply dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20;
+}
+
+/* Stats Counter Animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card {
+  @apply text-center p-6 rounded-xl bg-white dark:bg-gray-800 shadow-lg;
+  @apply hover:shadow-2xl transition-all duration-300;
+  animation: countUp 0.6s ease-out;
+}
+
+/* Feature Icon Animations */
+.feature-icon {
+  @apply w-12 h-12 rounded-lg flex items-center justify-center text-2xl;
+  @apply bg-gradient-to-br from-primary-100 to-primary-200;
+  @apply dark:from-primary-900/50 dark:to-primary-800/50;
+  @apply transition-all duration-300 group-hover:scale-110 group-hover:rotate-6;
+}
+
+/* Responsive Grid */
+.tools-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .tool-card {
+    @apply hover:scale-100;
+  }
+}
+
+/* Dark Mode Enhancements */
+.dark .tool-card {
+  @apply bg-gradient-to-br from-gray-800 to-gray-900;
+}
+
+.dark .btn-premium {
+  @apply from-primary-500 to-primary-600;
+}
+
+/* Accessibility - Focus States */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-500 rounded;
+}
+
+/* Custom Cursor for Interactive Elements */
+.interactive {
+  @apply cursor-pointer select-none;
+  @apply active:scale-95 transition-transform;
+}
+
