@@ -36,9 +36,11 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     return colors[cat] || 'from-gray-500 to-gray-600';
   };
 
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  
   return (
     <motion.a
-      href={`/tools/${id}`}
+      href={`${baseUrl}tools/${id}`}
       className="block group"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
