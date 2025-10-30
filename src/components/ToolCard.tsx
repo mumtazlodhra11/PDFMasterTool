@@ -40,7 +40,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
   
   return (
     <motion.a
-      href={`${baseUrl}tools/${id}`}
+      href={`${baseUrl}/tools/${id}`}
       className="block group"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
