@@ -5,8 +5,13 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mumtazlodhra11.github.io',
-  base: '/PDFMasterTool',
+  // For Cloudflare Pages (much faster than GitHub Pages!)
+  site: 'https://pdfmastertool.pages.dev',
+  base: '/',
+  
+  // Uncomment for GitHub Pages:
+  // site: 'https://mumtazlodhra11.github.io',
+  // base: '/PDFMasterTool',
   
   integrations: [
     react(),
