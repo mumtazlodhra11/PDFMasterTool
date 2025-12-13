@@ -1,17 +1,25 @@
 ---
 // Sentry Error Tracking
+// Deferred to load after page load for better performance
 const SENTRY_DSN = import.meta.env.PUBLIC_SENTRY_DSN;
 const ENVIRONMENT = import.meta.env.PUBLIC_ENVIRONMENT || 'production';
 ---
 
-<!-- Sentry Error Tracking -->
+<!-- Sentry Error Tracking - Deferred loading -->
 {SENTRY_DSN && (
   <script is:inline define:vars={{ SENTRY_DSN, ENVIRONMENT }}>
-    (function() {
-      // Load Sentry SDK
+    // Defer Sentry loading until after page load
+    if (document.readyState === 'complete') {
+      loadSentry();
+    } else {
+      window.addEventListener('load', loadSentry, { once: true });
+    }
+    
+    function loadSentry() {
+      // Load Sentry SDK asynchronously
       const script = document.createElement('script');
+      script.async = true;
       script.src = 'https://browser.sentry-cdn.com/7.99.0/bundle.min.js';
-      script.integrity = 'sha384-'; // Add proper SRI hash in production
       script.crossOrigin = 'anonymous';
       script.onload = function() {
         if (window.Sentry) {
@@ -34,7 +42,7 @@ const ENVIRONMENT = import.meta.env.PUBLIC_ENVIRONMENT || 'production';
             replaysOnErrorSampleRate: 1.0,
             
             // Release tracking
-            release: 'pdfmastertool@2.0.0',
+            release: 'pdfelitetools@3.0.0',
             
             // Privacy-first: Don't capture PII
             beforeSend(event, hint) {
@@ -56,6 +64,8 @@ const ENVIRONMENT = import.meta.env.PUBLIC_ENVIRONMENT || 'production';
               'ResizeObserver loop limit exceeded',
               'Non-Error promise rejection captured',
               'Load failed',
+              'Document Load Failed',
+              'document load failed',
             ],
           });
 
@@ -75,9 +85,11 @@ const ENVIRONMENT = import.meta.env.PUBLIC_ENVIRONMENT || 'production';
         }
       };
       document.head.appendChild(script);
-    })();
+    }
   </script>
 )}
+
+
 
 
 

@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="PDF to JPG - Convert PDF Pages to Images Online | PDFMasterTool"
+  title="PDF to JPG - Convert PDF Pages to Images Online | PDFEliteTools"
   description="Convert PDF pages to high-quality JPG images. Extract all pages or selected pages. Fast, secure, and free PDF to image converter."
   canonical="/tools/pdf-to-jpg"
 >
@@ -22,7 +22,10 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={1}
     multiple={false}
     toolType="pdf-to-jpg"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => {
+      const baseName = name.replace(/\.pdf$/i, '');
+      return `${baseName}_page_1.jpg`; // Default name, will be updated if multiple pages
+    }}
   
   
   >
@@ -82,6 +85,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

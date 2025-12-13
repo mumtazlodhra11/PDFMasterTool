@@ -1,0 +1,465 @@
+[
+  {
+    "id": "word-to-pdf",
+    "name": "Word to PDF",
+    "description": "Convert Word documents (DOCX, DOC) to high-quality PDF format",
+    "features": [
+      "Maintains formatting",
+      "Fast conversion",
+      "Batch processing",
+      "Cloud & local"
+    ]
+  },
+  {
+    "id": "powerpoint-to-pdf",
+    "name": "PowerPoint to PDF",
+    "description": "Convert PowerPoint presentations to PDF with perfect slide preservation",
+    "features": [
+      "Preserves animations",
+      "Maintains layout",
+      "High quality",
+      "Batch support"
+    ]
+  },
+  {
+    "id": "excel-to-pdf",
+    "name": "Excel to PDF",
+    "description": "Convert Excel spreadsheets to professional PDF documents",
+    "features": [
+      "Table preservation",
+      "Multiple sheets",
+      "Custom page size",
+      "Print-ready"
+    ]
+  },
+  {
+    "id": "image-to-pdf",
+    "name": "Image to PDF",
+    "description": "Convert images (JPG, PNG, WebP, HEIC) to PDF format",
+    "features": [
+      "Multiple images",
+      "Auto-optimize",
+      "Custom layout",
+      "Compression"
+    ]
+  },
+  {
+    "id": "html-to-pdf",
+    "name": "HTML to PDF",
+    "description": "Convert HTML pages and websites to PDF documents",
+    "features": [
+      "CSS rendering",
+      "JavaScript support",
+      "Responsive",
+      "URL conversion"
+    ]
+  },
+  {
+    "id": "pdf-to-word",
+    "name": "PDF to Word",
+    "description": "Convert PDF to editable Word documents with OCR support",
+    "features": [
+      "OCR enabled",
+      "Editable text",
+      "Format preservation",
+      "Table detection"
+    ]
+  },
+  {
+    "id": "pdf-to-powerpoint",
+    "name": "PDF to PowerPoint",
+    "description": "Convert PDF presentations to editable PowerPoint slides",
+    "features": [
+      "Slide extraction",
+      "Image quality",
+      "Text editable",
+      "Layout preserved"
+    ]
+  },
+  {
+    "id": "pdf-to-excel",
+    "name": "PDF to Excel",
+    "description": "Extract tables from PDF to editable Excel spreadsheets",
+    "features": [
+      "Smart table detection",
+      "Data accuracy",
+      "Multiple sheets",
+      "Formula support"
+    ]
+  },
+  {
+    "id": "pdf-to-jpg",
+    "name": "PDF to JPG",
+    "description": "Convert PDF pages to high-quality JPG images",
+    "features": [
+      "Custom DPI",
+      "Batch export",
+      "Quality control",
+      "Transparent BG"
+    ]
+  },
+  {
+    "id": "pdf-to-pdfa",
+    "name": "PDF to PDF/A",
+    "description": "Convert regular PDF to archival PDF/A format",
+    "features": [
+      "Long-term storage",
+      "ISO compliant",
+      "Font embedding",
+      "Color preservation"
+    ]
+  },
+  {
+    "id": "merge-pdf",
+    "name": "Merge PDF",
+    "description": "Combine multiple PDF files into a single document",
+    "features": [
+      "Drag & drop order",
+      "Unlimited files",
+      "Preview pages",
+      "Fast merge"
+    ]
+  },
+  {
+    "id": "split-pdf",
+    "name": "Split PDF",
+    "description": "Split large PDF into smaller files or extract specific pages",
+    "features": [
+      "Page ranges",
+      "Extract pages",
+      "Split by size",
+      "Batch split"
+    ]
+  },
+  {
+    "id": "reorder-pdf",
+    "name": "Reorder Pages",
+    "description": "Rearrange PDF pages with drag-and-drop interface",
+    "features": [
+      "Visual reordering",
+      "Page preview",
+      "Undo/redo",
+      "Save layout"
+    ]
+  },
+  {
+    "id": "remove-pages",
+    "name": "Remove Pages",
+    "description": "Delete unwanted pages from PDF documents",
+    "features": [
+      "Select multiple",
+      "Page preview",
+      "Range deletion",
+      "Quick removal"
+    ]
+  },
+  {
+    "id": "add-page-numbers",
+    "name": "Add Page Numbers",
+    "description": "Add customizable page numbers to your PDF",
+    "features": [
+      "Position control",
+      "Custom format",
+      "Start number",
+      "Skip pages"
+    ]
+  },
+  {
+    "id": "password-protect",
+    "name": "Password Protect PDF",
+    "description": "Add password protection and encryption to PDF files",
+    "features": [
+      "AES-256 encryption",
+      "User password",
+      "Owner password",
+      "Permission control"
+    ]
+  },
+  {
+    "id": "unlock-pdf",
+    "name": "Unlock PDF",
+    "description": "Remove password protection from PDF documents",
+    "features": [
+      "Password removal",
+      "Quick unlock",
+      "Batch processing",
+      "Secure removal"
+    ]
+  },
+  {
+    "id": "watermark-pdf",
+    "name": "Watermark PDF",
+    "description": "Add text or image watermarks to PDF documents",
+    "features": [
+      "Text & image",
+      "Position control",
+      "Opacity control",
+      "Batch watermark"
+    ]
+  },
+  {
+    "id": "compress-pdf",
+    "name": "Compress PDF",
+    "description": "Reduce PDF file size while maintaining quality",
+    "features": [
+      "Smart compression",
+      "Quality levels",
+      "Preview before",
+      "Batch compress"
+    ]
+  },
+  {
+    "id": "repair-pdf",
+    "name": "Repair PDF",
+    "description": "Fix corrupted or damaged PDF files",
+    "features": [
+      "Auto repair",
+      "Structure fix",
+      "Font recovery",
+      "Content restore"
+    ]
+  },
+  {
+    "id": "edit-pdf",
+    "name": "Edit PDF",
+    "description": "Edit PDF text, images, and shapes directly",
+    "features": [
+      "Text editing",
+      "Image insertion",
+      "Shape drawing",
+      "Color picker"
+    ]
+  },
+  {
+    "id": "annotate-pdf",
+    "name": "Highlight & Annotate",
+    "description": "Add highlights, annotations, and comments to PDF",
+    "features": [
+      "Highlighter",
+      "Sticky notes",
+      "Draw shapes",
+      "Text comments"
+    ]
+  },
+  {
+    "id": "rotate-pdf",
+    "name": "Rotate Pages",
+    "description": "Rotate PDF pages 90°, 180°, or 270° degrees",
+    "features": [
+      "Individual pages",
+      "Batch rotate",
+      "Preview rotation",
+      "Quick rotate"
+    ]
+  },
+  {
+    "id": "header-footer",
+    "name": "Add Header/Footer",
+    "description": "Add custom headers and footers to PDF pages",
+    "features": [
+      "Custom text",
+      "Page numbers",
+      "Date/time",
+      "Position control"
+    ]
+  },
+  {
+    "id": "esign-pdf",
+    "name": "eSign PDF",
+    "description": "Add electronic signatures to PDF documents",
+    "features": [
+      "Draw signature",
+      "Upload image",
+      "Type signature",
+      "Multiple signatures"
+    ]
+  },
+  {
+    "id": "fill-pdf-forms",
+    "name": "Fill PDF Forms",
+    "description": "Fill out PDF forms with auto field detection",
+    "features": [
+      "Auto-detect fields",
+      "Save progress",
+      "Validation",
+      "Export data"
+    ]
+  },
+  {
+    "id": "ai-ocr",
+    "name": "OCR (Tesseract)",
+    "description": "Convert scanned PDFs to searchable text with Tesseract.js (FREE!)",
+    "features": [
+      "Multi-language",
+      "Browser-based",
+      "Searchable PDF",
+      "Text extraction"
+    ]
+  },
+  {
+    "id": "ai-summarizer",
+    "name": "AI Summarizer",
+    "description": "Extract key insights and summaries from PDF documents",
+    "features": [
+      "Key points",
+      "Executive summary",
+      "Topic extraction",
+      "Smart analysis"
+    ]
+  },
+  {
+    "id": "ai-translator",
+    "name": "AI Translator",
+    "description": "Translate PDF content to multiple languages with AI",
+    "features": [
+      "50+ languages",
+      "Format preserved",
+      "Context aware",
+      "Batch translate"
+    ]
+  },
+  {
+    "id": "ai-smart-compress",
+    "name": "AI Smart Compressor",
+    "description": "Intelligently compress PDF while preserving text quality",
+    "features": [
+      "AI optimization",
+      "Text preserved",
+      "Image smart resize",
+      "Max compression"
+    ]
+  },
+  {
+    "id": "pdf-compare",
+    "name": "PDF Comparison",
+    "description": "Compare two PDFs and highlight differences",
+    "features": [
+      "Smart diff detection",
+      "Change highlights",
+      "Side-by-side view",
+      "Similarity score"
+    ]
+  },
+  {
+    "id": "pdf-to-quiz",
+    "name": "PDF to Quiz",
+    "description": "Generate interactive quizzes from PDF content (Coming Soon!)",
+    "features": [
+      "Auto MCQs",
+      "True/False",
+      "Fill blanks",
+      "Flashcards"
+    ]
+  },
+  {
+    "id": "pdf-voice-reader",
+    "name": "PDF Voice Reader",
+    "description": "Convert PDF text to speech with natural voice (Beta - Uses browser TTS)",
+    "features": [
+      "Natural voices",
+      "Multi-language",
+      "Speed control",
+      "Free browser API"
+    ]
+  },
+  {
+    "id": "pdf-analytics",
+    "name": "PDF Analytics",
+    "description": "Get detailed analytics and insights from PDF documents (Coming Soon!)",
+    "features": [
+      "Readability score",
+      "Sentiment analysis",
+      "Keyword density",
+      "Quality score"
+    ]
+  },
+  {
+    "id": "smart-redaction",
+    "name": "Smart Redaction",
+    "description": "Automatically detect and redact sensitive information (Coming Soon!)",
+    "features": [
+      "Auto PII detection",
+      "Email removal",
+      "Phone removal",
+      "Custom patterns"
+    ]
+  },
+  {
+    "id": "smart-organizer",
+    "name": "Smart Organizer",
+    "description": "Auto-categorize and organize PDFs (Coming Soon!)",
+    "features": [
+      "Auto categorize",
+      "Smart tags",
+      "Priority detection",
+      "Date sorting"
+    ]
+  },
+  {
+    "id": "mobile-scanner",
+    "name": "Mobile Scanner",
+    "description": "Scan physical documents (papers, forms, receipts) with your phone/tablet camera and convert to PDF instantly - No physical scanner needed!",
+    "features": [
+      "Camera scanning",
+      "Physical documents",
+      "Instant PDF",
+      "Mobile-friendly",
+      "No scanner needed"
+    ]
+  },
+  {
+    "id": "pdf-ocr-extract",
+    "name": "Extract Text (OCR)",
+    "description": "Extract all text from PDF including scanned documents (Tesseract.js)",
+    "features": [
+      "OCR support",
+      "Multi-language",
+      "Copy/paste ready",
+      "Export TXT"
+    ]
+  },
+  {
+    "id": "pdf-to-png",
+    "name": "PDF to PNG",
+    "description": "Convert PDF pages to PNG images with transparency",
+    "features": [
+      "Transparent BG",
+      "High quality",
+      "Custom DPI",
+      "Batch export"
+    ]
+  },
+  {
+    "id": "crop-pdf",
+    "name": "Crop PDF",
+    "description": "Crop PDF pages to custom dimensions",
+    "features": [
+      "Visual cropper",
+      "Batch crop",
+      "Margin removal",
+      "Custom size"
+    ]
+  },
+  {
+    "id": "pdf-metadata",
+    "name": "Edit Metadata",
+    "description": "View and edit PDF metadata and properties",
+    "features": [
+      "Title/Author",
+      "Keywords",
+      "Date modified",
+      "Custom fields"
+    ]
+  },
+  {
+    "id": "flatten-pdf",
+    "name": "Flatten PDF",
+    "description": "Flatten interactive PDF forms and annotations",
+    "features": [
+      "Form flattening",
+      "Annotation merge",
+      "Non-editable",
+      "Print-ready"
+    ]
+  }
+]

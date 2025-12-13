@@ -2,12 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
-import { performOCR } from '@/utils/aiUtils';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="AI OCR - Convert Scanned PDFs to Searchable Text | PDFMasterTool"
+  title="AI OCR - Convert Scanned PDFs to Searchable Text | PDFEliteTools"
   description="AI-powered OCR to extract text from scanned PDFs and images. Multi-language support with high accuracy."
   canonical="/tools/ai-ocr"
 >
@@ -23,7 +22,7 @@ import { performOCR } from '@/utils/aiUtils';
     maxFiles={10}
     multiple={true}
     toolType="ai-ocr"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.(pdf|jpg|jpeg|png)$/i, '_searchable.pdf')}
   
   >
     <div class="space-y-6">
@@ -75,6 +74,8 @@ import { performOCR } from '@/utils/aiUtils';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

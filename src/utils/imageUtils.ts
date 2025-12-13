@@ -1,5 +1,5 @@
 import { PDFDocument } from 'pdf-lib';
-import { ConversionProgress } from './pdfUtils';
+import type { ConversionProgress } from './pdfUtils';
 
 /**
  * Convert images to PDF

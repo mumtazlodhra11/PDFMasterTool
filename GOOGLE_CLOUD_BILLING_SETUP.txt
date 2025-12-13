@@ -1,0 +1,103 @@
+⚠️ GOOGLE CLOUD RUN DEPLOYMENT - BILLING REQUIRED
+
+═══════════════════════════════════════════════════════════════
+
+❌ ERROR: Billing account not enabled
+
+═══════════════════════════════════════════════════════════════
+
+📋 QUICK FIX (5 minutes):
+
+Step 1: Enable Billing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open Google Cloud Console:
+   https://console.cloud.google.com/billing
+
+2. Select your project: pdfmastertool-963643
+
+3. Click "Link a billing account"
+
+4. If you don't have billing account:
+   - Click "Create billing account"
+   - Add payment method (credit card)
+   - Google Cloud Run has FREE tier:
+     • 2 million requests/month FREE
+     • 360,000 GB-seconds FREE
+     • Most users stay in free tier!
+
+5. Link billing to project
+
+═══════════════════════════════════════════════════════════════
+
+Step 2: Fix Permissions
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Go to: https://console.cloud.google.com/iam-admin/iam
+
+1. Find your email: mumtaz.lodhra11@gmail.com
+
+2. Make sure you have these roles:
+   ✅ Project Owner (or)
+   ✅ Cloud Build Admin
+   ✅ Cloud Run Admin
+
+3. If missing, click "Edit" → "Add Another Role" → Add roles above
+
+═══════════════════════════════════════════════════════════════
+
+Step 3: Retry Deployment
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After billing enabled:
+
+cd D:\PDFMasterTool\google-cloud-run
+.\deploy.ps1
+
+═══════════════════════════════════════════════════════════════
+
+💰 COST INFORMATION:
+
+FREE TIER (Monthly):
+- 2,000,000 requests FREE
+- 360,000 GB-seconds memory FREE
+- 180,000 vCPU-seconds FREE
+
+Typical usage:
+- 10,000 conversions/month = FREE ✅
+- 50,000 conversions/month = ~$2-3 ✅
+- Most users stay FREE!
+
+═══════════════════════════════════════════════════════════════
+
+⏱️ TIME NEEDED:
+
+- Enable billing: 5 minutes
+- Fix permissions: 2 minutes
+- Deployment: 25-30 minutes
+
+Total: ~35 minutes
+
+═══════════════════════════════════════════════════════════════
+
+🚀 AFTER BILLING ENABLED:
+
+Just run:
+cd D:\PDFMasterTool\google-cloud-run
+.\deploy.ps1
+
+═══════════════════════════════════════════════════════════════
+
+
+
+
+
+
+
+
+
+
+
+
+
+

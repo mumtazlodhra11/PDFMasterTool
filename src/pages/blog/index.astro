@@ -1,0 +1,129 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { generateArticleStructuredData } from '@/utils/seo';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
+
+// Blog posts data (can be moved to a separate file or CMS)
+const blogPosts = [
+  {
+    slug: 'how-to-merge-pdf-files',
+    title: 'How to Merge PDF Files: Complete Guide 2025',
+    description: 'Learn how to merge multiple PDF files into one document. Step-by-step guide with tips and best practices.',
+    author: 'PDFEliteTools Team',
+    datePublished: '2025-01-15',
+    category: 'tutorials',
+    image: '/blog/merge-pdf-guide.jpg',
+    readTime: '5 min read'
+  },
+  {
+    slug: 'pdf-vs-word-comparison',
+    title: 'PDF vs Word: Which Format Should You Use?',
+    description: 'Complete comparison between PDF and Word formats. Learn when to use each format for maximum efficiency.',
+    author: 'PDFEliteTools Team',
+    datePublished: '2025-01-10',
+    category: 'comparisons',
+    image: '/blog/pdf-vs-word.jpg',
+    readTime: '7 min read'
+  },
+  {
+    slug: 'compress-pdf-size',
+    title: 'How to Compress PDF File Size: 10 Effective Methods',
+    description: 'Discover 10 proven methods to reduce PDF file size without losing quality. Tips and tricks for smaller files.',
+    author: 'PDFEliteTools Team',
+    datePublished: '2025-01-05',
+    category: 'pdf-tips',
+    image: '/blog/compress-pdf.jpg',
+    readTime: '6 min read'
+  }
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "PDFEliteTools Blog",
+  "description": "Expert guides, tutorials, and tips for working with PDF files",
+  "url": `${siteUrl}/blog`,
+  "publisher": {
+    "@type": "Organization",
+    "name": "PDFEliteTools",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/logo.png`
+    }
+  }
+};
+---
+
+<BaseLayout
+  title="PDF Blog - Guides, Tutorials & Tips | PDFEliteTools"
+  description="Expert guides and tutorials for working with PDF files. Learn how to merge, split, compress, and convert PDFs like a pro."
+  canonical="/blog"
+  keywords="PDF blog, PDF tutorials, PDF guides, PDF tips, how to merge PDF, PDF compression guide"
+  structuredData={structuredData}
+>
+  <Navbar />
+
+  <main class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-black mb-4 text-gray-900 dark:text-white">
+          PDF Blog & Guides
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Expert tutorials, tips, and guides to help you master PDF tools and workflows
+        </p>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {blogPosts.map((post) => (
+          <article class="glass p-6 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <a href={`/blog/${post.slug}`} class="block">
+              <div class="aspect-video bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl mb-4 flex items-center justify-center">
+                <span class="text-4xl">📄</span>
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
+                <span class="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 rounded text-primary-700 dark:text-primary-300">
+                  {post.category}
+                </span>
+                <span>•</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h2 class="text-xl font-bold mb-2 text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                {post.title}
+              </h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                {post.description}
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span>{post.datePublished}</span>
+                <span class="text-primary-600 dark:text-primary-400 font-semibold">Read more →</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <!-- Coming Soon -->
+      <div class="mt-12 text-center">
+        <p class="text-gray-600 dark:text-gray-400">
+          More articles coming soon! Subscribe to stay updated.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+

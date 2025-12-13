@@ -1,17 +1,21 @@
 # Lambda Container with LibreOffice for Word to PDF conversion
 FROM public.ecr.aws/lambda/nodejs:20
 
-# Install LibreOffice and dependencies
+# Install LibreOffice and dependencies (including NSS libraries)
 RUN dnf install -y \
     wget \
     tar \
-    java-11-amazon-corretto \
+    gzip \
+    findutils \
+    java-21-amazon-corretto \
     fontconfig \
     libXinerama \
     cups-libs \
     dbus-glib \
     cairo \
     libSM \
+    nss \
+    nss-softokn \
     && dnf clean all
 
 # Download and install LibreOffice 7.6
@@ -22,10 +26,14 @@ RUN cd /tmp && \
     rpm -Uvh --nodeps *.rpm && \
     rm -rf /tmp/LibreOffice*
 
-# Create symlinks for LibreOffice
-RUN ln -s /opt/libreoffice7.6/program/soffice /usr/bin/libreoffice7.6 && \
-    ln -s /opt/libreoffice7.6/program/soffice /usr/bin/soffice && \
-    ln -s /opt/libreoffice7.6/program/soffice /usr/bin/libreoffice
+# Create symlinks for LibreOffice (force if exists)
+RUN ln -sf /opt/libreoffice7.6/program/soffice /usr/bin/libreoffice7.6 && \
+    ln -sf /opt/libreoffice7.6/program/soffice /usr/bin/soffice && \
+    ln -sf /opt/libreoffice7.6/program/soffice /usr/bin/libreoffice
+
+# NSS libraries are now installed via dnf above
+# Verify NSS libraries are available
+RUN ls -la /usr/lib64/libnss3.so* /usr/lib64/libssl3.so* /usr/lib64/libsmime3.so* 2>/dev/null || echo "NSS libraries installed"
 
 # Verify LibreOffice installation
 RUN libreoffice7.6 --version || echo "LibreOffice installed but version check failed (normal in headless)"

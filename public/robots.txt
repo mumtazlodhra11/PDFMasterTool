@@ -1,20 +1,10 @@
+# robots.txt for PDFEliteTools
+# Optimized for search engine crawling
+
 User-agent: *
 Allow: /
-
-# Sitemaps
-Sitemap: https://pdfmastertool.com/sitemap-index.xml
-
-# Crawl-delay
-Crawl-delay: 0
-
-# Allow all tool pages
 Allow: /tools/
-
-# Block admin/private pages (if any)
-Disallow: /admin/
-Disallow: /api/internal/
-
-# Allow common resources
+Allow: /blog/
 Allow: /*.css$
 Allow: /*.js$
 Allow: /*.png$
@@ -22,6 +12,49 @@ Allow: /*.jpg$
 Allow: /*.jpeg$
 Allow: /*.svg$
 Allow: /*.webp$
+Allow: /*.gif$
+Allow: /*.ico$
+
+# Block admin/private pages
+Disallow: /admin/
+Disallow: /api/internal/
+Disallow: /_astro/
+Disallow: /node_modules/
+
+# Allow specific search engines with optimized crawl delay
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+# Block bad bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Sitemaps
+Sitemap: https://pdfelitetools.com/sitemap.xml
+Sitemap: https://pdfelitetools.com/sitemap-tools.xml
+Sitemap: https://pdfelitetools.com/sitemap-blog.xml
+
+
 
 
 

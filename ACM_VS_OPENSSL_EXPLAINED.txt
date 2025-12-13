@@ -1,0 +1,121 @@
+📚 ACM vs OpenSSL - Complete Explanation
+
+═══════════════════════════════════════════════════════════════
+
+❓ QUESTION: ACM certificate vs OpenSSL - kya farq hai?
+
+═══════════════════════════════════════════════════════════════
+
+1️⃣  ACM CERTIFICATE (AWS Certificate Manager)
+───────────────────────────────────────────────────────────────
+
+🎯 Purpose:
+   SSL/TLS certificate for your website/domain
+
+📋 Use Cases:
+   ✅ CloudFront distribution ke liye HTTPS
+   ✅ Application Load Balancer (ALB) ke liye
+   ✅ API Gateway ke liye
+   ✅ Your domain: pdfmastertool.com → HTTPS
+
+💡 Example:
+   - Domain: pdfmastertool.com
+   - ACM se certificate banate hain
+   - CloudFront mein attach karte hain
+   - Result: https://pdfmastertool.com (secure)
+
+💰 Cost: FREE (AWS provides SSL certificates)
+
+🔧 Management: AWS automatically handles renewal
+
+═══════════════════════════════════════════════════════════════
+
+2️⃣  OPENSSL LIBRARY (What we added to Docker)
+───────────────────────────────────────────────────────────────
+
+🎯 Purpose:
+   SSL/TLS library - system dependency
+
+📋 Use Cases:
+   ✅ LibreOffice needs this library to run
+   ✅ System-level SSL/TLS operations
+   ✅ NOT for website certificates!
+
+💡 Example:
+   - LibreOffice binary: soffice.bin
+   - Needs: libssl3.so library
+   - We installed: openssl-libs package
+   - Result: LibreOffice can now run
+
+💰 Cost: FREE (open source library)
+
+🔧 Management: Package manager installs it
+
+═══════════════════════════════════════════════════════════════
+
+📊 COMPARISON TABLE:
+
+┌─────────────────────┬──────────────────────┬──────────────────────┐
+│ Feature             │ ACM Certificate      │ OpenSSL Library      │
+├─────────────────────┼──────────────────────┼──────────────────────┤
+│ Purpose             │ Website SSL/TLS       │ System library       │
+│ Use Case            │ CloudFront/HTTPS      │ LibreOffice needs    │
+│ Where               │ AWS service           │ Docker container     │
+│ Cost                │ FREE                  │ FREE                 │
+│ Management          │ AWS automatic         │ Package manager      │
+│ Example             │ pdfmastertool.com SSL │ libssl3.so file      │
+└─────────────────────┴──────────────────────┴──────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+
+💡 KEY DIFFERENCES:
+
+✅ ACM = Certificate for your website (external)
+✅ OpenSSL = Library for applications (internal)
+
+✅ ACM = Used by CloudFront/ALB (AWS services)
+✅ OpenSSL = Used by LibreOffice (application)
+
+✅ ACM = Domain-level security (HTTPS)
+✅ OpenSSL = System-level security (library)
+
+═══════════════════════════════════════════════════════════════
+
+🔗 WHEN TO USE WHAT:
+
+📌 ACM Certificate:
+   → CloudFront banate waqt
+   → Custom domain ke liye HTTPS
+   → Production website ke liye
+
+📌 OpenSSL Library:
+   → Docker container mein dependencies
+   → LibreOffice jaisi apps ke liye
+   → System libraries ke liye
+
+═══════════════════════════════════════════════════════════════
+
+✅ SUMMARY:
+
+Ye dono completely alag cheezein hain!
+
+1. ACM Certificate = Website ke liye SSL (CloudFront)
+2. OpenSSL Library = LibreOffice ke liye dependency (Docker)
+
+Dono alag purposes ke liye, alag jagah use hote hain!
+
+═══════════════════════════════════════════════════════════════
+
+
+
+
+
+
+
+
+
+
+
+
+
+

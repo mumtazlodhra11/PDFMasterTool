@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Remove PDF Pages - Delete Pages from PDF Online | PDFMasterTool"
+  title="Remove PDF Pages - Delete Pages from PDF Online | PDFEliteTools"
   description="Remove unwanted pages from PDF documents. Delete specific pages, page ranges, or multiple pages quickly and easily."
   canonical="/tools/remove-pages"
 >
@@ -22,46 +22,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={1}
     multiple={false}
     toolType="remove-pages"
-    outputFileName="edited.pdf"
-  >
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-            Remove Method
-          </label>
-          <select class="w-full px-4 py-3 glass border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-            <option value="select" selected>Select specific pages</option>
-            <option value="range">Remove page range</option>
-            <option value="odd">Remove all odd pages</option>
-            <option value="even">Remove all even pages</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-            Page Numbers to Remove
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., 1, 3, 5-8, 10"
-            class="w-full px-4 py-3 glass border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          />
-          <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            Enter page numbers separated by commas. Use ranges like "5-8" for multiple consecutive pages.
-          </p>
-        </div>
-        <div class="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            id="preview-before-remove"
-            checked
-            class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-          />
-          <label for="preview-before-remove" class="text-sm text-gray-700 dark:text-gray-300">
-            Preview pages before removal
-          </label>
-        </div>
-      </div>
-    }
+    outputFileName={(name) => name}
   >
     <div class="space-y-6">
       <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">

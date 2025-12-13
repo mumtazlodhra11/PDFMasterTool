@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="AI PDF Translator - Translate PDF Documents Online | PDFMasterTool"
+  title="AI PDF Translator - Translate PDF Documents Online | PDFEliteTools"
   description="AI-powered PDF translator supports 50+ languages. Translate documents while preserving formatting. Powered by GPT-4."
   canonical="/tools/ai-translator"
 >
@@ -22,7 +22,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={1}
     multiple={false}
     toolType="ai-translator"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '_translated.pdf')}
   
   >
     <div class="space-y-6">
@@ -191,6 +191,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

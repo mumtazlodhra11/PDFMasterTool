@@ -2,12 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 import { imagesToPDF } from '@/utils/imageUtils';
 ---
 
 <BaseLayout
-  title="Image to PDF - Convert Images to PDF | PDFMasterTool"
+  title="Image to PDF - Convert Images to PDF | PDFEliteTools"
   description="Convert JPG, PNG, WebP, HEIC images to PDF. Multiple images to one PDF. Fast, secure, and free."
   canonical="/tools/image-to-pdf"
 >
@@ -23,7 +23,7 @@ import { imagesToPDF } from '@/utils/imageUtils';
     maxFiles={50}
     multiple={true}
     toolType="image-to-pdf"
-    outputFileName="images.pdf"
+    outputFileName={(name) => name.replace(/\.(jpg|jpeg|png|webp|heic)$/i, '.pdf')}
   >
     <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
       <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Supported Formats</h3>

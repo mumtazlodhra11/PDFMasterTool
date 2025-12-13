@@ -1,4 +1,4 @@
-# Security & Performance Headers for PDFMasterTool
+# Security & Performance Headers for PDFEliteTools
 
 /*
   # Security Headers
@@ -6,7 +6,7 @@
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Permissions-Policy: camera=(self), microphone=(self), geolocation=(), interest-cohort=()
   
   # Content Security Policy (Adjust domains as needed)
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://browser.sentry-cdn.com https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://sentry.io https://api.openai.com https://*.amazonaws.com; frame-ancestors 'none';
@@ -17,6 +17,8 @@
 /
   # Homepage - shorter cache for updates
   Cache-Control: public, max-age=3600, must-revalidate
+  # Back/forward cache support
+  Cache-Control: public, max-age=3600, must-revalidate, stale-while-revalidate=86400
 
 /tools/*
   # Tool pages - moderate cache
@@ -49,6 +51,8 @@
 /sw.js
   # Service Worker - no cache
   Cache-Control: public, max-age=0, must-revalidate
+
+
 
 
 

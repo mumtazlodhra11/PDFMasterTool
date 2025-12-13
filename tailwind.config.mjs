@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  // Optimize for production - remove unused CSS
+  corePlugins: {
+    // Keep all core plugins for now
+  },
   theme: {
     extend: {
       colors: {

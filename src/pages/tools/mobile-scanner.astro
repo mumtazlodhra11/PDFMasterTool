@@ -2,12 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Mobile Scanner - Scan documents with camera and convert to PDF (Uses browser camera API) | PDFMasterTool"
-  description="Scan documents with camera and convert to PDF (Uses browser camera API)"
+  title="Mobile Scanner - Scan Physical Documents with Phone Camera & Convert to PDF | PDFEliteTools"
+  description="Scan physical documents (papers, forms, receipts) with your phone/tablet camera and convert to PDF instantly. No physical scanner needed!"
   canonical="/tools/mobile-scanner"
 >
   <Navbar />
@@ -15,18 +15,73 @@ import { ToolTemplate } from '@/components/ToolTemplate';
   <ToolTemplate
     client:load
     toolName="Mobile Scanner"
-    toolDescription="Scan documents with camera and convert to PDF (Uses browser camera API)"
+    toolDescription="Scan physical documents with your phone/tablet camera and convert to PDF instantly"
     toolIcon="📱"
     acceptedFormats={[".jpg",".png"]}
     maxFileSize={20}
-    maxFiles={1}
-    multiple={false}
+    maxFiles={10}
+    multiple={true}
     toolType="mobile-scanner"
-    outputFileName="pdf"
+    outputFileName={(name) => name.replace(/\.(jpg|jpeg|png)$/i, '.pdf')}
   >
-    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
-      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Coming Soon</h3>
-      <p class="text-gray-600 dark:text-gray-400">This tool is under development and will be available soon!</p>
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Mobile Scanner Tool</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Use your device camera to scan physical documents (papers, forms, receipts, certificates) and convert them to PDF instantly. No physical scanner needed!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Features</h3>
+        <div class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Camera Scanning</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Instant PDF Conversion</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Mobile-Friendly</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>No Scanner Needed</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-xl border border-blue-200/50 dark:border-blue-800/50 bg-blue-50/50 dark:bg-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-blue-900 dark:text-blue-200 mb-1">How to Use</h4>
+            <p class="text-sm text-blue-800 dark:text-blue-300">
+              Click "Open Camera" to start scanning. Position your document within the frame and tap "Capture". The scanned image will be automatically converted to PDF. You can also upload an image file if you prefer.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </ToolTemplate>
 

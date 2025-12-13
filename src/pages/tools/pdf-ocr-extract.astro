@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Extract Text (OCR) - Extract all text from PDF including scanned documents (Tesseract.js) | PDFMasterTool"
+  title="Extract Text (OCR) - Extract all text from PDF including scanned documents (Tesseract.js) | PDFEliteTools"
   description="Extract all text from PDF including scanned documents (Tesseract.js)"
   canonical="/tools/pdf-ocr-extract"
 >
@@ -17,18 +17,13 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolName="Extract Text (OCR)"
     toolDescription="Extract all text from PDF including scanned documents (Tesseract.js)"
     toolIcon="📄"
-    acceptedFormats={".pdf"}
+    acceptedFormats={['.pdf']}
     maxFileSize={50}
     maxFiles={1}
     multiple={false}
     toolType="pdf-ocr-extract"
-    outputFileName="txt"
-  >
-    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
-      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Coming Soon</h3>
-      <p class="text-gray-600 dark:text-gray-400">This tool is under development and will be available soon!</p>
-    </div>
-  </ToolTemplate>
+    outputFileName={(name) => name.replace(/\.[^/.]+$/, '') + '_extracted.txt'}
+  />
 
   <Footer />
 </BaseLayout>

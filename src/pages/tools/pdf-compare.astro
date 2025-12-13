@@ -2,12 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="PDF Comparison - Compare two PDFs and highlight differences (Coming Soon!) | PDFMasterTool"
-  description="Compare two PDFs and highlight differences (Coming Soon!)"
+  title="PDF Comparison - Compare two PDFs and highlight differences | PDFEliteTools"
+  description="Compare two PDFs side-by-side and identify differences. Visual comparison with text similarity analysis."
   canonical="/tools/pdf-compare"
 >
   <Navbar />
@@ -15,18 +15,73 @@ import { ToolTemplate } from '@/components/ToolTemplate';
   <ToolTemplate
     client:load
     toolName="PDF Comparison"
-    toolDescription="Compare two PDFs and highlight differences (Coming Soon!)"
+    toolDescription="Compare two PDFs and highlight differences"
     toolIcon="🔍"
-    acceptedFormats={".pdf"}
+    acceptedFormats={['.pdf']}
     maxFileSize={50}
-    maxFiles={1}
-    multiple={false}
+    maxFiles={2}
+    multiple={true}
     toolType="pdf-compare"
-    outputFileName="pdf"
+    outputFileName={(name) => name.replace('.pdf', '_comparison.pdf')}
   >
-    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
-      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Coming Soon</h3>
-      <p class="text-gray-600 dark:text-gray-400">This tool is under development and will be available soon!</p>
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">PDF Comparison Tool</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Upload two PDF files to compare them side-by-side. The tool will highlight differences, show missing pages, and calculate text similarity between the documents.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Features</h3>
+        <div class="grid md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-400">
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Side-by-Side Comparison</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Text Similarity Analysis</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Missing Page Detection</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Visual Difference Highlighting</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-xl border border-yellow-200/50 dark:border-yellow-800/50 bg-yellow-50/50 dark:bg-yellow-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-yellow-900 dark:text-yellow-200 mb-1">Important</h4>
+            <p class="text-sm text-yellow-800 dark:text-yellow-300">
+              Please upload exactly 2 PDF files. The tool will create a comparison PDF showing both documents side-by-side with highlighted differences.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </ToolTemplate>
 

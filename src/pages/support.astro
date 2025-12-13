@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Support - Get Help with PDFEliteTools | PDFEliteTools"
+  description="Get help and support for PDFEliteTools. Find answers to common questions, contact support, and access helpful resources."
+  canonical="/support"
+>
+  <Navbar />
+
+  <div class="min-h-screen bg-white dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-black mb-4">
+            <span class="gradient-text">Support Center</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400">
+            We're here to help you get the most out of PDFEliteTools
+          </p>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="space-y-6 mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+          
+          <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">How do I use PDFEliteTools?</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Simply select a tool from our homepage, upload your file, configure any options, and click "Process". All processing happens in your browser - your files never leave your device!
+            </p>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Is my data secure?</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Yes! All PDF processing happens locally in your browser. We never upload your files to our servers, ensuring complete privacy and security.
+            </p>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">What file sizes are supported?</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Most tools support files up to 150MB. Individual tools may have different limits - check the tool description for specific size restrictions.
+            </p>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Which browsers are supported?</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              PDFEliteTools works on all modern browsers including Chrome, Firefox, Safari, and Edge. For best performance, we recommend using the latest version of your browser.
+            </p>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Are there any usage limits?</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              No! PDFEliteTools is completely free to use with no limits on the number of files you can process.
+            </p>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">What if a tool isn't working?</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Try refreshing the page, clearing your browser cache, or using a different browser. If the problem persists, check our <a href="/guides" class="text-primary-600 dark:text-primary-400 hover:underline">Guides</a> section for detailed troubleshooting steps.
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 text-center">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Still Need Help?</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            Can't find what you're looking for? Check out our comprehensive <a href="/guides" class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">Guides</a> or read our latest <a href="/blogs" class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">Blogs</a> for tips and tutorials.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/guides" class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
+              View Guides
+            </a>
+            <a href="/blogs" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white font-semibold rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+              Read Blogs
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

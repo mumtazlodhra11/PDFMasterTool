@@ -2,12 +2,13 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
-import { splitPDF } from '@/utils/pdfUtils';
+import ToolTemplate from '@/components/ToolTemplate';
+import VideoTutorialSection from '@/components/VideoTutorialSection.astro';
+import { SplitPDFOptions } from '@/components/SplitPDFOptions';
 ---
 
 <BaseLayout
-  title="Split PDF - Extract Pages from PDF | PDFMasterTool"
+  title="Split PDF - Extract Pages from PDF | PDFEliteTools"
   description="Split large PDF files into smaller documents or extract specific pages. Fast, secure, and free PDF splitter tool."
   canonical="/tools/split-pdf"
 >
@@ -19,12 +20,30 @@ import { splitPDF } from '@/utils/pdfUtils';
     toolDescription="Split large PDF documents into smaller files or extract specific page ranges"
     toolIcon="✂️"
     acceptedFormats={['.pdf']}
-    maxFileSize={150}
+    maxFileSize={100}
     maxFiles={1}
     multiple={false}
     toolType="split-pdf"
-    outputFileName="split.pdf"
+    outputFileName={(name) => {
+      const baseName = name.replace(/\.pdf$/i, '');
+      return `${baseName}_split.zip`; // Default to ZIP for multiple files
+    }}
   >
+    <script>
+      // Inject SplitPDFOptions component dynamically
+      import { SplitPDFOptions } from '@/components/SplitPDFOptions';
+      
+      // This will be handled by ToolTemplate's options prop
+      // We need to pass it via a custom approach
+    </script>
+    <!-- Watch How It Works Video Section -->
+    <VideoTutorialSection 
+      toolName="Split PDF"
+      description="Learn how to split PDF files in just 2 minutes. See real examples and get started extracting pages today."
+      videoUrl={import.meta.env.PUBLIC_SPLIT_PDF_VIDEO_URL || undefined}
+      watchTime="2 min watch"
+    />
+
     <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
       <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How to Split PDFs</h3>
       <ol class="space-y-4 text-gray-600 dark:text-gray-400">
@@ -50,5 +69,3 @@ import { splitPDF } from '@/utils/pdfUtils';
 
   <Footer />
 </BaseLayout>
-
-

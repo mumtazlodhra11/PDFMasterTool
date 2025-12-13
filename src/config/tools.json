@@ -46,7 +46,8 @@
       "inputFormats": [".jpg", ".jpeg", ".png", ".webp", ".heic"],
       "outputFormat": ".pdf",
       "maxFileSize": 20,
-      "aiEnhanced": true
+      "aiEnhanced": true,
+      "hidden": true
     },
     {
       "id": "html-to-pdf",
@@ -65,12 +66,12 @@
       "name": "PDF to Word",
       "category": "convert-from-pdf",
       "icon": "📝",
-      "description": "Convert PDF to editable Word documents with OCR support",
-      "features": ["OCR enabled", "Editable text", "Format preservation", "Table detection"],
+      "description": "Convert PDF to editable Word documents",
+      "features": ["Editable text", "Format preservation", "Table detection", "Fast conversion"],
       "inputFormats": [".pdf"],
       "outputFormat": ".docx",
       "maxFileSize": 50,
-      "aiEnhanced": true
+      "aiEnhanced": false
     },
     {
       "id": "pdf-to-powerpoint",
@@ -94,7 +95,8 @@
       "inputFormats": [".pdf"],
       "outputFormat": ".xlsx",
       "maxFileSize": 30,
-      "aiEnhanced": true
+      "aiEnhanced": true,
+      "hidden": true
     },
     {
       "id": "pdf-to-jpg",
@@ -226,8 +228,9 @@
       "features": ["Smart compression", "Quality levels", "Preview before", "Batch compress"],
       "inputFormats": [".pdf"],
       "outputFormat": ".pdf",
-      "maxFileSize": 150,
-      "aiEnhanced": true
+      "maxFileSize": 100,
+      "aiEnhanced": true,
+      "hidden": true
     },
     {
       "id": "repair-pdf",
@@ -312,7 +315,8 @@
       "inputFormats": [".pdf"],
       "outputFormat": ".pdf",
       "maxFileSize": 50,
-      "aiEnhanced": true
+      "aiEnhanced": true,
+      "hidden": true
     },
     {
       "id": "ai-ocr",
@@ -324,7 +328,8 @@
       "inputFormats": [".pdf", ".jpg", ".png"],
       "outputFormat": ".pdf",
       "maxFileSize": 50,
-      "aiEnhanced": false
+      "aiEnhanced": false,
+      "hidden": true
     },
     {
       "id": "ai-summarizer",
@@ -373,13 +378,13 @@
       "name": "PDF Comparison",
       "category": "ai-tools",
       "icon": "🔍",
-      "description": "Compare two PDFs and highlight differences (Coming Soon!)",
+      "description": "Compare two PDFs and highlight differences",
       "features": ["Smart diff detection", "Change highlights", "Side-by-side view", "Similarity score"],
       "inputFormats": [".pdf"],
       "outputFormat": ".pdf",
       "maxFileSize": 50,
       "aiEnhanced": true,
-      "comingSoon": true
+      "hidden": true
     },
     {
       "id": "pdf-to-quiz",
@@ -392,7 +397,8 @@
       "outputFormat": ".json",
       "maxFileSize": 30,
       "aiEnhanced": true,
-      "comingSoon": true
+      "comingSoon": true,
+      "hidden": true
     },
     {
       "id": "pdf-voice-reader",
@@ -404,7 +410,8 @@
       "inputFormats": [".pdf"],
       "outputFormat": ".mp3",
       "maxFileSize": 30,
-      "aiEnhanced": false
+      "aiEnhanced": false,
+      "hidden": true
     },
     {
       "id": "pdf-analytics",
@@ -417,7 +424,8 @@
       "outputFormat": ".json",
       "maxFileSize": 30,
       "aiEnhanced": true,
-      "comingSoon": true
+      "comingSoon": true,
+      "hidden": true
     },
     {
       "id": "smart-redaction",
@@ -430,7 +438,8 @@
       "outputFormat": ".pdf",
       "maxFileSize": 50,
       "aiEnhanced": true,
-      "comingSoon": true
+      "comingSoon": true,
+      "hidden": true
     },
     {
       "id": "smart-organizer",
@@ -443,15 +452,16 @@
       "outputFormat": ".json",
       "maxFileSize": 20,
       "aiEnhanced": true,
-      "comingSoon": true
+      "comingSoon": true,
+      "hidden": true
     },
     {
       "id": "mobile-scanner",
       "name": "Mobile Scanner",
       "category": "convert-to-pdf",
       "icon": "📱",
-      "description": "Scan documents with camera and convert to PDF (Uses browser camera API)",
-      "features": ["Auto crop", "Perspective correction", "Enhancement", "Browser-based"],
+      "description": "Scan physical documents (papers, forms, receipts) with your phone/tablet camera and convert to PDF instantly - No physical scanner needed!",
+      "features": ["Camera scanning", "Physical documents", "Instant PDF", "Mobile-friendly", "No scanner needed"],
       "inputFormats": [".jpg", ".png"],
       "outputFormat": ".pdf",
       "maxFileSize": 20,

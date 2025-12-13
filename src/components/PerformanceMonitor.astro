@@ -1,10 +1,17 @@
 ---
 // Performance monitoring using Web Vitals
+// Deferred to load after page load for better performance
 ---
 
 <script is:inline>
-  // Core Web Vitals monitoring
-  (function() {
+  // Defer Web Vitals monitoring until after page load
+  if (document.readyState === 'complete') {
+    loadWebVitals();
+  } else {
+    window.addEventListener('load', loadWebVitals, { once: true });
+  }
+  
+  function loadWebVitals() {
     // Load web-vitals library
     const script = document.createElement('script');
     script.type = 'module';
@@ -48,10 +55,11 @@
           });
         }
 
-        // Optional: Send to custom endpoint
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon('/api/vitals', body);
-        }
+        // Optional: Send to custom endpoint (only if endpoint exists)
+        // Note: This is optional and won't cause errors if endpoint doesn't exist
+        // if (navigator.sendBeacon && typeof fetch !== 'undefined') {
+        //   fetch('/api/vitals', { method: 'POST', body, keepalive: true }).catch(() => {});
+        // }
       }
 
       // Measure Core Web Vitals
@@ -132,8 +140,10 @@
         }
       }, 0);
     });
-  })();
+  }
 </script>
+
+
 
 
 

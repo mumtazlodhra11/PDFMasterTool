@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Unlock PDF - Remove Password from PDF Online | PDFMasterTool"
+  title="Unlock PDF - Remove Password from PDF Online | PDFEliteTools"
   description="Remove password protection from PDF files. Unlock encrypted PDFs quickly and securely. Free PDF password remover."
   canonical="/tools/unlock-pdf"
 >
@@ -18,11 +18,11 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolDescription="Remove password protection from PDF files to access and edit your documents"
     toolIcon="🔓"
     acceptedFormats={['.pdf']}
-    maxFileSize={150}
+    maxFileSize={100}
     maxFiles={5}
     multiple={true}
     toolType="unlock-pdf"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '_unlocked.pdf')}
   
   >
     <div class="space-y-6">
@@ -156,6 +156,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

@@ -1,0 +1,56 @@
+========================================
+🌐 PDFMASTERTOOL - ALL URLS
+========================================
+
+🖥️ LOCAL SITE (Development):
+http://localhost:9001
+
+✅ Running now on your computer!
+✅ Instant changes when you edit files
+✅ For testing before deploy
+
+========================================
+
+🌐 LIVE SITE (Production):
+https://mumtazlodhra11.github.io/PDFMasterTool
+
+⏳ Deploying right now (3-4 min)
+✅ Public URL - share karo!
+✅ Will be live kal subah!
+
+========================================
+
+🎯 KAISE USE KARO:
+
+1. LOCAL TESTING:
+   → Open: http://localhost:9001
+   → Test all tools
+   → Make changes
+   → See instant updates
+   
+2. LIVE SITE:
+   → Wait for deployment (check Actions)
+   → Open: https://mumtazlodhra11.github.io/PDFMasterTool
+   → Share with users
+   → Final production version
+
+========================================
+
+📊 STATUS CHECK:
+
+LOCAL: http://localhost:9001 ✅ RUNNING NOW!
+
+LIVE: https://github.com/mumtazlodhra11/PDFMasterTool/actions
+      (Check if GREEN ✅)
+
+========================================
+
+🎊 DONO READY HAIN!
+
+Local: Testing ke liye
+Live: Public sharing ke liye
+
+🚀🔥
+
+========================================
+

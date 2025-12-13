@@ -1,0 +1,109 @@
+---
+// Related Tools Component - iLovePDF style reverse action links
+import toolsData from '@/config/tools.json';
+
+interface Props {
+  currentToolId: string;
+  currentCategory: string;
+}
+
+const { currentToolId, currentCategory } = Astro.props;
+const { tools } = toolsData;
+
+// Find reverse action tools (e.g., if current is "PDF to Word", find "Word to PDF")
+function findReverseAction(currentTool: any): any | null {
+  const currentName = currentTool.name.toLowerCase();
+  
+  // Check if it's a conversion tool with reverse
+  if (currentName.includes('pdf to')) {
+    const target = currentName.replace('pdf to', '').trim();
+    return tools.find((t: any) => 
+      t.name.toLowerCase().includes(target) && 
+      t.name.toLowerCase().includes('to pdf') &&
+      t.id !== currentToolId
+    );
+  } else if (currentName.includes('to pdf')) {
+    const source = currentName.replace('to pdf', '').trim();
+    return tools.find((t: any) => 
+      t.name.toLowerCase().includes('pdf to') &&
+      t.name.toLowerCase().includes(source) &&
+      t.id !== currentToolId
+    );
+  }
+  
+  return null;
+}
+
+// Find related tools in same category
+function findRelatedTools(currentTool: any, limit: number = 4): any[] {
+  return tools
+    .filter((t: any) => 
+      t.category === currentCategory && 
+      t.id !== currentToolId &&
+      !t.hidden
+    )
+    .slice(0, limit);
+}
+
+const currentTool = tools.find((t: any) => t.id === currentToolId);
+if (!currentTool) return null;
+
+const reverseAction = findReverseAction(currentTool);
+const relatedTools = findRelatedTools(currentTool, 4);
+---
+
+{(reverseAction || relatedTools.length > 0) && (
+  <section class="mt-12 glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Related Tools
+    </h2>
+    
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {reverseAction && (
+        <a 
+          href={`/tools/${reverseAction.id}`}
+          class="group p-4 rounded-xl border-2 border-primary-200 dark:border-primary-800 hover:border-primary-500 dark:hover:border-primary-500 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-all"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl">{reverseAction.icon}</span>
+            <span class="text-sm font-semibold text-primary-600 dark:text-primary-400">
+              Reverse Action
+            </span>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+            {reverseAction.name}
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            {reverseAction.description.substring(0, 60)}...
+          </p>
+        </a>
+      )}
+      
+      {relatedTools.map((tool: any) => (
+        <a 
+          href={`/tools/${tool.id}`}
+          class="group p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-lg transition-all"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl">{tool.icon}</span>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+            {tool.name}
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            {tool.description.substring(0, 60)}...
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+
+
+
+
+
+
+
+

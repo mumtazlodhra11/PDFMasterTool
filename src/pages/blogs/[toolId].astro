@@ -1,0 +1,490 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import toolsData from '@/config/tools.json';
+
+export async function getStaticPaths() {
+  return toolsData.tools
+    .filter(tool => !tool.hidden)
+    .map((tool) => ({
+      params: { toolId: tool.id },
+      props: { tool },
+    }));
+}
+
+const { tool } = Astro.props;
+const category = toolsData.categories.find(cat => cat.id === tool.category);
+
+// Distribute dates across September, October, and November 2025
+function getPublishDate(toolId: string) {
+  // Create a simple hash from tool ID to consistently assign dates
+  const hash = toolId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const monthIndex = hash % 3; // 0 = September, 1 = October, 2 = November
+  
+  const dates = [
+    new Date('2025-09-15'), // September
+    new Date('2025-10-15'), // October
+    new Date('2025-11-15'), // November
+  ];
+  
+  return dates[monthIndex];
+}
+
+const publishDate = getPublishDate(tool.id);
+
+// Get month name for display
+function getMonthName(date: Date) {
+  const months = ['September', 'October', 'November'];
+  const monthIndex = date.getMonth() - 8; // September = 8, October = 9, November = 10
+  return months[monthIndex] || 'September';
+}
+
+const monthName = getMonthName(publishDate);
+
+// Generate tool-specific blog content
+function getBlogContent(tool: any) {
+  const toolId = tool.id;
+  const toolName = tool.name;
+  
+  const blogMap: Record<string, any> = {
+    'merge-pdf': {
+      intro: 'In today\'s digital workspace, managing multiple PDF documents is a daily challenge. Whether you\'re consolidating quarterly reports, combining research papers, or merging scanned documents, the ability to seamlessly combine PDFs is essential. This comprehensive guide explores everything you need to know about merging PDFs in 2025, from basic techniques to advanced strategies.',
+      whyImportant: 'Merging PDFs saves time, reduces clutter, and creates professional, consolidated documents. Instead of sending multiple attachments or maintaining separate files, you can create single, comprehensive documents that are easier to share, archive, and reference.',
+      benefits: [
+        'Eliminate the need for multiple file attachments in emails',
+        'Create comprehensive reports by combining related documents',
+        'Organize scattered documents into logical, sequential files',
+        'Reduce file management overhead and improve organization',
+        'Maintain document relationships and context'
+      ],
+      scenarios: [
+        {
+          title: 'Business Scenario: Quarterly Report Compilation',
+          description: 'A financial analyst needs to combine Q1, Q2, Q3, and Q4 reports with executive summaries and appendices into one comprehensive annual report. By merging PDFs, they create a single document that stakeholders can easily navigate and reference.',
+          impact: 'Saves 2-3 hours of manual work per quarter, ensures consistent formatting, and improves document accessibility.'
+        },
+        {
+          title: 'Academic Scenario: Research Paper Submission',
+          description: 'A graduate student must combine their main research paper, bibliography, figures, tables, and supplementary materials into one PDF for journal submission. Proper merging ensures all components are in the correct order and properly formatted.',
+          impact: 'Meets journal submission requirements, maintains academic formatting standards, and simplifies the review process.'
+        },
+        {
+          title: 'Legal Scenario: Contract Consolidation',
+          description: 'A legal team needs to merge an original contract with multiple amendments, exhibits, and supporting documents into one master document for easy reference and compliance tracking.',
+          impact: 'Improves document traceability, ensures all contract components are together, and simplifies legal review processes.'
+        }
+      ],
+      bestPractices: [
+        'Always verify file order before merging - incorrect sequence can cause confusion',
+        'Check for password-protected files and unlock them first',
+        'Ensure consistent page sizes for professional appearance',
+        'Remove blank pages from source files before merging',
+        'Use descriptive filenames to maintain order (e.g., 01_Introduction, 02_Main_Content)',
+        'Preview merged document before finalizing to catch any issues',
+        'Keep original files as backup until you verify the merged PDF'
+      ],
+      commonMistakes: [
+        'Merging files in wrong order without checking',
+        'Including password-protected files without unlocking first',
+        'Merging files with inconsistent page sizes or orientations',
+        'Forgetting to remove blank or unnecessary pages',
+        'Not verifying the final merged document quality'
+      ]
+    },
+    'compress-pdf': {
+      intro: 'File size matters more than ever in 2025. With email attachment limits, cloud storage costs, and website performance requirements, compressing PDFs has become a critical skill. This in-depth article explores PDF compression techniques, strategies, and best practices to help you optimize your documents without sacrificing quality.',
+      whyImportant: 'Compressed PDFs load faster, use less storage, and are easier to share. Whether you\'re sending documents via email, uploading to websites, or archiving files, proper compression can make a significant difference in efficiency and cost.',
+      benefits: [
+        'Meet email attachment size limits (typically 25MB)',
+        'Improve website load times and user experience',
+        'Reduce cloud storage costs and bandwidth usage',
+        'Enable faster file transfers and downloads',
+        'Maintain professional quality while reducing file size'
+      ],
+      scenarios: [
+        {
+          title: 'Email Distribution: Large Report Sharing',
+          description: 'A marketing team needs to email a 45MB quarterly report to 200 stakeholders. By compressing it to 18MB, they ensure it passes email size limits and downloads quickly for recipients.',
+          impact: 'Eliminates email bounce-backs, improves delivery rates, and enhances recipient experience with faster downloads.'
+        },
+        {
+          title: 'Web Publishing: Product Catalog',
+          description: 'An e-commerce company wants to publish a 12MB product catalog PDF on their website. Compressing it to 3MB significantly improves page load times and reduces server bandwidth costs.',
+          impact: 'Improves SEO rankings, reduces bounce rates, and saves on hosting bandwidth costs.'
+        },
+        {
+          title: 'Archive Management: Document Storage',
+          description: 'A law firm needs to archive 500MB of scanned legal documents. Compressing to 150MB reduces storage costs by 70% while maintaining document readability and legal validity.',
+          impact: 'Significant cost savings on cloud storage, faster archive searches, and maintained document accessibility.'
+        }
+      ],
+      bestPractices: [
+        'Choose compression level based on intended use - print documents need higher quality',
+        'Compress before merging multiple PDFs for better overall file size',
+        'Use "Smart" compression mode for automatic optimization',
+        'For scanned documents, reduce DPI to 150-200 for screen viewing',
+        'Remove embedded fonts if not essential for document appearance',
+        'Enable object stream compression for text-heavy documents',
+        'Always preview compressed PDF to verify acceptable quality'
+      ],
+      commonMistakes: [
+        'Using maximum compression for documents that need printing',
+        'Compressing already-compressed files multiple times',
+        'Not checking quality after compression',
+        'Forgetting to keep original files as backup',
+        'Compressing files that are already optimally sized'
+      ]
+    },
+    'split-pdf': {
+      intro: 'Large PDF documents can be unwieldy and difficult to manage. Whether you need to extract specific pages, create separate documents from one file, or reduce file sizes, splitting PDFs is an essential skill. This comprehensive guide covers everything from basic page extraction to advanced splitting strategies for 2025.',
+      whyImportant: 'Splitting PDFs improves document organization, enables targeted sharing, and helps manage file sizes. Instead of sending entire documents, you can share only relevant sections, making communication more efficient and focused.',
+      benefits: [
+        'Extract specific pages or sections for targeted sharing',
+        'Create separate documents from one comprehensive file',
+        'Reduce file sizes by splitting large documents',
+        'Organize content into logical, manageable chunks',
+        'Enable easier navigation and document management'
+      ],
+      scenarios: [
+        {
+          title: 'Invoice Management: Monthly Statement Processing',
+          description: 'An accounting department receives a 50-page monthly statement containing 25 individual invoices. By splitting the PDF, they create 25 separate invoice files for individual distribution to clients.',
+          impact: 'Streamlines invoice distribution, improves client experience, and enables automated invoice processing systems.'
+        },
+        {
+          title: 'Educational Content: Chapter Distribution',
+          description: 'A publisher needs to split a 200-page textbook into 10 individual chapter PDFs for digital distribution. Each chapter becomes a separate, downloadable file for students.',
+          impact: 'Enables flexible learning, reduces download sizes, and improves student access to specific content.'
+        },
+        {
+          title: 'Form Processing: Individual Form Extraction',
+          description: 'A government agency receives a 30-page PDF containing multiple application forms. Splitting creates individual form PDFs for separate processing and filing.',
+          impact: 'Improves processing efficiency, enables parallel workflow, and simplifies record management.'
+        }
+      ],
+      bestPractices: [
+        'Use page ranges for sequential content (e.g., 1-10, 11-20)',
+        'Extract specific pages for non-sequential content (e.g., 5, 8, 12)',
+        'Preview pages before splitting to ensure correct selection',
+        'Name split files descriptively for easy identification',
+        'Verify all pages are included in the correct split files',
+        'Keep original file as backup until verification complete',
+        'Use consistent naming conventions for batch splits'
+      ],
+      commonMistakes: [
+        'Incorrect page numbering (remember pages start at 1, not 0)',
+        'Overlapping page ranges causing duplicate content',
+        'Missing pages in split ranges',
+        'Not verifying split file contents',
+        'Splitting without keeping original backup'
+      ]
+    }
+  };
+  
+  return blogMap[toolId] || {
+    intro: `In 2025, ${toolName} has become an indispensable tool for professionals, students, and businesses navigating the digital document landscape. This comprehensive article explores how ${toolName} transforms document workflows, addresses common challenges, and provides practical solutions for modern document management needs.`,
+    whyImportant: `${toolName} addresses critical needs in today's digital workspace, offering efficient solutions for ${tool.description.toLowerCase()}. As remote work and digital collaboration continue to evolve, tools like ${toolName} become essential for maintaining productivity and professional standards.`,
+    benefits: [
+      `Enables ${tool.description.toLowerCase()} with professional results`,
+      'Saves time compared to manual processes',
+      'Ensures consistent quality and formatting',
+      'Works entirely in your browser - no software installation',
+      'Maintains complete privacy with local processing'
+    ],
+    scenarios: [
+      {
+        title: 'Professional Workflow Enhancement',
+        description: `Professionals use ${toolName} to streamline their document workflows, reducing time spent on repetitive tasks and ensuring consistent, high-quality results.`,
+        impact: 'Increases productivity, reduces errors, and enables focus on high-value work.'
+      },
+      {
+        title: 'Academic Document Management',
+        description: `Students and educators leverage ${toolName} to manage academic documents efficiently, from research papers to study materials.`,
+        impact: 'Improves organization, saves time, and enhances academic workflow efficiency.'
+      },
+      {
+        title: 'Business Process Optimization',
+        description: `Businesses integrate ${toolName} into their document management processes, improving efficiency and reducing operational costs.`,
+        impact: 'Streamlines operations, reduces manual work, and improves document consistency.'
+      }
+    ],
+    bestPractices: [
+      'Always verify file compatibility before processing',
+      'Keep original files as backup until verification',
+      'Use appropriate settings for your specific use case',
+      'Process files during off-peak hours for better performance',
+      'Regularly update your browser for optimal performance',
+      'Check output quality before finalizing',
+      'Understand file size limits and plan accordingly'
+    ],
+    commonMistakes: [
+      'Not checking file format compatibility',
+      'Processing without verifying settings',
+      'Forgetting to backup original files',
+      'Ignoring file size limits',
+      'Not reviewing output quality'
+    ]
+  };
+}
+
+const blogContent = getBlogContent(tool);
+---
+
+<BaseLayout
+  title={`${tool.name} - Latest Blog & Tips 2025 | PDFEliteTools`}
+  description={`Read our latest blog about ${tool.name}. Learn tips, tricks, and best practices for using ${tool.name} in 2025.`}
+  canonical={`/blogs/${tool.id}`}
+>
+  <Navbar />
+
+  <div class="min-h-screen bg-white dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <article>
+          <!-- Header -->
+          <div class="text-center mb-12">
+            <div class="text-6xl mb-4">{tool.icon}</div>
+            <h1 class="text-4xl md:text-5xl font-black mb-4">
+              <span class="gradient-text">{tool.name}: Mastering Document Management in 2025</span>
+            </h1>
+            <div class="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <span>{publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              <span>•</span>
+              <span>{category?.name || tool.category}</span>
+              <span>•</span>
+              <span>8-10 min read</span>
+            </div>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              {tool.description}
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="mb-8 flex flex-wrap gap-4 justify-center">
+            <a href={`/tools/${tool.id}`} class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors">
+              Try {tool.name} →
+            </a>
+            <a href={`/guides/${tool.id}`} class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors">
+              View Complete Guide →
+            </a>
+          </div>
+
+          <!-- Blog Content -->
+          <div class="prose prose-lg dark:prose-invert max-w-none">
+            <!-- Introduction -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Introduction: Why {tool.name} Matters in 2025</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                {blogContent.intro}
+              </p>
+              <div class="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-600 p-4 rounded mt-4">
+                <p class="text-gray-700 dark:text-gray-300">
+                  <strong>Key Insight:</strong> {blogContent.whyImportant}
+                </p>
+              </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Key Benefits of Using {tool.name}</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                {tool.name} offers numerous advantages that make it an essential tool for modern document management:
+              </p>
+              <div class="grid md:grid-cols-2 gap-4">
+                {blogContent.benefits.map((benefit: string, index: number) => (
+                  <div class="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-xs font-bold">
+                      {index + 1}
+                    </span>
+                    <p class="text-gray-700 dark:text-gray-300">{benefit}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Real-World Scenarios -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Real-World Scenarios: How {tool.name} Solves Problems</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-6">
+                Let's explore practical scenarios where {tool.name} makes a significant difference:
+              </p>
+              <div class="space-y-6">
+                {blogContent.scenarios.map((scenario: any, index: number) => (
+                  <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-start gap-4">
+                      <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">
+                        {index + 1}
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{scenario.title}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+                          {scenario.description}
+                        </p>
+                        <div class="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-600 p-3 rounded">
+                          <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Impact:</strong> {scenario.impact}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Features Deep Dive -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Exploring {tool.name}'s Powerful Features</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                {tool.name} comes equipped with advanced features designed to enhance your productivity:
+              </p>
+              <div class="grid md:grid-cols-2 gap-4">
+                {tool.features && tool.features.map((feature: string, index: number) => (
+                  <div class="p-5 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center gap-3 mb-2">
+                      <svg class="w-5 h-5 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                      <h3 class="font-semibold text-gray-900 dark:text-white">{feature}</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      This feature streamlines your workflow and ensures professional-quality results. Explore the tool interface to customize it according to your specific requirements.
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Best Practices for 2025</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Follow these proven strategies to get the most out of {tool.name}:
+              </p>
+              <div class="space-y-3">
+                {blogContent.bestPractices.map((practice: string, index: number) => (
+                  <div class="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <span class="flex-shrink-0 w-7 h-7 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-sm font-bold">
+                      ✓
+                    </span>
+                    <p class="text-gray-700 dark:text-gray-300">{practice}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Common Mistakes -->
+            <div class="glass p-8 rounded-2xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Common Mistakes to Avoid</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Learn from others' experiences and avoid these common pitfalls:
+              </p>
+              <div class="space-y-3">
+                {blogContent.commonMistakes.map((mistake: string, index: number) => (
+                  <div class="flex items-start gap-3 p-4 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-800">
+                    <span class="flex-shrink-0 w-7 h-7 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">
+                      ✗
+                    </span>
+                    <p class="text-gray-700 dark:text-gray-300">{mistake}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- 2025 Trends -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">2025 Trends: The Future of Document Management</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                As we navigate 2025, several trends are shaping the document management landscape:
+              </p>
+              <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                <li class="flex items-start gap-3">
+                  <span class="text-primary-600 font-bold mt-1">→</span>
+                  <span><strong>Privacy-First Processing:</strong> Browser-based tools like {tool.name} are becoming the standard, as users demand complete data privacy and security.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary-600 font-bold mt-1">→</span>
+                  <span><strong>Zero-Installation Solutions:</strong> The shift away from desktop software continues, with web-based tools offering instant access from any device.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary-600 font-bold mt-1">→</span>
+                  <span><strong>Enhanced Browser Capabilities:</strong> Modern browsers now support advanced PDF processing, enabling powerful tools without server dependencies.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary-600 font-bold mt-1">→</span>
+                  <span><strong>Workflow Integration:</strong> Tools are becoming more integrated into daily workflows, reducing friction and improving productivity.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary-600 font-bold mt-1">→</span>
+                  <span><strong>Quality Without Compromise:</strong> Browser-based tools now match or exceed desktop software quality while offering superior convenience.</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Technical Specifications</h2>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Supported Formats</h3>
+                  <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                    <li>• Input: {tool.inputFormats.join(', ')}</li>
+                    <li>• Output: {tool.outputFormat}</li>
+                    <li>• Maximum file size: {tool.maxFileSize}MB</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 dark:text-white mb-3">System Requirements</h3>
+                  <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                    <li>• Modern web browser (Chrome, Firefox, Safari, Edge)</li>
+                    <li>• JavaScript enabled</li>
+                    <li>• Internet connection (for initial load only)</li>
+                    <li>• No software installation required</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Conclusion: Embracing {tool.name} in 2025</h2>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                {tool.name} represents the evolution of document management tools - powerful, accessible, and privacy-focused. Whether you're a professional managing complex workflows, a student organizing academic materials, or a business optimizing operations, {tool.name} provides the capabilities you need to succeed.
+              </p>
+              <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                The shift to browser-based, privacy-first tools is not just a trend - it's the future. By leveraging {tool.name}, you're adopting a solution that prioritizes your security, convenience, and productivity. As we continue through 2025, tools like {tool.name} will become even more essential in our digital workflows.
+              </p>
+              <div class="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-600 p-4 rounded mt-4">
+                <p class="text-gray-700 dark:text-gray-300">
+                  <strong>Ready to transform your document workflow?</strong> Try {tool.name} today and experience the difference. For detailed step-by-step instructions, check out our <a href={`/guides/${tool.id}`} class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">complete guide</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="glass p-8 rounded-2xl border-2 border-primary-200 dark:border-primary-700 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800 text-center">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Start Using {tool.name} Today</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              Experience the power of browser-based document processing. No registration, completely free, and 100% secure.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href={`/tools/${tool.id}`} class="px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
+                Try {tool.name} Now →
+              </a>
+              <a href="/guides" class="px-8 py-4 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg border border-gray-300 dark:border-gray-600 transition-colors">
+                Explore All Guides →
+              </a>
+              <a href="/blogs" class="px-8 py-4 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg border border-gray-300 dark:border-gray-600 transition-colors">
+                Read More Blogs →
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>

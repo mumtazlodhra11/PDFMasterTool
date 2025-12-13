@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Add Header Footer to PDF - PDF Header Footer Tool | PDFMasterTool"
+  title="Add Header Footer to PDF - PDF Header Footer Tool | PDFEliteTools"
   description="Add custom headers and footers to PDF documents. Include page numbers, dates, titles, and logos."
   canonical="/tools/header-footer"
 >
@@ -18,12 +18,11 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolDescription="Add professional headers and footers with page numbers, dates, and custom text to PDFs"
     toolIcon="📄"
     acceptedFormats={['.pdf']}
-    maxFileSize={150}
-    maxFiles={5}
-    multiple={true}
+    maxFileSize={100}
+    maxFiles={1}
+    multiple={false}
     toolType="header-footer"
-    outputFileName="converted.pdf"
-  
+    outputFileName={(name) => name.replace('.pdf', '_with_header_footer.pdf')}
   >
     <div class="space-y-6">
       <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
@@ -113,6 +112,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
 
 
 

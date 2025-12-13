@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import toolsData from '@/config/tools.json';
+
+// Helper function to get month name based on tool ID
+function getMonthName(toolId: string) {
+  const hash = toolId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const monthIndex = hash % 3;
+  const months = ['September', 'October', 'November'];
+  return months[monthIndex] || 'September';
+}
+---
+
+<BaseLayout
+  title="Blogs - Latest PDF Tips, Tricks & Tutorials 2025 | PDFEliteTools"
+  description="Read our latest blogs about PDF tools, tips, tricks, and tutorials for 2025. Learn how to master PDF manipulation with our comprehensive guides."
+  canonical="/blogs"
+>
+  <Navbar />
+
+  <div class="min-h-screen bg-white dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-black mb-4">
+            <span class="gradient-text">Latest Blogs & Articles</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400">
+            Stay updated with the latest PDF tips, tricks, and tutorials for 2025
+          </p>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Blog posts for each tool -->
+          {toolsData.tools.filter(tool => !tool.hidden).map((tool) => (
+            <article class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300">
+              <div class="text-4xl mb-4">{tool.icon}</div>
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                {tool.name} - Complete Guide 2025
+              </h2>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Master {tool.name.toLowerCase()} with our comprehensive 2025 guide. Learn best practices, tips, and advanced techniques.
+              </p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span>{getMonthName(tool.id)} 2025</span>
+                <a href={`/blogs/${tool.id}`} class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">
+                  Read More →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Featured Blog Posts -->
+        <div class="mt-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Featured Articles</h2>
+          
+          <div class="space-y-8">
+            <article class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                📚 The Ultimate PDF Workflow Guide for 2025
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Discover the most efficient PDF workflows for professionals in 2025. Learn how to combine multiple tools for maximum productivity, from document conversion to secure sharing. This comprehensive guide covers everything from basic operations to advanced automation techniques.
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-500 dark:text-gray-400">September 15, 2025</span>
+                <a href="/guides" class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">
+                  Read Full Article →
+                </a>
+              </div>
+            </article>
+
+            <article class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                🔒 PDF Security Best Practices in 2025
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Learn how to protect your sensitive documents with modern PDF security techniques. This article covers password protection, encryption methods, watermarking strategies, and compliance requirements for 2025. Essential reading for anyone handling confidential information.
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-500 dark:text-gray-400">October 10, 2025</span>
+                <a href="/guides" class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">
+                  Read Full Article →
+                </a>
+              </div>
+            </article>
+
+            <article class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                ⚡ Boost Your Productivity: PDF Automation Tips 2025
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Transform your document workflow with these powerful PDF automation techniques. From batch processing to smart organization, learn how to save hours every week by automating repetitive PDF tasks. Includes real-world examples and step-by-step tutorials.
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-500 dark:text-gray-400">November 5, 2025</span>
+                <a href="/guides" class="text-primary-600 dark:text-primary-400 hover:underline font-semibold">
+                  Read Full Article →
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+

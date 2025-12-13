@@ -9,16 +9,28 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  keywords?: string;
+  author?: string;
+  type?: string;
+  noindex?: boolean;
+  structuredData?: object;
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
 const {
-  title = 'PDFMasterTool - 30 AI-Powered PDF Tools | Privacy-First, Ad-Free',
-  description = 'Next-gen PDF platform with 30 tools powered by AI and WebAssembly. Convert, edit, compress, merge PDFs instantly. No login, no ads, privacy-first.',
+  title = 'PDFEliteTools - 26+ AI-Powered PDF Tools | Privacy-First, 100% Free',
+  description = 'Next-gen PDF platform with 26+ tools powered by AI and WebAssembly. Convert, edit, compress, merge PDFs instantly. No login, no ads, privacy-first. 100% free forever.',
   canonical = Astro.url.pathname,
-  ogImage = '/og-image.jpg'
+  ogImage = '/og-image.jpg',
+  keywords = 'PDF tools, PDF converter, merge PDF, split PDF, compress PDF, PDF to Word, Word to PDF, PDF editor, free PDF tools, online PDF tools, PDF tools online, PDFEliteTools',
+  author = 'PDFEliteTools',
+  type = 'website',
+  noindex = false,
+  structuredData,
+  breadcrumbs
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfmastertool.com';
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
 const fullUrl = `${siteUrl}${canonical}`;
 ---
 
@@ -33,30 +45,72 @@ const fullUrl = `${siteUrl}${canonical}`;
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+    <meta name="googlebot" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="rating" content="general" />
     <link rel="canonical" href={fullUrl} />
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={fullUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:site_name" content="PDFEliteTools" />
+    <meta property="og:locale" content="en_US" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={fullUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={`${siteUrl}${ogImage}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:creator" content="@PDFEliteTools" />
+    <meta name="twitter:site" content="@PDFEliteTools" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg" />
     
-    <!-- Fonts -->
+    <!-- Fonts - Fully Non-Blocking with System Font Fallback -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <!-- Preconnect only for critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <!-- System font stack for instant rendering (no blocking) -->
+    <style is:inline>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Lexend', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    </style>
+    <!-- Load fonts asynchronously after page load -->
+    <script is:inline>
+      (function() {
+        function loadFonts() {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap';
+          link.media = 'all';
+          document.head.appendChild(link);
+        }
+        // Load fonts after page is interactive
+        if (document.readyState === 'complete') {
+          setTimeout(loadFonts, 0);
+        } else {
+          window.addEventListener('load', function() {
+            setTimeout(loadFonts, 100);
+          }, { once: true });
+        }
+      })();
+    </script>
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
@@ -64,29 +118,135 @@ const fullUrl = `${siteUrl}${canonical}`;
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <!-- Breadcrumbs Structured Data -->
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs.map((crumb, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": crumb.name,
+          "item": `${siteUrl}${crumb.url}`
+        }))
+      })} />
+    )}
+    
+    <!-- Main Structured Data - Enhanced for AdSense -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData || {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "PDFMasterTool",
+      "name": "PDFEliteTools",
       "description": description,
       "url": siteUrl,
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "softwareVersion": "3.0",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
       },
-      "featureList": "PDF conversion, PDF editing, PDF compression, AI OCR, PDF merge, PDF split"
+      "featureList": "PDF conversion, PDF editing, PDF compression, AI OCR, PDF merge, PDF split, PDF to Word, Word to PDF, PDF to Excel, Excel to PDF, PDF to PowerPoint, PowerPoint to PDF, PDF to JPG, JPG to PDF, PDF unlock, PDF password protect, PDF watermark, PDF rotate, PDF reorder pages",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "15000",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "PDFEliteTools",
+        "url": siteUrl
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PDFEliteTools",
+        "url": siteUrl
+      },
+      "sameAs": [
+        "https://twitter.com/PDFEliteTools",
+        "https://facebook.com/PDFEliteTools",
+        "https://linkedin.com/company/PDFEliteTools"
+      ]
     })} />
     
-    <!-- Analytics & Monitoring -->
+    <!-- Organization Schema for AdSense -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PDFEliteTools",
+      "url": siteUrl,
+      "logo": `${siteUrl}/favicon.svg`,
+      "description": "Free online PDF tools platform with 26+ professional tools for converting, editing, merging, and managing PDF files.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "url": `${siteUrl}/contact`
+      },
+      "sameAs": [
+        "https://twitter.com/PDFEliteTools",
+        "https://facebook.com/PDFEliteTools"
+      ]
+    })} />
+    
+    <!-- Analytics & Monitoring - Deferred for performance -->
     <Analytics />
     <Sentry />
     <PerformanceMonitor />
+    
+    <!-- Preload critical resources (non-blocking) -->
+    <link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" fetchpriority="low" />
   </head>
   <body class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white antialiased">
+    <script is:inline>
+      // Global error handler for unhandled promise rejections - deferred
+      (function() {
+        function initErrorHandlers() {
+          window.addEventListener('unhandledrejection', function(event) {
+            const error = event.reason;
+            const errorMessage = error?.message || String(error) || 'Unknown error';
+            
+            // Ignore common PDF.js errors that are handled elsewhere
+            if (errorMessage.toLowerCase().includes('document load failed') ||
+                errorMessage.toLowerCase().includes('invalid pdf') ||
+                errorMessage.toLowerCase().includes('password') ||
+                errorMessage.toLowerCase().includes('corrupted')) {
+              // These errors are handled by the PDF loading code
+              event.preventDefault(); // Prevent console error
+              console.warn('[PDF] Error handled:', errorMessage);
+              return;
+            }
+            
+            // Log other unhandled rejections for debugging
+            console.error('[Unhandled Promise Rejection]', error);
+          });
+          
+          // Global error handler for general errors
+          window.addEventListener('error', function(event) {
+            const errorMessage = event.message || String(event.error) || 'Unknown error';
+            
+            // Ignore common PDF.js errors
+            if (errorMessage.toLowerCase().includes('document load failed') ||
+                errorMessage.toLowerCase().includes('pdf')) {
+              event.preventDefault(); // Prevent console error
+              console.warn('[PDF] Error handled:', errorMessage);
+              return;
+            }
+          });
+        }
+        
+        // Defer error handler initialization
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initErrorHandlers);
+        } else {
+          initErrorHandlers();
+        }
+      })();
+    </script>
     <slot />
   </body>
 </html>

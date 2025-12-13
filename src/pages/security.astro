@@ -1,0 +1,205 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Security - Data Protection & Privacy | PDFEliteTools"
+  description="Learn about PDFEliteTools's security measures, data protection practices, and commitment to user privacy."
+  canonical="/security"
+>
+  <Navbar />
+
+  <div class="min-h-screen bg-white dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-black mb-4">
+            <span class="gradient-text">Security & Data Protection</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400">
+            Your privacy and security are our top priorities
+          </p>
+        </div>
+
+        <!-- Security Content -->
+        <div class="space-y-8">
+          
+          <!-- Overview -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Security Overview</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+              At PDFEliteTools, we take security and privacy seriously. Our platform is designed with security-first principles, ensuring that your files and data are protected at every step. We use industry-standard security measures and best practices to safeguard your information.
+            </p>
+          </section>
+
+          <!-- Client-Side Processing -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Client-Side Processing</h2>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Most of our tools process files directly in your browser using client-side JavaScript. This means your files never leave your device - they are processed locally on your computer or mobile device. This approach provides the highest level of privacy and security, as your files are never transmitted to our servers.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Data Handling -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Data Handling & Storage</h2>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                  For operations that require server-side processing (such as heavy conversions), we follow strict data handling protocols:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 ml-4">
+                  <li><strong>Immediate Deletion:</strong> Files are automatically deleted immediately after processing is complete</li>
+                  <li><strong>No Storage:</strong> We do not store your files on our servers</li>
+                  <li><strong>No Logging:</strong> We do not log file contents or metadata</li>
+                  <li><strong>Encrypted Transmission:</strong> All file transfers use HTTPS encryption</li>
+                  <li><strong>Temporary Processing:</strong> Files exist on our servers only during active processing</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Encryption -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Encryption & Secure Connections</h2>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                  All connections to PDFEliteTools are encrypted using industry-standard TLS/SSL encryption:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 ml-4">
+                  <li><strong>HTTPS Everywhere:</strong> All pages and API endpoints use HTTPS encryption</li>
+                  <li><strong>Strong Cipher Suites:</strong> We use modern, secure encryption protocols</li>
+                  <li><strong>Certificate Validation:</strong> SSL certificates are properly validated and up-to-date</li>
+                  <li><strong>Secure Headers:</strong> Security headers protect against common web vulnerabilities</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- No Tracking -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd" />
+                  <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Privacy & No Tracking</h2>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                  We respect your privacy and do not track your activities:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 ml-4">
+                  <li><strong>No User Accounts:</strong> We don't require registration, so we don't collect personal information</li>
+                  <li><strong>No Cookies:</strong> We use minimal cookies only for essential functionality</li>
+                  <li><strong>No Analytics Tracking:</strong> We don't use tracking pixels or analytics that identify users</li>
+                  <li><strong>No Third-Party Sharing:</strong> We don't share your data with third parties</li>
+                  <li><strong>No File Metadata Storage:</strong> We don't store any information about your files</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Server Security -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Server Security</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+              Our infrastructure is secured with multiple layers of protection:
+            </p>
+            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 ml-4">
+              <li>Regular security updates and patches</li>
+              <li>Firewall protection and intrusion detection</li>
+              <li>Secure server configurations</li>
+              <li>Regular security audits and monitoring</li>
+              <li>DDoS protection and mitigation</li>
+            </ul>
+          </section>
+
+          <!-- Best Practices -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Security Best Practices for Users</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+              While we take extensive security measures, here are some best practices you should follow:
+            </p>
+            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 ml-4">
+              <li>Use a secure, private internet connection when uploading sensitive files</li>
+              <li>Keep your browser updated to the latest version</li>
+              <li>Don't share your processed files publicly if they contain sensitive information</li>
+              <li>Use our password protection tools for sensitive documents</li>
+              <li>Verify the URL is correct (pdfelitetools.com) before uploading files</li>
+            </ul>
+          </section>
+
+          <!-- Compliance -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Commitment</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+              We are committed to maintaining the highest standards of security and privacy. We continuously review and improve our security practices to protect your data. If you have any security concerns or questions, please don't hesitate to <a href="/contact" class="text-primary-600 dark:text-primary-400 hover:underline">contact us</a>.
+            </p>
+          </section>
+
+          <!-- Contact -->
+          <section class="glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Have Security Questions?
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              If you have any questions about our security practices or want to report a security issue, please contact us.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/contact" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors">
+                Contact Us
+              </a>
+              <a href="/support" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors">
+                Support Center
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

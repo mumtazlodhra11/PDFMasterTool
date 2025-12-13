@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="AI PDF Summarizer - Extract Key Insights from PDF | PDFMasterTool"
+  title="AI PDF Summarizer - Extract Key Insights from PDF | PDFEliteTools"
   description="AI-powered PDF summarizer extracts key points and insights from documents. Get executive summaries instantly with GPT-4."
   canonical="/tools/ai-summarizer"
 >
@@ -22,7 +22,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={1}
     multiple={false}
     toolType="ai-summarizer"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '_summarized.pdf')}
   
   >
     <div class="space-y-6">
@@ -107,6 +107,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

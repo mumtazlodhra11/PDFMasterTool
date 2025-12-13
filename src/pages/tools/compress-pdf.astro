@@ -2,11 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
+import VideoTutorialSection from '@/components/VideoTutorialSection.astro';
 ---
 
 <BaseLayout
-  title="Compress PDF - Reduce PDF File Size | PDFMasterTool"
+  title="Compress PDF - Reduce PDF File Size | PDFEliteTools"
   description="Compress PDF files to reduce size while maintaining quality. AI-powered smart compression. Fast and secure."
   canonical="/tools/compress-pdf"
 >
@@ -18,46 +19,97 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolDescription="Reduce PDF file size with AI-powered smart compression while maintaining quality"
     toolIcon="🗜️"
     acceptedFormats={['.pdf']}
-    maxFileSize={150}
+    maxFileSize={100}
     maxFiles={10}
     multiple={false}
     toolType="compress-pdf"
-    outputFileName="compressed.pdf"
-  >
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-            Compression Level
-          </label>
-          <select class="w-full px-4 py-3 glass border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-            <option value="low">Low Compression (High Quality)</option>
-            <option value="medium" selected>Medium Compression (Balanced)</option>
-            <option value="high">High Compression (Smaller Size)</option>
-            <option value="extreme">Extreme Compression (Maximum)</option>
-          </select>
-        </div>
-        <div class="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            id="preserve-quality"
-            checked
-            class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-          />
-          <label for="preserve-quality" class="text-sm text-gray-700 dark:text-gray-300">
-            Preserve image quality (recommended)
-          </label>
-        </div>
-      </div>
-    }
+    outputFileName={(originalName) => {
+      const baseName = originalName.replace(/\.[^/.]+$/, '');
+      return `${baseName}_compressed.pdf`;
+    }}
   >
     <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 bg-blue-50/50 dark:bg-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-blue-900 dark:text-blue-200 mb-1">AI-Powered Smart Compression</p>
+            <p class="text-sm text-blue-800 dark:text-blue-300">
+              Our AI analyzes your PDF's content, images, and structure to automatically select the optimal compression settings that balance file size reduction with quality preservation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watch How It Works Video Section -->
+      <VideoTutorialSection 
+        toolName="Compress PDF"
+        description="Learn how to compress PDF files in just 2 minutes. See real examples and get started reducing file sizes today."
+        videoUrl={import.meta.env.PUBLIC_COMPRESS_PDF_VIDEO_URL || undefined}
+        watchTime="2 min watch"
+      />
+
       <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
-        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Compression Tips</h3>
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How It Works</h3>
+        <ol class="space-y-4 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+            <p>Upload your PDF file (up to 100MB)</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+            <p>AI analyzes your PDF's content, images, and structure</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+            <p>Optimal compression settings are automatically selected</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+            <p>Download your compressed PDF with reduced file size</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Compression Levels</h3>
         <div class="space-y-4 text-gray-600 dark:text-gray-400">
-          <p>• <strong>Low Compression:</strong> Best for documents with important images or graphics</p>
-          <p>• <strong>Medium Compression:</strong> Balanced option for most documents</p>
-          <p>• <strong>High Compression:</strong> Suitable for text-heavy documents</p>
-          <p>• <strong>Extreme Compression:</strong> Maximum size reduction, may affect quality</p>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">🤖 Smart (AI-Powered) - Recommended</p>
+            <p>AI analyzes your PDF and automatically selects optimal compression settings based on content type, image quality, and file structure.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Low Compression</p>
+            <p>Best for documents with important images or graphics. Minimal size reduction (10-20%), maximum quality (95%).</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Medium Compression</p>
+            <p>Balanced option for most documents. Good quality (85%) with reasonable size reduction (30-50%).</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">High Compression</p>
+            <p>Suitable for text-heavy documents. Significant size reduction (50-70%) with acceptable quality (75%).</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Extreme Compression</p>
+            <p>Maximum size reduction (70-90%). May noticeably affect image quality (60%). Use only when file size is critical.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-2xl border border-green-200/50 dark:border-green-800/50 bg-green-50/50 dark:bg-green-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-green-900 dark:text-green-200 mb-1">100% Secure & Private</p>
+            <p class="text-sm text-green-800 dark:text-green-300">
+              All compression happens in your browser. Your files never leave your device, ensuring complete privacy and security.
+            </p>
+          </div>
         </div>
       </div>
     </div>

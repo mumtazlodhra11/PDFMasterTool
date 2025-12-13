@@ -1,0 +1,336 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import toolsData from '@/config/tools.json';
+
+// Helper function to get month name based on tool ID
+function getMonthName(toolId: string) {
+  const hash = toolId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const monthIndex = hash % 3;
+  const months = ['September', 'October', 'November'];
+  return months[monthIndex] || 'September';
+}
+---
+
+<BaseLayout
+  title="Guides - Complete PDF Tool Tutorials & How-To Guides 2025 | PDFEliteTools"
+  description="Comprehensive step-by-step guides for all PDF tools. Learn how to use every feature with detailed tutorials and examples for 2025."
+  canonical="/guides"
+>
+  <Navbar />
+
+  <div class="min-h-screen bg-white dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-black mb-4">
+            <span class="gradient-text">Complete Guides & Tutorials</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400">
+            Step-by-step guides for mastering every PDF tool in 2025
+          </p>
+        </div>
+
+        <!-- Tools by Category -->
+        {toolsData.categories.map((category) => {
+          const categoryTools = toolsData.tools.filter(tool => 
+            tool.category === category.id && !tool.hidden
+          );
+          
+          if (categoryTools.length === 0) return null;
+          
+          return (
+            <section class="mb-12">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                <span>{category.icon}</span>
+                {category.name}
+              </h2>
+              
+              <div class="grid md:grid-cols-2 gap-6">
+                {categoryTools.map((tool) => (
+                  <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300">
+                    <div class="flex items-start gap-4">
+                      <div class="text-3xl flex-shrink-0">{tool.icon}</div>
+                      <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                          {tool.name} - Complete Guide 2025
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                          {tool.description}
+                        </p>
+                        
+                        <div class="space-y-2 mb-4">
+                          <h4 class="text-sm font-semibold text-gray-900 dark:text-white">What You'll Learn:</h4>
+                          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                            <li>• How to use {tool.name} step-by-step</li>
+                            <li>• Best practices and tips for 2025</li>
+                            <li>• Common use cases and examples</li>
+                            <li>• Troubleshooting common issues</li>
+                            {tool.features && tool.features.length > 0 && (
+                              <li>• Advanced features: {tool.features.slice(0, 2).join(', ')}</li>
+                            )}
+                          </ul>
+                        </div>
+                        
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                          <span class="text-xs text-gray-500 dark:text-gray-400">Updated: {getMonthName(tool.id)} 2025</span>
+                          <div class="flex gap-2">
+                            <a 
+                              href={`/guides/${tool.id}`}
+                              class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                            >
+                              View Guide →
+                            </a>
+                            <a 
+                              href={`/blogs/${tool.id}`}
+                              class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white text-sm font-semibold rounded-lg transition-colors"
+                            >
+                              Read Blog →
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+
+        <!-- Quick Start Guide -->
+        <section class="mt-16 glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">🚀 Quick Start Guide</h2>
+          <div class="space-y-4 text-gray-600 dark:text-gray-400">
+            <div>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">1. Choose Your Tool</h3>
+              <p>Browse our comprehensive collection of PDF tools organized by category. Each tool is designed for specific tasks - from converting documents to securing files.</p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">2. Upload Your File</h3>
+              <p>Simply drag and drop your file or click to browse. All processing happens in your browser - your files never leave your device, ensuring complete privacy.</p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">3. Configure Options</h3>
+              <p>Customize settings according to your needs. Most tools offer advanced options for fine-tuning the output to match your requirements.</p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">4. Process & Download</h3>
+              <p>Click "Process" and wait a few seconds. Download your processed file instantly - no registration or payment required!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Video Tutorials Section -->
+        <section class="mt-16">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-3 flex items-center justify-center gap-3">
+              <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              Video Tutorials
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400">
+              Watch step-by-step video guides to master PDF tools quickly
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Featured Video - Product Overview -->
+            <div class="md:col-span-2 lg:col-span-3 glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🎬 Complete Product Overview</h3>
+              <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                {import.meta.env.PUBLIC_DEMO_VIDEO_URL ? (
+                  <div class="aspect-video">
+                    <iframe
+                      src={import.meta.env.PUBLIC_DEMO_VIDEO_URL}
+                      class="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                      loading="lazy"
+                      title="PDFEliteTools Complete Overview"
+                    />
+                  </div>
+                ) : (
+                  <div class="aspect-video flex items-center justify-center bg-gradient-to-br from-primary-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
+                    <div class="text-center">
+                      <div class="mx-auto w-16 h-16 rounded-full bg-white/80 dark:bg-white/10 flex items-center justify-center mb-4 shadow">
+                        <svg class="w-8 h-8 text-primary-600" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                      </div>
+                      <p class="text-gray-700 dark:text-gray-300 font-semibold">Product Overview Video</p>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Coming soon - Complete walkthrough of all features</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <!-- Category Video Tutorials -->
+            {toolsData.categories.slice(0, 6).map((category) => {
+              const categoryTools = toolsData.tools.filter(tool => 
+                tool.category === category.id && !tool.hidden
+              );
+              
+              if (categoryTools.length === 0) return null;
+              
+              return (
+                <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300">
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">{category.icon}</span>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">{category.name} Tutorials</h3>
+                  </div>
+                  
+                  <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 mb-4">
+                    <div class="aspect-video flex items-center justify-center bg-gradient-to-br from-primary-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
+                      <div class="text-center">
+                        <div class="mx-auto w-12 h-12 rounded-full bg-white/80 dark:bg-white/10 flex items-center justify-center mb-3 shadow">
+                          <svg class="w-6 h-6 text-primary-600" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 font-medium">Video Tutorial</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Coming Soon</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-2">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Learn how to use {categoryTools.length} {category.name.toLowerCase()} tools with step-by-step video guides.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                      {categoryTools.slice(0, 3).map((tool) => (
+                        <span class="text-xs px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full">
+                          {tool.icon} {tool.name}
+                        </span>
+                      ))}
+                      {categoryTools.length > 3 && (
+                        <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
+                          +{categoryTools.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- Popular Video Tutorials -->
+          <div class="mt-12">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">🔥 Most Popular Video Tutorials</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: "How to Merge PDFs", icon: "📄", description: "Combine multiple PDFs into one file" },
+                { title: "PDF to Word Conversion", icon: "📝", description: "Convert PDFs to editable Word documents" },
+                { title: "Compress PDF Files", icon: "🗜️", description: "Reduce PDF file size without losing quality" },
+                { title: "Password Protect PDF", icon: "🔒", description: "Secure your PDFs with passwords" },
+                { title: "Extract Pages from PDF", icon: "✂️", description: "Split and extract specific pages" },
+                { title: "Add Watermarks", icon: "💧", description: "Add text or image watermarks to PDFs" },
+                { title: "PDF to Image", icon: "🖼️", description: "Convert PDF pages to JPG or PNG images" },
+                { title: "Rotate PDF Pages", icon: "🔄", description: "Rotate pages in your PDF documents" }
+              ].map((tutorial) => (
+                <div class="glass p-5 rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                  <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 mb-3">
+                    <div class="aspect-video flex items-center justify-center bg-gradient-to-br from-primary-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 group-hover:scale-105 transition-transform">
+                      <div class="text-center">
+                        <div class="mx-auto w-10 h-10 rounded-full bg-white/80 dark:bg-white/10 flex items-center justify-center mb-2 shadow">
+                          <svg class="w-5 h-5 text-primary-600" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2 mb-2">
+                    <span class="text-xl flex-shrink-0">{tutorial.icon}</span>
+                    <h4 class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                      {tutorial.title}
+                    </h4>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">{tutorial.description}</p>
+                  <div class="mt-3 flex items-center text-xs text-primary-600 dark:text-primary-400">
+                    <span>Watch Tutorial →</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Video Tutorial Benefits -->
+          <div class="mt-12 glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Why Watch Video Tutorials?</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <h4 class="font-semibold text-gray-900 dark:text-white">Visual Learning</h4>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  See exactly how each tool works with visual demonstrations
+                </p>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                  </svg>
+                  <h4 class="font-semibold text-gray-900 dark:text-white">Save Time</h4>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  Learn faster by watching instead of reading lengthy guides
+                </p>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                  </svg>
+                  <h4 class="font-semibold text-gray-900 dark:text-white">Step-by-Step</h4>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  Follow along with detailed step-by-step instructions
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tips & Tricks Section -->
+        <section class="mt-12">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">💡 Pro Tips for 2025</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Batch Processing</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Process multiple files at once to save time. Most tools support batch operations - simply select multiple files when uploading.
+              </p>
+            </div>
+            <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">File Size Optimization</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Use the Compress PDF tool before sharing large files. This reduces file size while maintaining quality, making sharing faster.
+              </p>
+            </div>
+            <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Security First</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Always password-protect sensitive documents. Combine with watermarking for additional security layers.
+              </p>
+            </div>
+            <div class="glass p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Mobile Workflow</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Use Mobile Scanner to digitize physical documents on-the-go. Perfect for receipts, forms, and contracts.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+

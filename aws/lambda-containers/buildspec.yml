@@ -1,0 +1,53 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_ACCOUNT_ID: "137288645009"
+    AWS_REGION: "eu-west-1"
+    ECR_BASE: "137288645009.dkr.ecr.eu-west-1.amazonaws.com"
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_BASE
+      - echo Build started on `date`
+      - ls -la
+      - pwd
+  build:
+    commands:
+      - |
+        echo "Building Word to PDF..."
+        cd lambda-containers/word-to-pdf
+        docker build -t word-to-pdf:latest .
+        docker tag word-to-pdf:latest $ECR_BASE/pdfmastertool-word-to-pdf:latest
+        docker push $ECR_BASE/pdfmastertool-word-to-pdf:latest
+      - |
+        echo "Building PPT to PDF..."
+        cd ../../lambda-containers/ppt-to-pdf
+        docker build -t ppt-to-pdf:latest .
+        docker tag ppt-to-pdf:latest $ECR_BASE/pdfmastertool-ppt-to-pdf:latest
+        docker push $ECR_BASE/pdfmastertool-ppt-to-pdf:latest
+      - |
+        echo "Building PDF to Word..."
+        cd ../../lambda-containers/pdf-to-word
+        docker build -t pdf-to-word:latest .
+        docker tag pdf-to-word:latest $ECR_BASE/pdfmastertool-pdf-to-word:latest
+        docker push $ECR_BASE/pdfmastertool-pdf-to-word:latest
+      - |
+        echo "Building PDF to Excel..."
+        cd ../../lambda-containers/pdf-to-excel
+        docker build -t pdf-to-excel:latest .
+        docker tag pdf-to-excel:latest $ECR_BASE/pdfmastertool-pdf-to-excel:latest
+        docker push $ECR_BASE/pdfmastertool-pdf-to-excel:latest
+      - |
+        echo "Building PDF to PPT..."
+        cd ../../lambda-containers/pdf-to-ppt
+        docker build -t pdf-to-ppt:latest .
+        docker tag pdf-to-ppt:latest $ECR_BASE/pdfmastertool-pdf-to-ppt:latest
+        docker push $ECR_BASE/pdfmastertool-pdf-to-ppt:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo "All 5 Docker images built and pushed successfully!"
+

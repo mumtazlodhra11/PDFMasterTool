@@ -1,0 +1,63 @@
+========================================
+LOCAL SERVER START - STEP BY STEP
+========================================
+
+STEP 1: Open PowerShell
+------------------------
+cd D:\PDFMasterTool\google-cloud-run
+
+
+STEP 2: Activate Virtual Environment
+-------------------------------------
+.\venv\Scripts\Activate.ps1
+
+You should see: (venv) PS D:\PDFMasterTool\google-cloud-run>
+
+
+STEP 3: Install Dependencies (if not done)
+-------------------------------------------
+pip install -r requirements.txt
+
+Wait for installation to complete...
+
+
+STEP 4: Start Server
+---------------------
+python app.py
+
+You should see:
+INFO:     Started server process
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:9001
+
+
+STEP 5: Verify Server
+---------------------
+Open browser: http://localhost:9001/health
+
+Should show: {"status":"ok"}
+
+
+STEP 6: Test Excel to PDF (NEW terminal)
+-----------------------------------------
+Open NEW PowerShell window:
+
+cd D:\PDFMasterTool\google-cloud-run
+.\venv\Scripts\Activate.ps1
+python test_local.py sample.xlsx
+
+
+TROUBLESHOOTING:
+----------------
+If server doesn't start:
+1. Check for errors in terminal
+2. Make sure port 9001 is free
+3. Install LibreOffice (for Excel conversion)
+
+If "ModuleNotFoundError":
+- Run: pip install -r requirements.txt
+
+========================================
+
+

@@ -1,0 +1,154 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Compare PDFEliteTools vs Others | Why We're Different"
+  description="See how PDFEliteTools compares: privacy-first, fast, 40+ tools, no ads, no sign-up."
+>
+  <Navbar />
+
+  <section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-6xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white">PDFEliteTools vs Others</h1>
+      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-3xl">
+        A practical, vendor-neutral comparison of what you get here versus most online PDF tools.
+        We focus on privacy, speed, and ease of use.
+      </p>
+
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-800/50">
+            <tr>
+              <th class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-600 dark:text-gray-300">Feature</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-600 dark:text-gray-300">PDFEliteTools</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-600 dark:text-gray-300">Typical Competitors</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">Privacy-first (client-side for 30+ tools)</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Yes — files stay on your device</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Often server-side uploads</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">AI-assisted tools</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Included (comparison, analytics, quiz, OCR helpers)</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Limited or paywalled</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">No sign up, no ads</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Yes</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Often requires account and shows ads</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">Watermark-free outputs</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Yes</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Sometimes watermarked on free tier</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">Speed</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Instant for client-side tools; optimized backend on Cloud Run for heavy tasks</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Upload + queue delays</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">Tool coverage</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">40+ tools, full suite</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Varies; some tools missing</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">Mobile-friendly UI</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Modern, responsive, touch-ready</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Inconsistent</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white">API / automation readiness</td>
+              <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold">Serverless backend ready (Cloud Run)</td>
+              <td class="px-6 py-4 text-gray-600 dark:text-gray-400">Often paid plans only</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl glass border border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">What this means for you</h3>
+          <p class="text-gray-600 dark:text-gray-400">Fewer uploads, faster results, and more control over your files.</p>
+        </div>
+        <div class="p-6 rounded-2xl glass border border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Fair usage</h3>
+          <p class="text-gray-600 dark:text-gray-400">No forced sign-up, no watermarks, and generous limits for normal use.</p>
+        </div>
+        <div class="p-6 rounded-2xl glass border border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Enterprise ready</h3>
+          <p class="text-gray-600 dark:text-gray-400">Serverless backend routes heavy conversions reliably via Google Cloud Run.</p>
+        </div>
+      </div>
+
+      <!-- Visual Showcase: Video + Screenshot-style tiles -->
+      <div class="mt-16 grid lg:grid-cols-2 gap-8 items-start">
+        <!-- Video/Embed (configurable) -->
+        <div class="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm bg-gray-50 dark:bg-gray-800">
+          {/* If PUBLIC_DEMO_VIDEO_URL is provided, we embed it. Otherwise show a clean placeholder. */}
+          {import.meta.env.PUBLIC_DEMO_VIDEO_URL ? (
+            <div class="aspect-video">
+              <iframe
+                src={import.meta.env.PUBLIC_DEMO_VIDEO_URL}
+                class="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                title="PDFEliteTools Demo"
+              />
+            </div>
+          ) : (
+            <div class="aspect-video flex items-center justify-center bg-gradient-to-br from-primary-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
+              <div class="text-center">
+                <div class="mx-auto w-16 h-16 rounded-full bg-white/80 dark:bg-white/10 flex items-center justify-center mb-4 shadow">
+                  <svg class="w-8 h-8 text-primary-600" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">Product demo coming soon</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Set PUBLIC_DEMO_VIDEO_URL to embed your video</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Screenshot-style tiles (SVG placeholders you can replace later) -->
+        <div class="grid sm:grid-cols-2 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm" aria-label={`Showcase image ${i+1}`}>
+              <svg viewBox="0 0 800 500" class="w-full h-auto block" role="img">
+                <defs>
+                  <linearGradient id={`grad-${i}`} x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#93C5FD"/>
+                    <stop offset="50%" stop-color="#A78BFA"/>
+                    <stop offset="100%" stop-color="#FCA5A5"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="800" height="500" fill={`url(#grad-${i})`} opacity="0.15" />
+                <rect x="40" y="40" width="720" height="420" rx="16" fill="#ffffff" stroke="#e5e7eb" />
+                <rect x="70" y="80" width="220" height="24" rx="6" fill="#e5e7eb" />
+                <rect x="70" y="120" width="660" height="14" rx="4" fill="#eef2ff" />
+                <rect x="70" y="146" width="540" height="14" rx="4" fill="#eef2ff" />
+                <rect x="70" y="172" width="600" height="14" rx="4" fill="#eef2ff" />
+                <rect x="70" y="220" width="660" height="200" rx="10" fill="#f8fafc" stroke="#e5e7eb" />
+                <circle cx="740" cy="60" r="6" fill="#22c55e" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <a href="/" class="btn-premium">Start Using Free Tools →</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+

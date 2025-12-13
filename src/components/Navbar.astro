@@ -1,103 +1,178 @@
 ---
 import { Icon } from 'astro-icon/components';
 const base = import.meta.env.BASE_URL || '/';
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="sticky top-0 z-50 glass border-b border-gray-200/50 dark:border-gray-700/50">
   <div class="container mx-auto px-4 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center space-x-2 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+      <a href="/" class="flex items-center space-x-2 group" aria-label="PDFEliteTools - Home">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
         </div>
-        <span class="text-xl font-bold gradient-text hidden sm:block">PDFMasterTool</span>
+        <span class="text-xl font-bold gradient-text hidden sm:block">PDFEliteTools</span>
+        <span class="sr-only">PDFEliteTools - Home</span>
       </a>
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8">
-        <a href="/#tools" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">
+        <a href="/" class="font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400" data-nav="home">
+          Home
+        </a>
+        <a href="/#tools" class="font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400" data-nav="tools">
           Tools
         </a>
-        <a href="/#features" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">
-          Features
+        <a href="/blogs" class="font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400" data-nav="blogs">
+          Blogs
         </a>
-        <a href="/#ai-powered" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">
-          AI Tools
+        <a href="/guides" class="font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400" data-nav="guides">
+          Guides
         </a>
-        <a href="/pricing" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">
-          Pricing
+        <a href="/contact" class="font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400" data-nav="contact">
+          Contact Us
         </a>
       </div>
       
-      <!-- CTA Buttons -->
-      <div class="flex items-center space-x-4">
-        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200/50 dark:hover:bg-gray-700/50 transition-colors" aria-label="Toggle theme">
-          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-        </button>
-        
-        <a href="/#tools" class="hidden sm:block px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-medium rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
-          Get Started
-        </a>
-        
-        <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-lg hover:bg-gray-200/50 dark:hover:bg-gray-700/50">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <!-- Mobile Menu Toggle -->
+      <div class="flex items-center">
+        <button 
+          id="mobile-menu-toggle" 
+          class="md:hidden p-2 rounded-lg hover:bg-gray-200/50 dark:hover:bg-gray-700/50"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
+          <span class="sr-only">Toggle mobile menu</span>
         </button>
       </div>
     </div>
   </div>
   
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200/50 dark:border-gray-700/50">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200/50 dark:border-gray-700/50" role="menu" aria-label="Mobile navigation menu">
     <div class="container mx-auto px-4 py-4 space-y-3">
-      <a href="/#tools" class="block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+      <a href="/" class="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" data-nav="home">
+        Home
+      </a>
+      <a href="/#tools" class="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" data-nav="tools">
         Tools
       </a>
-      <a href="/#features" class="block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-        Features
+      <a href="/blogs" class="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" data-nav="blogs">
+        Blogs
       </a>
-      <a href="/#ai-powered" class="block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-        AI Tools
+      <a href="/guides" class="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" data-nav="guides">
+        Guides
       </a>
-      <a href="/pricing" class="block px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-        Pricing
+      <a href="/contact" class="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" data-nav="contact">
+        Contact Us
       </a>
     </div>
   </div>
 </nav>
 
 <script>
-  // Theme toggle
-  const themeToggle = document.getElementById('theme-toggle');
-  const html = document.documentElement;
-  
-  themeToggle?.addEventListener('click', () => {
-    const isDark = html.classList.contains('dark');
-    html.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-  });
-  
-  // Load saved theme
-  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    html.classList.add('dark');
-  }
-  
   // Mobile menu toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   
   mobileMenuToggle?.addEventListener('click', () => {
+    const isHidden = mobileMenu?.classList.contains('hidden');
     mobileMenu?.classList.toggle('hidden');
+    mobileMenuToggle?.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
   });
+  
+  // Set HTML lang to English
+  document.documentElement.lang = 'en';
+
+  // Active link highlighting based on current page
+  function updateActiveLinks() {
+    const currentPath = window.location.pathname;
+    const currentHash = window.location.hash;
+    
+    // Get all navigation links (both desktop and mobile)
+    const allNavLinks = document.querySelectorAll('nav a[data-nav]');
+    
+    // First, remove ALL active classes from all nav links
+    allNavLinks.forEach(link => {
+      // Skip logo link
+      if (link.querySelector('.gradient-text') || link.classList.contains('group')) {
+        return;
+      }
+      
+      // Remove active classes
+      link.classList.remove('text-primary-600', 'dark:text-primary-400', 'font-bold', 'bg-primary-50', 'dark:bg-primary-900/20');
+      
+      // Add default classes
+      link.classList.add('text-gray-700', 'dark:text-gray-300');
+    });
+    
+    // Now, add active class to ONLY the correct link
+    allNavLinks.forEach(link => {
+      // Skip logo link
+      if (link.querySelector('.gradient-text') || link.classList.contains('group')) {
+        return;
+      }
+      
+      const href = link.getAttribute('href') || '';
+      const navType = link.getAttribute('data-nav');
+      let isActive = false;
+      
+      // Check for Tools link (hash-based)
+      if (navType === 'tools') {
+        isActive = currentHash === '#tools' || currentPath.includes('/tools/');
+      }
+      // Check for Home link (only if no hash and on homepage)
+      else if (navType === 'home') {
+        isActive = (currentPath === '/' || currentPath === '/index.html' || currentPath.endsWith('/')) && currentHash === '';
+      }
+      // Check for Contact page
+      else if (navType === 'contact') {
+        isActive = currentPath === '/contact' || currentPath.includes('/contact');
+      }
+      // Check for Blogs page
+      else if (navType === 'blogs') {
+        isActive = currentPath.startsWith('/blogs') || currentPath.includes('/blogs');
+      }
+      // Check for Guides page
+      else if (navType === 'guides') {
+        isActive = currentPath.startsWith('/guides') || currentPath.includes('/guides');
+      }
+      
+      // Apply active styling to only the active link
+      if (isActive) {
+        link.classList.remove('text-gray-700', 'dark:text-gray-300');
+        link.classList.add('text-primary-600', 'dark:text-primary-400', 'font-bold');
+        
+        // For mobile menu
+        if (link.closest('#mobile-menu')) {
+          link.classList.add('bg-primary-50', 'dark:bg-primary-900/20');
+        }
+      }
+    });
+  }
+  
+  // Update on page load (multiple ways to ensure it runs)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateActiveLinks);
+  } else {
+    updateActiveLinks();
+  }
+  
+  // Update on hash change (for #tools links)
+  window.addEventListener('hashchange', updateActiveLinks);
+  
+  // Also update after navigation
+  window.addEventListener('popstate', updateActiveLinks);
+  
+  // Update after a short delay to catch any dynamic changes
+  setTimeout(updateActiveLinks, 100);
 </script>
 
 

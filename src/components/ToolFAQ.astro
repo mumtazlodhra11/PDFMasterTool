@@ -1,0 +1,42 @@
+---
+// Tool FAQ Component - Optimized for Featured Snippets (iLovePDF style)
+interface Props {
+  toolName: string;
+  faqs: Array<{ question: string; answer: string }>;
+}
+
+const { toolName, faqs } = Astro.props;
+---
+
+{faqs && faqs.length > 0 && (
+  <section class="mt-12 glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      Frequently Asked Questions about {toolName}
+    </h2>
+    
+    <div class="space-y-4">
+      {faqs.map((faq, index) => (
+        <details 
+          class="p-5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-colors"
+          open={index === 0}
+        >
+          <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+            {faq.question}
+          </summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 leading-relaxed">
+            {faq.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </section>
+)}
+
+
+
+
+
+
+
+
+

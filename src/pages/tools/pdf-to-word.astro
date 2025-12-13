@@ -2,11 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
+import VideoTutorialSection from '@/components/VideoTutorialSection.astro';
 ---
 
 <BaseLayout
-  title="PDF to Word - Convert PDF to DOCX Online Free | PDFMasterTool"
+  title="PDF to Word - Convert PDF to DOCX Online Free | PDFEliteTools"
   description="Convert PDF to editable Word documents (DOCX) with OCR support. Extract text, images, and preserve formatting. Fast AI-powered conversion."
   canonical="/tools/pdf-to-word"
 >
@@ -22,7 +23,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={5}
     multiple={true}
     toolType="pdf-to-word"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '.docx')}
   
   >
     <div class="space-y-6">
@@ -82,6 +83,14 @@ import { ToolTemplate } from '@/components/ToolTemplate';
         </div>
       </div>
 
+      <!-- Watch How It Works Video Section -->
+      <VideoTutorialSection 
+        toolName="PDF to Word"
+        description="Learn how to use our PDF to Word converter in just 2 minutes. See real examples and get started converting your PDFs today."
+        videoUrl={import.meta.env.PUBLIC_PDF_TO_WORD_VIDEO_URL || undefined}
+        watchTime="2 min watch"
+      />
+
       <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
         <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">How It Works</h3>
         <ol class="space-y-4 text-gray-600 dark:text-gray-400">
@@ -108,6 +117,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

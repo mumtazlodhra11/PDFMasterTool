@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="PDF to PDF/A - Convert to Archival PDF | PDFMasterTool"
+  title="PDF to PDF/A - Convert to Archival PDF | PDFEliteTools"
   description="Convert PDF to PDF/A format for long-term archival. Compliant with ISO standards. Perfect for legal and official documents."
   canonical="/tools/pdf-to-pdfa"
 >
@@ -18,11 +18,11 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolDescription="Convert PDFs to PDF/A format for long-term archival and compliance"
     toolIcon="📜"
     acceptedFormats={['.pdf']}
-    maxFileSize={150}
+    maxFileSize={100}
     maxFiles={5}
     multiple={true}
     toolType="pdf-to-pdfa"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '_pdfa.pdf')}
   
   >
     <div class="space-y-6">
@@ -166,6 +166,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

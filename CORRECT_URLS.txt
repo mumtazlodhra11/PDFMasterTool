@@ -1,0 +1,58 @@
+========================================
+✅ CORRECT URLS TO USE:
+========================================
+
+MAIN PAGE:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com
+
+WORD TO PDF:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com/tools/word-to-pdf/
+
+MERGE PDF:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com/tools/merge-pdf/
+
+COMPRESS PDF:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com/tools/compress-pdf/
+
+SPLIT PDF:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com/tools/split-pdf/
+
+ROTATE PDF:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com/tools/rotate-pdf/
+
+ALL 46 TOOLS:
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com
+
+========================================
+❌ WRONG (DO NOT USE):
+========================================
+
+tools/word-to-pdf  ❌
+/local-tools/word-to-pdf  ❌
+http://tools/word-to-pdf  ❌
+
+========================================
+✅ CORRECT (USE THIS):
+========================================
+
+http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com/tools/word-to-pdf/
+
+========================================
+📝 HOW TO FIX:
+========================================
+
+1. Copy this URL:
+   http://pdfmastertool-website.s3-website-eu-west-1.amazonaws.com
+
+2. Paste in browser address bar
+
+3. Press Enter
+
+4. Website will open!
+
+5. Then click on "Word to PDF" or any tool
+
+========================================
+URL COPY KARO AUR BROWSER MEIN PASTE KARO!
+
+

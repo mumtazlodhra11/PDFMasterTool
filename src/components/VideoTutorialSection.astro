@@ -1,0 +1,170 @@
+---
+interface Props {
+  toolName: string;
+  description?: string;
+  videoUrl?: string | undefined;
+  watchTime?: string;
+  bulletPoints?: string[];
+}
+
+const { 
+  toolName, 
+  description = `Learn how to use our ${toolName} in just 2 minutes. See real examples and get started today.`,
+  videoUrl,
+  watchTime = "2 min watch",
+  bulletPoints = [
+    "Step-by-step tutorial",
+    "Real document examples",
+    "Tips for maximum accuracy"
+  ]
+} = Astro.props;
+
+// Get video URL from env if not provided, or use default demo video
+// Using a generic PDF tutorial video as default
+const defaultDemoVideo = 'https://www.youtube.com/embed/8Y0Qx6J1R2k'; // PDF tutorial demo
+const finalVideoUrl = videoUrl || import.meta.env.PUBLIC_DEMO_VIDEO_URL || defaultDemoVideo;
+---
+
+<div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+  <div class="grid lg:grid-cols-2 gap-8 items-center">
+    <!-- Left Side: Text Content -->
+    <div>
+      <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Watch How It Works</h3>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">
+        {description}
+      </p>
+      
+      <ul class="space-y-3 mb-6">
+        {bulletPoints.map((point) => (
+          <li class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-gray-700 dark:text-gray-300">{point}</span>
+          </li>
+        ))}
+      </ul>
+      
+      <a 
+        href="#video-tutorial" 
+        class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
+      >
+        Watch Tutorial →
+      </a>
+    </div>
+    
+    <!-- Right Side: Video Player -->
+    <div class="relative">
+      <div 
+        id={`video-tutorial-${toolName.replace(/\s+/g, '-').toLowerCase()}`}
+        class="relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg bg-gradient-to-br from-primary-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800"
+      >
+        <!-- Video Container (hidden initially) -->
+        <div 
+          id="video-container" 
+          class="hidden aspect-video"
+        >
+          <iframe
+            id="video-iframe"
+            class="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title={`${toolName} Tutorial`}
+          />
+        </div>
+        
+        <!-- Play Button Overlay (shown initially) -->
+        <div 
+          id="video-play-overlay"
+          class="aspect-video flex items-center justify-center relative group cursor-pointer"
+          data-video-url={finalVideoUrl}
+          data-tool-name={toolName}
+        >
+          <div class="text-center z-10">
+            <button 
+              id="video-play-btn"
+              class="mx-auto w-20 h-20 rounded-full bg-white/90 dark:bg-white/10 flex items-center justify-center mb-4 shadow-xl hover:scale-110 transition-transform group-hover:bg-primary-600 group-hover:bg-opacity-20"
+              aria-label="Play video tutorial"
+            >
+              <svg class="w-10 h-10 text-primary-600 ml-1 group-hover:text-primary-700" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+            <p class="text-gray-700 dark:text-gray-300 font-semibold text-lg mb-1">Video Tutorial</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Click to play</p>
+          </div>
+        </div>
+        
+        <!-- Watch time badge -->
+        <div id="watch-time-badge" class="absolute bottom-4 right-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg z-20">
+          {watchTime}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Make video playable on click
+  document.addEventListener('DOMContentLoaded', function() {
+    // Find all video play overlays
+    const playOverlays = document.querySelectorAll('#video-play-overlay');
+    
+    playOverlays.forEach(function(playOverlay) {
+      const videoSection = playOverlay.closest('[id^="video-tutorial"]');
+      if (!videoSection) return;
+      
+      const playBtn = playOverlay.querySelector('#video-play-btn');
+      const videoContainer = videoSection.querySelector('#video-container');
+      const videoIframe = videoSection.querySelector('#video-iframe');
+      const watchTimeBadge = videoSection.querySelector('#watch-time-badge');
+      
+      if (!playBtn || !videoContainer || !videoIframe) return;
+      
+      function playVideo() {
+        // Get video URL from data attribute
+        let url = playOverlay.getAttribute('data-video-url');
+        if (!url) {
+          url = 'https://www.youtube.com/embed/8Y0Qx6J1R2k'; // Default demo video
+        }
+        
+        // Hide play overlay
+        playOverlay.style.display = 'none';
+        
+        // Hide watch time badge
+        if (watchTimeBadge) {
+          watchTimeBadge.style.display = 'none';
+        }
+        
+        // Show video container
+        videoContainer.style.display = 'block';
+        videoContainer.classList.remove('hidden');
+        
+        // Set video source with autoplay
+        if (!url.includes('autoplay')) {
+          const separator = url.includes('?') ? '&' : '?';
+          url = url + separator + 'autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        }
+        
+        videoIframe.src = url;
+        console.log('✅ Video playing:', url);
+      }
+      
+      // Add click listeners
+      playBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        playVideo();
+      });
+      
+      playOverlay.addEventListener('click', function(e) {
+        if (e.target === playOverlay || e.target.closest('#video-play-btn') || e.target.closest('.text-center')) {
+          e.preventDefault();
+          e.stopPropagation();
+          playVideo();
+        }
+      });
+    });
+  });
+</script>
+

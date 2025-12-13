@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="HTML to PDF - Convert Webpages to PDF Online | PDFMasterTool"
+  title="HTML to PDF - Convert Webpages to PDF Online | PDFEliteTools"
   description="Convert HTML files and web pages to PDF format. Preserve CSS styles, images, and layout. Perfect for archiving websites."
   canonical="/tools/html-to-pdf"
 >
@@ -22,8 +22,16 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={5}
     multiple={true}
     toolType="html-to-pdf"
-    outputFileName="converted.pdf"
-  
+    outputFileName={(inputName: string) => {
+      const original = (inputName || '').trim();
+      const noExt = original.replace(/\.[^/.]+$/, '');
+      const match = noExt.match(/([^\\/]+)$/); // strip directories if pasted path
+      const baseName = match ? match[1] : noExt;
+      const cleaned = baseName.replace(/^converted[_-\s]*/i, '').trim();
+      const finalBase = cleaned || 'html-page';
+      return `${finalBase}.pdf`;
+    }}
+    forcePdfExtension
   >
     <div class="space-y-6">
       <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
@@ -78,6 +86,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="PDF to PowerPoint - Convert PDF to PPT | PDFMasterTool"
+  title="PDF to PowerPoint - Convert PDF to PPT | PDFEliteTools"
   description="Convert PDF to editable PowerPoint presentations"
   canonical="/tools/pdf-to-powerpoint"
 >
@@ -19,14 +19,112 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolIcon="📊"
     acceptedFormats={['.pdf']}
     maxFileSize={50}
-    maxFiles={1}
+    maxFiles={5}
     multiple={false}
-    toolType="pdf-to-ppt"
-    outputFileName="converted.pptx"
+    toolType="pdf-to-powerpoint"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '.pptx')}
   >
-    <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
-      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Features</h3>
-      <p class="text-gray-600 dark:text-gray-400">Convert your PDF documents to editable PowerPoint presentations. Server-side processing ensures high quality.</p>
+    <div class="space-y-6">
+      <div class="glass p-8 rounded-2xl border border-primary-200/50 dark:border-primary-800/50 bg-gradient-to-br from-primary-50/50 to-blue-50/50 dark:from-primary-900/10 dark:to-blue-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Enterprise-Grade Conversion</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Convert your PDF into a fully editable PowerPoint presentation with enterprise-level options. Each page becomes a slide with editable text, images, and formatting.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Conversion Features</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Layout Preservation</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Maintains original design</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Editable Text</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Fully editable content</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">Image Extraction</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Preserves all images</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white">OCR Support</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Extract text from scanned PDFs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
+        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Perfect For</h3>
+        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Editing existing presentations shared as PDF</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Creating presentations from PDF reports</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Recovering editable versions from PDF backups</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p>Adapting documents for presentation format</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass p-6 rounded-2xl border border-yellow-200/50 dark:border-yellow-800/50 bg-yellow-50/50 dark:bg-yellow-900/10">
+        <div class="flex items-start space-x-3">
+          <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-sm font-medium text-yellow-900 dark:text-yellow-200 mb-1">Best Results</p>
+            <p class="text-sm text-yellow-800 dark:text-yellow-300">
+              For best conversion quality, use PDFs that were originally created from PowerPoint or similar presentation software. Use the enterprise options above to customize your conversion.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </ToolTemplate>
 

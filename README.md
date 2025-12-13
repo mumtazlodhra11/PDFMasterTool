@@ -82,7 +82,7 @@ AWS_LAMBDA_FUNCTION_NAME=pdf-converter
 AWS_CLOUDFRONT_DOMAIN=your_cloudfront_domain
 
 # Public Configuration
-PUBLIC_SITE_URL=https://pdfmastertool.com
+PUBLIC_SITE_URL=https://pdfelitetools.com
 PUBLIC_MAX_FILE_SIZE=157286400
 PUBLIC_API_ENDPOINT=https://api.pdfmastertool.com
 

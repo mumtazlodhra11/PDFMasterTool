@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 
 const toolId = 'excel-to-pdf';
 ---
 
 <BaseLayout
-  title="Excel to PDF Converter - Free Online Excel to PDF | PDFMasterTool"
+  title="Excel to PDF Converter - Free Online Excel to PDF | PDFEliteTools"
   description="Convert Excel spreadsheets (XLSX, XLS) to professional PDF documents instantly. Fast, secure, and free Excel to PDF converter with table preservation."
   canonical="/tools/excel-to-pdf"
 >
@@ -23,7 +23,7 @@ const toolId = 'excel-to-pdf';
     maxFiles={10}
     multiple={true}
     toolType="excel-to-pdf"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.(xlsx?)$/i, '.pdf')}
   
   >
     <div class="space-y-6">
@@ -99,6 +99,8 @@ const toolId = 'excel-to-pdf';
     </div>
   </ToolTemplate>
 </BaseLayout>
+
+
 
 
 

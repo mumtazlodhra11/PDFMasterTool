@@ -1,0 +1,109 @@
+========================================
+🌐 CUSTOM DOMAIN SETUP GUIDE
+========================================
+
+REQUIREMENT:
+------------
+You need a domain name (e.g., pdfmastertool.com)
+
+If you DON'T have one yet, buy from:
+  - Namecheap.com (~$10/year)
+  - GoDaddy.com
+  - Cloudflare Registrar (cheapest)
+
+========================================
+STEP 1: DNS SETTINGS (Your Domain Provider)
+========================================
+
+Go to your domain provider (Namecheap/GoDaddy/etc)
+Find: DNS Settings / DNS Management
+
+ADD THESE RECORDS:
+------------------
+
+Record Type: A
+Host: @
+Value: 185.199.108.153
+TTL: Automatic
+
+Record Type: A
+Host: @
+Value: 185.199.109.153
+TTL: Automatic
+
+Record Type: A
+Host: @
+Value: 185.199.110.153
+TTL: Automatic
+
+Record Type: A
+Host: @
+Value: 185.199.111.153
+TTL: Automatic
+
+Record Type: CNAME
+Host: www
+Value: mumtazlodhra11.github.io
+TTL: Automatic
+
+SAVE DNS CHANGES!
+
+Wait: 10-30 minutes for DNS propagation
+
+========================================
+STEP 2: GITHUB PAGES SETTINGS
+========================================
+
+1. Open: https://github.com/mumtazlodhra11/PDFMasterTool/settings/pages
+
+2. Under "Custom domain":
+   Enter: yourdomain.com (e.g., pdfmastertool.com)
+
+3. Click: Save
+
+4. Wait 1-2 minutes
+
+5. Check box: "Enforce HTTPS" ✅
+
+========================================
+STEP 3: UPDATE ASTRO CONFIG
+========================================
+
+After domain works, update:
+  File: astro.config.mjs
+
+Change:
+  site: 'https://mumtazlodhra11.github.io'
+  base: '/PDFMasterTool'
+
+To:
+  site: 'https://yourdomain.com'
+  base: '/'
+
+Commit and push!
+
+========================================
+🌐 YOUR DOMAIN EXAMPLES:
+========================================
+
+If you buy: pdfmastertool.com
+
+Your site will be:
+  https://pdfmastertool.com ✅
+  https://www.pdfmastertool.com ✅
+
+No more:
+  https://mumtazlodhra11.github.io/PDFMasterTool
+
+========================================
+💰 COST:
+========================================
+
+Domain: $8-15/year
+GitHub Pages: FREE!
+Total: ~$10/year only!
+
+========================================
+
+
+

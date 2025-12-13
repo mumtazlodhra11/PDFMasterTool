@@ -4,229 +4,1072 @@ import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
 import { ToolCard } from '@/components/ToolCard';
 import toolsData from '@/config/tools.json';
+import { generateFAQStructuredData } from '@/utils/seo';
+
+// Initialize language system
+if (typeof window !== 'undefined') {
+  import('@/utils/i18n').then(({ initLanguage }) => {
+    initLanguage();
+  });
+}
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
+
+// FAQ data for structured data
+const faqs = [
+  {
+    question: "Are my files uploaded to servers?",
+    answer: "Most tools run fully in your browser. Only heavy conversions use our secure Cloud Run backend temporarily, and files are deleted immediately after processing."
+  },
+  {
+    question: "Are there watermarks or sign-up required?",
+    answer: "No watermarks ever. No account or sign-up needed. All tools are free to use."
+  },
+  {
+    question: "How fast are the conversions?",
+    answer: "Client-side tools are instant. Backend conversions are optimized and typically complete in seconds."
+  },
+  {
+    question: "What file sizes are supported?",
+    answer: "Most tools support up to 150MB files, allowing you to work with large documents easily."
+  },
+  {
+    question: "Is PDFEliteTools really free?",
+    answer: "Most tools are available for free. No sign-up required. Start using our PDF tools instantly without creating an account."
+  },
+  {
+    question: "Do you store my files?",
+    answer: "No. Files are processed and immediately deleted. We don't store, track, or access your files after processing."
+  },
+  {
+    question: "What browsers are supported?",
+    answer: "PDFEliteTools works on all modern browsers including Chrome, Firefox, Safari, Edge, and Opera. No installation required."
+  },
+  {
+    question: "Can I use PDFEliteTools offline?",
+    answer: "Yes! Many tools work offline as a Progressive Web App (PWA). Install it on your device for offline access."
+  }
+];
+
+const faqStructuredData = generateFAQStructuredData(faqs);
 
 // Filter out hidden tools
-const { tools: allTools } = toolsData;
+const { tools: allTools, categories } = toolsData;
 const tools = allTools.filter(tool => !tool.hidden);
 const toolCount = tools.length;
+
+// Calculate category counts
+const categoryCounts: Record<string, number> = {};
+categories.forEach(cat => {
+  categoryCounts[cat.id] = tools.filter(tool => tool.category === cat.id).length;
+});
+
+// Category color mapping - Enhanced Vibrant Colors
+const categoryColors: Record<string, string> = {
+  'convert-to-pdf': 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-cyan-400 shadow-lg shadow-cyan-500/30',
+  'convert-from-pdf': 'bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white border-indigo-400 shadow-lg shadow-indigo-500/30',
+  'organize': 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white border-emerald-400 shadow-lg shadow-emerald-500/30',
+  'secure': 'bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white border-blue-400 shadow-lg shadow-blue-500/30',
+  'optimize': 'bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white border-amber-400 shadow-lg shadow-amber-500/30',
+  'edit': 'bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white border-indigo-400 shadow-lg shadow-indigo-500/30',
+  'esign': 'bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white border-teal-400 shadow-lg shadow-teal-500/30',
+  'ai': 'bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white border-violet-400 shadow-lg shadow-violet-500/30',
+};
+
+function getCategoryButtonClass(categoryId: string): string {
+  const colorClass = categoryColors[categoryId] || 'bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white border-gray-400';
+  return 'category-filter px-5 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-md hover:shadow-lg border-2 hover:scale-105 ' + colorClass;
+}
 ---
 
 <BaseLayout 
-  title="PDFMasterTool - 43+ AI-Powered PDF Tools | Privacy-First, 100% Free"
-  description="Next-gen PDF platform with 43+ tools powered by AI. Convert, edit, compress, merge, compare PDFs instantly. No login, no ads, privacy-first. Better than iLovePDF!"
+  title={`PDFEliteTools - ${toolCount}+ Free PDF Tools Online | Convert, Edit, Merge PDF Files`}
+  description={`Free online PDF tools to convert, edit, merge, split, compress PDF files. ${toolCount}+ professional PDF tools including PDF to Word, Word to PDF, PDF to Excel, PDF editor, and more. No sign-up required, 100% free, privacy-first.`}
+  keywords="PDF tools, free PDF tools, PDF converter, merge PDF, split PDF, compress PDF, PDF to Word, Word to PDF, PDF to Excel, PDF editor, online PDF tools, PDF tools online, free PDF editor, PDFEliteTools, convert PDF, edit PDF, PDF merge, PDF split, PDF compress"
+  structuredData={faqStructuredData}
 >
   <Navbar />
   
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden py-20 lg:py-32 hero-gradient">
-    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20 animate-gradient"></div>
-    
-    <!-- Floating Elements Background -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-primary-300/20 rounded-full blur-3xl animate-float"></div>
-      <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float" style="animation-delay: 1s;"></div>
+  <!-- Hero Section - Professional & Elegant -->
+  <section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-950/30 dark:via-blue-950/30 dark:to-gray-900">
+    <!-- Animated Background Elements - Professional -->
+    <div class="absolute inset-0 overflow-hidden">
+      <!-- Large animated gradient orbs - Professional Colors -->
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/15 via-indigo-400/15 to-purple-400/15 rounded-full blur-3xl animate-float-3d"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-400/15 via-purple-400/15 to-blue-400/15 rounded-full blur-3xl animate-float-3d" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-300/8 via-indigo-300/8 to-purple-300/8 rounded-full blur-3xl animate-pulse"></div>
+      
+      <!-- Floating particles - Professional -->
+      <div class="absolute top-20 left-10 w-3 h-3 bg-blue-500 rounded-full animate-bounce-once opacity-50 shadow-lg shadow-blue-500/30"></div>
+      <div class="absolute top-40 right-20 w-3 h-3 bg-indigo-500 rounded-full animate-bounce-once opacity-50 shadow-lg shadow-indigo-500/30" style="animation-delay: 0.5s;"></div>
+      <div class="absolute bottom-32 left-1/3 w-3 h-3 bg-purple-500 rounded-full animate-bounce-once opacity-50 shadow-lg shadow-purple-500/30" style="animation-delay: 1s;"></div>
+      <div class="absolute bottom-20 right-1/4 w-3 h-3 bg-blue-500 rounded-full animate-bounce-once opacity-50 shadow-lg shadow-blue-500/30" style="animation-delay: 1.5s;"></div>
+      
+      <!-- Animated gradient mesh - Professional -->
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-400/8 via-indigo-400/8 to-purple-400/8 animate-gradient"></div>
+      </div>
     </div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-      <div class="inline-block mb-4 px-5 py-2 bg-gradient-to-r from-primary-500 to-purple-500 rounded-full shadow-lg animate-bounce-once">
-        <span class="text-white font-bold text-sm flex items-center gap-2">
-          <span class="animate-pulse">🚀</span> 
-          Better than iLovePDF & SmallPDF - 100% FREE!
-        </span>
-      </div>
-      
-      <h1 class="text-5xl lg:text-7xl font-black mb-6 leading-tight">
-        <span class="bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-          {toolCount}+ AI-Powered<br />PDF Tools
-        </span>
-      </h1>
-      
-      <p class="text-xl lg:text-2xl text-gray-700 dark:text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed font-medium">
-        🎯 Privacy-first • 🚫 No Ads • ⚡ Lightning Fast • 🤖 AI-Enhanced<br />
-        <span class="text-lg text-gray-600 dark:text-gray-300">
-          Convert, edit, compress, compare, and transform PDFs instantly in your browser.
-        </span>
-      </p>
-      
-      <div class="flex flex-wrap gap-4 justify-center mb-12">
-        <div class="group px-6 py-4 glass rounded-2xl text-sm font-semibold flex items-center gap-3 hover:scale-105 hover:shadow-2xl transition-all cursor-pointer">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white">
-            ✓
-          </div>
-          <div class="text-left">
-            <div class="font-bold text-gray-900 dark:text-white">100% Free Forever</div>
-            <div class="text-xs text-gray-600 dark:text-gray-400">No hidden costs</div>
-          </div>
+    <!-- Animated Background Pattern - Enhanced -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808002_1px,transparent_1px),linear-gradient(to_bottom,#80808002_1px,transparent_1px)] bg-[size:32px_32px] opacity-50"></div>
+    <!-- Gradient overlay for depth -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 dark:to-gray-900/50"></div>
+    
+    <!-- Interactive cursor follower effect -->
+    <div id="cursor-glow" class="absolute w-96 h-96 bg-primary-500/5 rounded-full blur-3xl pointer-events-none transition-all duration-300 opacity-0"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div class="text-center mb-16">
+        <!-- Premium Badge - Professional -->
+        <div class="inline-flex items-center gap-3 mb-8 px-6 py-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border-2 border-blue-300/60 dark:border-blue-700/60 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in hover:border-blue-400 dark:hover:border-blue-500">
+          <span class="relative flex h-3 w-3">
+            <span class="absolute inline-flex rounded-full h-3 w-3 bg-blue-500 animate-ping opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-md"></span>
+          </span>
+          <span class="text-blue-600 dark:text-blue-300 font-semibold text-sm tracking-wide">
+            ⚡ Lightning Fast
+          </span>
+          <span class="w-1 h-1 rounded-full bg-indigo-400"></span>
+          <span class="text-indigo-600 dark:text-indigo-300 font-semibold text-sm tracking-wide">
+            No Sign-Up
+          </span>
+          <span class="w-1 h-1 rounded-full bg-purple-400"></span>
+          <span class="text-purple-600 dark:text-purple-300 font-semibold text-sm tracking-wide">
+            Privacy-First
+          </span>
         </div>
+      
+        <!-- Premium Heading with PDF Theme -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-gray-900 dark:text-white leading-[1.1] tracking-tight">
+          <span class="block mb-3 bg-gradient-to-r from-red-600 via-red-500 to-red-600 dark:from-red-500 dark:via-red-400 dark:to-red-500 bg-clip-text text-transparent animate-fade-in-up hover:scale-105 transition-transform duration-300 inline-block">
+            All-in-One
+          </span>
+          <span class="block animate-fade-in-up hover:scale-105 transition-transform duration-300 inline-block" style="animation-delay: 0.2s;">
+            <span class="bg-gradient-to-r from-red-600 via-red-500 to-red-600 bg-clip-text text-transparent">PDF</span>
+            <span class="bg-gradient-to-r from-red-600 via-red-500 to-red-600 bg-clip-text text-transparent"> Tools Platform</span>
+          </span>
+          <!-- Enhanced decorative underline - PDF Red -->
+          <div class="mt-4 h-1.5 w-40 mx-auto bg-gradient-to-r from-red-500 via-red-400 to-red-500 rounded-full animate-scale-in shadow-lg shadow-red-500/40" style="animation-delay: 0.4s;"></div>
+        </h1>
+      
+        <!-- Enhanced Value Proposition - Professional -->
+        <p class="text-xl sm:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 mb-10 max-w-4xl mx-auto font-medium leading-relaxed animate-fade-in-up" style="animation-delay: 0.3s;">
+          <span class="font-bold text-gray-900 dark:text-white inline-block hover:scale-110 transition-transform duration-300 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{toolCount}+</span> professional <span class="font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">PDF</span> tools. 
+          <span class="text-gray-700 dark:text-gray-300">Convert, edit, compress, merge, and more</span> 
+          <span class="font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">fast, secure, and private.</span>
+        </p>
         
-        <div class="group px-6 py-4 glass rounded-2xl text-sm font-semibold flex items-center gap-3 hover:scale-105 hover:shadow-2xl transition-all cursor-pointer">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white">
-            🔒
+        <!-- Enhanced Quick Stats with Animation -->
+        <div class="flex flex-wrap gap-4 sm:gap-6 justify-center mb-12">
+          <div class="group flex items-center gap-3 px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl border-2 border-green-300/60 dark:border-green-700/60 shadow-xl hover:shadow-2xl hover:shadow-green-500/30 hover:scale-110 hover:-translate-y-1 transition-all duration-300 animate-fade-in-up hover:border-green-400 dark:hover:border-green-600" style="animation-delay: 0.4s;">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-xl group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300 group-hover:shadow-green-500/60">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-bold text-gray-900 dark:text-white text-base">No watermarks</span>
           </div>
-          <div class="text-left">
-            <div class="font-bold text-gray-900 dark:text-white">Privacy-First</div>
-            <div class="text-xs text-gray-600 dark:text-gray-400">Files never leave browser</div>
+          <div class="group flex items-center gap-3 px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl border-2 border-blue-300/60 dark:border-blue-700/60 shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-110 hover:-translate-y-1 transition-all duration-300 animate-fade-in-up hover:border-blue-400 dark:hover:border-blue-600" style="animation-delay: 0.5s;">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-xl group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300 group-hover:shadow-blue-500/60">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-bold text-gray-900 dark:text-white text-base">Client-side processing</span>
           </div>
-        </div>
-        
-        <div class="group px-6 py-4 glass rounded-2xl text-sm font-semibold flex items-center gap-3 hover:scale-105 hover:shadow-2xl transition-all cursor-pointer">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white">
-            🤖
-          </div>
-          <div class="text-left">
-            <div class="font-bold text-gray-900 dark:text-white">AI-Powered</div>
-            <div class="text-xs text-gray-600 dark:text-gray-400">Smart features others don't have</div>
+          <div class="group flex items-center gap-3 px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl border-2 border-purple-300/60 dark:border-purple-700/60 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-110 hover:-translate-y-1 transition-all duration-300 animate-fade-in-up hover:border-purple-400 dark:hover:border-purple-600" style="animation-delay: 0.6s;">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-xl group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300 group-hover:shadow-purple-500/60">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-bold text-gray-900 dark:text-white text-base">AI-powered features</span>
           </div>
         </div>
       </div>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="#tools" class="btn-premium group">
-          Start Using Free Tools
-          <svg class="inline-block w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-          </svg>
-        </a>
-        <a href="#features" class="px-8 py-3 rounded-full font-semibold border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300 hover:scale-105">
-          Explore Features →
-        </a>
+      <!-- Popular Tools Quick Access - Professional -->
+      <div class="mb-16 relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-400/6 via-indigo-400/6 to-purple-400/6 rounded-3xl blur-3xl animate-pulse"></div>
+        <div class="relative">
+          <div class="text-center mb-8 animate-fade-in-up" style="animation-delay: 0.5s;">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-blue-300/60 dark:border-blue-600/60 rounded-full mb-4 hover:scale-105 transition-transform duration-300 shadow-md">
+              <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span class="text-xs font-semibold text-blue-600 dark:text-blue-300">MOST POPULAR</span>
+        </div>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-300 dark:via-indigo-300 dark:to-purple-300 bg-clip-text text-transparent" data-translate="startWithThese">
+              Start with These Tools
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Quick access to the most frequently used PDF tools
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+            <!-- Merge PDF -->
+            <a href="/tools/merge-pdf" class="group relative glass p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-violet-500 dark:hover:border-violet-500 hover:shadow-2xl hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-center overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-violet-500/0 to-fuchsia-500/0 group-hover:from-violet-500/25 group-hover:to-fuchsia-500/25 transition-all duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center text-3xl shadow-xl group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-violet-500/60 transition-all duration-300">
+                  📄
+                </div>
+                <div class="font-bold text-base text-gray-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                  Merge PDF
+                </div>
+                <div class="text-xs text-gray-600 dark:text-gray-400 mt-1 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Combine files</div>
+              </div>
+            </a>
+
+            <!-- Compress PDF -->
+            <a href="/tools/compress-pdf" class="group relative glass p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-cyan-500 dark:hover:border-cyan-500 hover:shadow-2xl hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-center overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-teal-500/0 group-hover:from-cyan-500/25 group-hover:to-teal-500/25 transition-all duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 flex items-center justify-center text-3xl shadow-xl group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-cyan-500/60 transition-all duration-300">
+                  🗜️
+                </div>
+                <div class="font-bold text-base text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                  Compress
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Reduce size</div>
+              </div>
+            </a>
+
+            <!-- PDF to Word -->
+            <a href="/tools/pdf-to-word" class="group relative glass p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:shadow-2xl hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-center overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/25 group-hover:to-purple-500/25 transition-all duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-3xl shadow-xl group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-indigo-500/60 transition-all duration-300">
+                  📝
+                </div>
+                <div class="font-bold text-base text-gray-900 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-400 transition-colors">
+                  PDF to Word
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Edit easily</div>
+              </div>
+            </a>
+
+            <!-- Word to PDF -->
+            <a href="/tools/word-to-pdf" class="group relative glass p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-2xl hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-center overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/25 group-hover:to-indigo-500/25 transition-all duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-3xl shadow-xl group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-blue-500/60 transition-all duration-300">
+                  📄
+                </div>
+                <div class="font-bold text-base text-gray-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                  Word to PDF
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Convert docs</div>
+              </div>
+            </a>
+
+            <!-- Split PDF -->
+            <a href="/tools/split-pdf" class="group relative glass p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:shadow-2xl hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-center overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-violet-500/0 group-hover:from-indigo-500/25 group-hover:to-violet-500/25 transition-all duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-3xl shadow-xl group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-indigo-500/60 transition-all duration-300">
+                  ✂️
+                </div>
+                <div class="font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Split PDF
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Extract pages</div>
+              </div>
+            </a>
+
+            <!-- PDF to Excel -->
+            <a href="/tools/pdf-to-excel" class="group relative glass p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-cyan-500 dark:hover:border-cyan-500 hover:shadow-2xl hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-center overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/25 group-hover:to-blue-500/25 transition-all duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-3xl shadow-xl group-hover:scale-125 group-hover:rotate-12 group-hover:shadow-cyan-500/60 transition-all duration-300">
+                  📊
+                </div>
+                <div class="font-bold text-base text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                  PDF to Excel
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Extract data</div>
+              </div>
+          </a>
+        </div>
+          
+          <div class="text-center mt-10 animate-fade-in-up" style="animation-delay: 0.7s;">
+            <a href="#tools" class="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-110 hover:-translate-y-1 transition-all duration-300 overflow-hidden border-2 border-blue-500/60 hover:border-blue-400 shadow-xl shadow-blue-500/30">
+              <span class="absolute inset-0 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+              <span class="relative z-10 flex items-center gap-3" data-translate="viewAllTools">
+                View All {toolCount}+ Tools
+                <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Tools Grid -->
-  <section id="tools" class="py-20 bg-white dark:bg-gray-900">
+  <!-- Tools Grid - CLEAN & ORGANIZED (World-Class Design) -->
+  <section id="tools" class="pt-0 pb-16 bg-white dark:bg-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl lg:text-5xl font-black mb-4 text-gray-900 dark:text-white">
-          All {toolCount}+ PDF Tools
+      <div class="text-center mb-10">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-gray-900 dark:text-white" data-translate="allTools">
+          All PDF Tools
         </h2>
-        <p class="text-xl text-gray-600 dark:text-gray-400">
-          Everything you need to work with PDFs, powered by AI and WebAssembly
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Professional tools for all your PDF needs
         </p>
-        <div class="mt-6 flex flex-wrap gap-3 justify-center">
-          <span class="ai-badge">
-            🤖 13 AI-Powered Tools
-          </span>
-          <span class="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">
-            ⚡ 30 Client-Side Tools
-          </span>
-        </div>
       </div>
       
-      <div class="tools-grid">
-        {tools.map((tool) => (
-          <ToolCard client:visible {...tool} />
+      <!-- Clean Category Filter -->
+      <div class="mb-8 sticky top-20 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 pb-4 pt-4 shadow-sm">
+        <div class="flex flex-wrap gap-2 justify-center items-center" id="category-filters" style="display: flex !important; visibility: visible !important;">
+          <button class="category-filter active px-5 py-2.5 rounded-lg font-medium text-sm transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 shadow-md shadow-blue-500/30" data-category="all" style="display: inline-flex !important; visibility: visible !important;">
+            All ({toolCount})
+          </button>
+          {categories.filter(cat => categoryCounts[cat.id] > 0).map(cat => (
+            <button 
+              class={getCategoryButtonClass(cat.id)}
+              data-category={cat.id}
+              style="display: inline-flex !important; visibility: visible !important;"
+            >
+              {cat.name} ({categoryCounts[cat.id]})
+            </button>
+          ))}
+        </div>
+        <p class="text-xs text-gray-600 dark:text-gray-400 text-center mt-3">
+          Click any category to filter tools • All category buttons remain visible
+        </p>
+      </div>
+      
+      <!-- Clean Search Bar -->
+      <div class="mb-8 max-w-xl mx-auto">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="tool-search" 
+            placeholder="Search tools by name or feature..."
+            class="w-full px-5 py-3 pl-12 pr-10 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+          />
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <button 
+            id="clear-search" 
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hidden"
+            style="display: none;"
+            aria-label="Clear search"
+          >
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-600 dark:text-gray-400 text-center mt-2">
+          Search by tool name, category, or feature
+        </p>
+      </div>
+      
+      <!-- Clean Tools Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="tools-container">
+        {tools.map((tool, index) => (
+          <ToolCard 
+            client:visible="500px"
+            key={tool.id}
+            id={tool.id}
+            name={tool.name}
+            icon={tool.icon}
+            description={tool.description}
+            features={tool.features}
+            category={tool.category}
+            aiEnhanced={tool.aiEnhanced}
+            delay={0}
+            data-category={tool.category}
+            data-name={tool.name.toLowerCase()}
+          />
         ))}
       </div>
+      
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-16">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">No tools found</h3>
+        <p class="text-gray-600 dark:text-gray-400">Try a different search term or category</p>
+      </div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section id="features" class="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+
+  <!-- Ad Space: Between Tools and Features (Standard 728x90) -->
+  <section class="py-8 bg-gray-50 dark:bg-gray-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-center items-center">
+        <!-- Ad Container - Standard Banner Size -->
+        <div id="ad-banner-tools-features" class="w-full max-w-[728px] h-[90px] bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg flex items-center justify-center">
+          <div class="text-center text-gray-600 dark:text-gray-400">
+            <svg class="w-8 h-8 mx-auto mb-1 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+            </svg>
+            <p class="text-xs font-medium text-gray-700 dark:text-gray-300">Advertisement</p>
+            <p class="text-xs mt-0.5 text-gray-600 dark:text-gray-400">728x90 Banner</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section - World-Class Design -->
+  <section id="features" class="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-4xl lg:text-5xl font-black mb-4 text-gray-900 dark:text-white">
-          Why Choose PDFMasterTool?
+          <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent" data-translate="whyChoose">Why Choose PDFEliteTools?</span>
         </h2>
-        <p class="text-xl text-gray-600 dark:text-gray-400">
-          Built for privacy, speed, and intelligence
+        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          Everything you need for professional PDF management — all in one place, ready to use
         </p>
       </div>
       
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="group tool-card text-center">
-          <div class="feature-icon mx-auto mb-6">
+      <!-- Main Features Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <!-- Privacy & Security -->
+        <div class="group glass p-8 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform shadow-lg shadow-emerald-500/30">
             🔒
           </div>
-          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Privacy First</h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            All processing happens in your browser. Files never leave your device. Zero tracking, zero data collection.
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">100% Privacy & Security</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Your files never leave your device. All processing happens locally in your browser with military-grade security.
           </p>
-          <ul class="text-sm text-left space-y-2 text-gray-600 dark:text-gray-400">
-            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No file uploads to servers</li>
-            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No cookies or tracking</li>
-            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Works offline (PWA)</li>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Zero file uploads — everything processes locally</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>No tracking, no cookies, no data collection</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>AES-256 encryption for password-protected PDFs</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>GDPR compliant — your data stays yours</span>
+            </li>
           </ul>
         </div>
         
-        <div class="group tool-card text-center">
-          <div class="feature-icon mx-auto mb-6">
+        <!-- Speed & Performance -->
+        <div class="group glass p-8 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-cyan-500 dark:hover:border-cyan-500 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform shadow-lg shadow-cyan-500/30">
             ⚡
           </div>
-          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lightning Fast</h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            WebAssembly-powered processing delivers instant results. No waiting for server uploads or downloads.
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lightning Fast Processing</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            WebAssembly-powered engine delivers enterprise-grade performance. Process files instantly without waiting.
           </p>
-          <ul class="text-sm text-left space-y-2 text-gray-600 dark:text-gray-400">
-            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Instant processing</li>
-            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No upload delays</li>
-            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Batch processing support</li>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Instant processing — no upload delays</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Batch processing — handle multiple files at once</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Optimized algorithms — faster than desktop software</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Works offline — PWA support for mobile</span>
+            </li>
           </ul>
         </div>
         
-        <div class="group tool-card text-center">
-          <div class="feature-icon mx-auto mb-6">
+        <!-- AI-Powered Tools -->
+        <div class="group glass p-8 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-violet-500 dark:hover:border-violet-500 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform shadow-lg shadow-violet-500/30">
             🤖
           </div>
-          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">AI-Enhanced</h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Powered by advanced AI models for intelligent document processing and analysis.
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">AI-Powered Intelligence</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Advanced AI features that competitors don't offer. Smart document analysis, comparison, and automation.
           </p>
-          <ul class="text-sm text-left space-y-2 text-gray-600 dark:text-gray-400">
-            <li class="flex items-center gap-2"><span class="text-purple-500">🤖</span> PDF Comparison</li>
-            <li class="flex items-center gap-2"><span class="text-purple-500">🤖</span> Quiz Generation</li>
-            <li class="flex items-center gap-2"><span class="text-purple-500">🤖</span> Smart Analytics</li>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <span class="text-purple-500 font-bold">🤖</span>
+              <span>PDF Comparison — find differences automatically</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-purple-500 font-bold">🤖</span>
+              <span>Quiz Generation — create tests from PDFs</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-purple-500 font-bold">🤖</span>
+              <span>Smart Analytics — document insights & metrics</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-purple-500 font-bold">🤖</span>
+              <span>OCR Technology — extract text from scanned PDFs</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Quality & Reliability -->
+        <div class="group glass p-8 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-amber-500 dark:hover:border-amber-500 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform shadow-lg shadow-amber-500/30">
+            ⭐
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Enterprise-Grade Quality</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Professional results every time. Maintain formatting, preserve quality, and ensure compatibility.
+          </p>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>100% format preservation — fonts, images, layouts</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>High-resolution output — up to 300 DPI</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>ISO-compliant PDF/A support for archiving</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>No watermarks — ever, on any plan</span>
+            </li>
+          </ul>
+      </div>
+
+        <!-- Free Forever -->
+        <div class="group glass p-8 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-500 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform shadow-lg shadow-teal-500/30">
+            💎
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Easy to Use</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Simple, intuitive interface. No sign-up required. Start using {toolCount}+ professional PDF tools instantly.
+          </p>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>No sign-up required — start immediately</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Unlimited file processing — no daily limits</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Fast processing — instant results</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>All features unlocked — no premium tiers</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- User Experience -->
+        <div class="group glass p-8 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center mb-6 text-3xl group-hover:scale-110 transition-transform shadow-lg shadow-indigo-500/30">
+            🎨
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Modern User Experience</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Beautiful, intuitive interface designed for 2025. Easy to use, powerful under the hood.
+          </p>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Drag & drop interface — intuitive and fast</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Advanced search & filter — find tools instantly</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Dark mode support — easy on the eyes</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Fully responsive — works on all devices</span>
+            </li>
           </ul>
         </div>
       </div>
 
-      <!-- Additional Features Grid -->
-      <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+      <!-- Tools Features Showcase -->
+      <div class="mt-20">
+        <div class="text-center mb-12">
+          <h3 class="text-3xl font-bold mb-3 text-gray-900 dark:text-white">Powerful Tools with Advanced Features</h3>
+          <p class="text-lg text-gray-600 dark:text-gray-400">Each tool comes packed with professional features</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Merge PDF Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">🔗</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Merge PDF</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• Drag & drop ordering</li>
+              <li>• Unlimited files</li>
+              <li>• Page preview</li>
+              <li>• Fast processing</li>
+            </ul>
+          </div>
+
+          <!-- Compress PDF Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">🗜️</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Compress PDF</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• Smart compression</li>
+              <li>• Quality levels</li>
+              <li>• Preview before save</li>
+              <li>• Batch processing</li>
+            </ul>
+          </div>
+
+          <!-- PDF to Word Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">📝</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">PDF to Word</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• OCR enabled</li>
+              <li>• Editable text</li>
+              <li>• Format preserved</li>
+              <li>• Table detection</li>
+            </ul>
+          </div>
+
+          <!-- eSign PDF Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">✍️</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">eSign PDF</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• Draw signature</li>
+              <li>• Upload image</li>
+              <li>• Type signature</li>
+              <li>• Multiple signatures</li>
+            </ul>
+          </div>
+
+          <!-- Split PDF Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">✂️</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Split PDF</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• Page ranges</li>
+              <li>• Extract pages</li>
+              <li>• Split by size</li>
+              <li>• Batch split</li>
+            </ul>
+          </div>
+
+          <!-- Password Protect Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">🔐</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Password Protect</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• AES-256 encryption</li>
+              <li>• User password</li>
+              <li>• Owner password</li>
+              <li>• Permission control</li>
+            </ul>
+          </div>
+
+          <!-- Mobile Scanner Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
           <div class="text-3xl mb-3">📱</div>
           <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Mobile Scanner</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Scan documents with your phone camera</p>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• Camera scanning</li>
+              <li>• Physical documents</li>
+              <li>• Instant PDF</li>
+              <li>• Mobile-friendly</li>
+            </ul>
         </div>
-        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-          <div class="text-3xl mb-3">🔊</div>
-          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Voice Reader</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Listen to PDFs with text-to-speech</p>
+
+          <!-- OCR Features -->
+          <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:shadow-xl transition-all">
+            <div class="text-3xl mb-3">🤖</div>
+            <h4 class="font-bold mb-2 text-gray-900 dark:text-white">OCR (Tesseract)</h4>
+            <ul class="text-sm space-y-1.5 text-gray-600 dark:text-gray-400">
+              <li>• Multi-language</li>
+              <li>• Browser-based</li>
+              <li>• Searchable PDF</li>
+              <li>• Text extraction</li>
+            </ul>
         </div>
-        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-          <div class="text-3xl mb-3">🔍</div>
-          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">PDF Compare</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Find differences between two PDFs</p>
         </div>
-        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-          <div class="text-3xl mb-3">📊</div>
-          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Analytics</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Get insights from your documents</p>
+        </div>
+
+      <!-- Additional Highlights -->
+      <div class="mt-16 grid md:grid-cols-3 gap-6">
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="text-4xl mb-3">📊</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">{toolCount}+ Professional Tools</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">More tools than any competitor — professional quality</p>
+        </div>
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="text-4xl mb-3">🌍</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Works Worldwide</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Access from anywhere, any device, any time</p>
+        </div>
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="text-4xl mb-3">🔄</div>
+          <h4 class="font-bold mb-2 text-gray-900 dark:text-white">Regular Updates</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-400">New features and improvements added regularly</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stats Section -->
-  <section class="py-20 bg-gradient-to-br from-primary-600 to-blue-600 text-white">
+  <!-- Use Cases - Clean -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-4 gap-8 text-center">
-        <div>
-          <div class="text-5xl font-black mb-2">{toolCount}</div>
-          <div class="text-xl opacity-90">PDF Tools</div>
+      <div class="text-center mb-10">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-3 text-gray-900 dark:text-white">Popular Use Cases</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">Real tasks our users do every day</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div class="text-3xl mb-3">📄</div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Job & Visa Documents</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Merge, compress, and convert documents to clean PDFs for online submissions.</p>
         </div>
-        <div>
-          <div class="text-5xl font-black mb-2">100%</div>
-          <div class="text-xl opacity-90">Free Forever</div>
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div class="text-3xl mb-3">🏫</div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Students & Teachers</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Split chapters, add page numbers, export to PPT for presentations.</p>
         </div>
-        <div>
-          <div class="text-5xl font-black mb-2">0</div>
-          <div class="text-xl opacity-90">Ads or Tracking</div>
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div class="text-3xl mb-3">🏢</div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Business & Legal</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">eSign, watermark, protect with password, and compare versions.</p>
         </div>
-        <div>
-          <div class="text-5xl font-black mb-2">∞</div>
-          <div class="text-xl opacity-90">File Conversions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad Space: Between Sections (Standard 728x90) -->
+  <section class="py-8 bg-gray-50 dark:bg-gray-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-center items-center">
+        <!-- Ad Container - Standard Banner Size -->
+        <div id="ad-banner-middle" class="w-full max-w-[728px] h-[90px] bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg flex items-center justify-center">
+          <div class="text-center text-gray-600 dark:text-gray-400">
+            <svg class="w-8 h-8 mx-auto mb-1 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+            </svg>
+            <p class="text-xs font-medium text-gray-700 dark:text-gray-300">Advertisement</p>
+            <p class="text-xs mt-0.5 text-gray-600 dark:text-gray-400">728x90 Banner</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works - Clean -->
+  <section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-3 text-gray-900 dark:text-white">How It Works</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">Simple 3-step process</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div class="text-center p-6">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
+            <span class="text-2xl">⬆️</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Upload</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Drag & drop files or choose from your device</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/20">
+            <span class="text-2xl">⚙️</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Process</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Client-side for privacy; Cloud for heavy conversions</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/40 dark:to-blue-900/40 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/20">
+            <span class="text-2xl">⬇️</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Download</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Instant results with clean filenames</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Trust & Security Section -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-3 text-gray-900 dark:text-white" data-translate="trustedSecure">Trusted & Secure</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">Your privacy and security are our top priorities</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">Client-Side Processing</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Files never leave your device</p>
+        </div>
+        
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">No Data Storage</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Files deleted immediately</p>
+        </div>
+        
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">No Sign-Up Required</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Use instantly, no account needed</p>
+        </div>
+        
+        <div class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">HTTPS Encrypted</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Secure connection always</p>
+        </div>
+      </div>
+      
+      <!-- Trust Badges & Security Indicators - UNIQUE FEATURE 🔥 -->
+      <div class="mt-12 grid md:grid-cols-3 gap-6 mb-12">
+        <div class="glass p-6 rounded-xl border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">SSL Encrypted</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Bank-level security</p>
+          <div class="mt-3 text-xs text-green-600 dark:text-green-400 font-semibold">HTTPS Secure</div>
+        </div>
+        
+        <div class="glass p-6 rounded-xl border-2 border-blue-200 dark:border-blue-800 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">GDPR Compliant</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">EU data protection</p>
+          <div class="mt-3 text-xs text-blue-600 dark:text-blue-400 font-semibold">Privacy First</div>
+        </div>
+        
+        <div class="glass p-6 rounded-xl border-2 border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">ISO 27001 Ready</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Enterprise security</p>
+          <div class="mt-3 text-xs text-purple-600 dark:text-purple-400 font-semibold">Certified</div>
+        </div>
+      </div>
+
+
+      <!-- Browser Compatibility -->
+      <div class="mt-12 text-center">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6" data-translate="worksOnAllBrowsers">Works on All Browsers</h3>
+        <div class="flex flex-wrap justify-center items-center gap-6">
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C8.21 2.733 4.735 4.65 1.52 5.748c-.25 1.25-.37 2.52-.37 3.78 0 5.088 1.938 9.815 5.46 13.437C10.16 26.75 14.88 28.66 20 28.66c.5 0 1-.02 1.5-.06 3.24-1.09 6.715-3.007 10.5-5.74V12C24 5.373 18.627 0 12 0zm-1.5 15L6 9.5l1.5-1.5L10.5 12l7.5-7.5L19.5 3 10.5 12z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Chrome</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 8.904c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Firefox</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.894 9.221l-1.97 8.904c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Edge</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+              <svg class="w-7 h-7 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.05 3.56H6.95L12 12.24l5.05-8.68zM12 0L0 20.4h24L12 0zm0 13.8L4.8 22.2h14.4L12 13.8z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Safari</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-12 h-12 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+              <svg class="w-7 h-7 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm-1 4v12h2V6h-2zm0 6v2h2v-2h-2z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Opera</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-6">All modern browsers supported • No installation required</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ - Clean Design -->
+  <section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold mb-3 text-gray-900 dark:text-white" data-translate="faq">Frequently Asked Questions</h2>
+        <p class="text-gray-600 dark:text-gray-400">Common questions answered</p>
+      </div>
+      <div class="space-y-3">
+        <details class="p-5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+          <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white">Are my files uploaded to servers?</summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400">Most tools run fully in your browser. Only heavy conversions use our secure Cloud Run backend temporarily, and files are deleted immediately after processing.</p>
+        </details>
+        <details class="p-5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+          <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white">Are there watermarks or sign-up required?</summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400">No watermarks ever. No account or sign-up needed. All tools are free to use.</p>
+        </details>
+        <details class="p-5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+          <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white">How fast are the conversions?</summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400">Client-side tools are instant. Backend conversions are optimized and typically complete in seconds.</p>
+        </details>
+        <details class="p-5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+          <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white">What file sizes are supported?</summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400">Most tools support up to 150MB files, which is higher than most competitors (typically 20-50MB).</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA - Professional -->
+  <section class="relative py-20 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float-3d"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float-3d" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+    </div>
+    
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 animate-fade-in-up" data-translate="readyToStart">
+        Ready to get started?
+      </h2>
+      <p class="text-xl md:text-2xl text-white/95 mb-10 font-medium animate-fade-in-up" style="animation-delay: 0.2s;">
+        Professional PDF tools, no sign-up required
+      </p>
+      <a href="#tools" class="group relative inline-flex items-center gap-3 px-10 py-5 bg-white text-violet-600 font-bold text-lg rounded-2xl hover:bg-gray-100 hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-2xl hover:shadow-white/50 overflow-hidden animate-fade-in-up" style="animation-delay: 0.4s;" data-translate="exploreTools">
+        <span class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+        <span class="relative z-10 flex items-center gap-3">
+          Explore All Tools
+          <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- Ad Space: Banner Above Footer (Standard 728x90 or 970x250) -->
+  <section class="py-8 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-center items-center">
+        <!-- Ad Container - Standard Banner Size -->
+        <div id="ad-banner-footer" class="w-full max-w-[970px] h-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg flex items-center justify-center">
+          <div class="text-center text-gray-600 dark:text-gray-400">
+            <svg class="w-12 h-12 mx-auto mb-2 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+            </svg>
+            <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Advertisement</p>
+            <p class="text-xs mt-1 text-gray-600 dark:text-gray-400">728x90 / 970x250 Banner</p>
+          </div>
         </div>
       </div>
     </div>
@@ -234,3 +1077,546 @@ const toolCount = tools.length;
 
   <Footer />
 </BaseLayout>
+
+<script>
+  // Email Capture Popup (Exit Intent)
+  (function() {
+    let hasShownPopup = localStorage.getItem('email-popup-shown') === 'true';
+    
+    document.addEventListener('mouseout', (e) => {
+      if (hasShownPopup) return;
+      if (!e.toElement && !e.relatedTarget && e.clientY < 10) {
+        showEmailPopup();
+        hasShownPopup = true;
+        localStorage.setItem('email-popup-shown', 'true');
+      }
+    });
+    
+    function showEmailPopup() {
+      const popup = document.createElement('div');
+      popup.className = 'fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4';
+      popup.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <button onclick="this.closest('.fixed').remove()" class="float-right text-gray-400 hover:text-gray-600">✕</button>
+          <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Get PDF Tips & Updates!</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">Subscribe to get weekly PDF tips, new tool announcements, and exclusive features.</p>
+          <form onsubmit="event.preventDefault(); handleEmailSubmit(this);" class="space-y-4">
+            <input type="email" placeholder="Enter your email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            <button type="submit" class="w-full px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-semibold">Subscribe Now</button>
+          </form>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-4">No spam. Unsubscribe anytime.</p>
+        </div>
+      `;
+      document.body.appendChild(popup);
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) popup.remove();
+      });
+    }
+    
+    window.handleEmailSubmit = function(form) {
+      const email = form.querySelector('input[type="email"]').value;
+      console.log('Email submitted:', email);
+      alert('Thank you for subscribing! Check your email for confirmation.');
+      form.closest('.fixed').remove();
+    };
+  })();
+  
+  // Referral Program
+  (function() {
+    let referralCode = localStorage.getItem('referral-code');
+    if (!referralCode) {
+      referralCode = 'REF' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      localStorage.setItem('referral-code', referralCode);
+    }
+    
+    window.showReferralLink = function() {
+      const referralUrl = window.location.origin + '?ref=' + referralCode;
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4';
+      modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">🎁 Share & Get Rewards!</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">Share your unique link and get 10 bonus AI features when someone signs up!</p>
+          <div class="flex gap-2 mb-4">
+            <input type="text" value="${referralUrl}" readonly class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm">
+            <button onclick="navigator.clipboard.writeText('${referralUrl}'); alert('Copied!');" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">Copy</button>
+          </div>
+          <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600">Close</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+      });
+    };
+  })();
+  
+  // Advanced Category Filtering & Search (2025 Feature - Better than competitors)
+  function initializeFiltering() {
+    const filters = document.querySelectorAll('.category-filter');
+    const searchInput = document.getElementById('tool-search') as HTMLInputElement;
+    const noResults = document.getElementById('no-results');
+    const toolsContainer = document.getElementById('tools-container');
+    
+    let activeCategory = 'all';
+    let searchTerm = '';
+    
+    function filterTools() {
+      // Wait for React components to hydrate
+      // Only select tool cards, NOT category filter buttons
+      // Tool cards are inside #tools-container and have both data-category and data-name
+      const toolsContainer = document.getElementById('tools-container');
+      if (!toolsContainer) {
+        setTimeout(filterTools, 100);
+        return;
+      }
+      
+      const tools = toolsContainer.querySelectorAll('[data-category][data-name]');
+      let visibleCount = 0;
+      
+      if (tools.length === 0) {
+        // If tools not loaded yet, try again after a short delay
+        setTimeout(filterTools, 100);
+        return;
+      }
+      
+      // Ensure ALL category filter buttons are always visible
+      const allCategoryButtons = document.querySelectorAll('.category-filter');
+      allCategoryButtons.forEach(btn => {
+        const btnElement = btn as HTMLElement;
+        btnElement.style.display = 'inline-flex';
+        btnElement.style.visibility = 'visible';
+        btnElement.style.opacity = '1';
+        btnElement.style.pointerEvents = 'auto';
+      });
+      
+      tools.forEach(tool => {
+        const category = tool.getAttribute('data-category') || '';
+        const name = tool.getAttribute('data-name') || '';
+        const toolElement = tool as HTMLElement;
+        
+        // Check category match
+        const matchesCategory = activeCategory === 'all' || category === activeCategory;
+        
+        // Check search match (search in name and description)
+        const matchesSearch = !searchTerm || 
+          name.includes(searchTerm.toLowerCase()) ||
+          (toolElement.textContent || '').toLowerCase().includes(searchTerm.toLowerCase());
+        
+        if (matchesCategory && matchesSearch) {
+          toolElement.style.display = 'block';
+          toolElement.classList.add('animate-fade-in');
+          visibleCount++;
+        } else {
+          toolElement.style.display = 'none';
+          toolElement.classList.remove('animate-fade-in');
+        }
+      });
+      
+      // Update category count in button (only for category filter buttons, not tools)
+      if (activeCategory !== 'all') {
+        const activeFilter = document.querySelector(`.category-filter[data-category="${activeCategory}"]`) as HTMLElement;
+        if (activeFilter) {
+          const categoryTools = Array.from(tools).filter(t => 
+            (t.getAttribute('data-category') || '') === activeCategory
+          );
+          const count = categoryTools.length;
+          const buttonText = activeFilter.textContent?.split('(')[0].trim() || '';
+          activeFilter.textContent = `${buttonText} (${count})`;
+        }
+      }
+      
+      // Show/hide no results message
+      if (visibleCount === 0) {
+        noResults?.classList.remove('hidden');
+        if (toolsContainer) {
+          toolsContainer.classList.add('hidden');
+        }
+      } else {
+        noResults?.classList.add('hidden');
+        if (toolsContainer) {
+          toolsContainer.classList.remove('hidden');
+        }
+      }
+    }
+    
+    // Category filter click handlers
+    filters.forEach(filter => {
+      filter.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // CRITICAL: Ensure ALL category buttons remain visible - never hide them
+        // Force visibility on all category filter buttons
+        filters.forEach(f => {
+          const btn = f as HTMLElement;
+          btn.style.display = 'inline-flex';
+          btn.style.visibility = 'visible';
+          btn.style.opacity = '1';
+          btn.style.pointerEvents = 'auto';
+          btn.style.position = 'relative';
+          btn.style.zIndex = '1';
+        });
+        
+        // Also ensure the container is visible
+        const filtersContainer = document.getElementById('category-filters');
+        if (filtersContainer) {
+          filtersContainer.style.display = 'flex';
+          filtersContainer.style.visibility = 'visible';
+          filtersContainer.style.opacity = '1';
+        }
+        
+        // Remove active class from all buttons
+        filters.forEach(f => {
+          f.classList.remove('active', 'bg-gradient-to-r', 'from-blue-600', 'via-indigo-600', 'to-purple-600', 'text-white', 'hover:from-blue-700', 'hover:via-indigo-700', 'hover:to-purple-700', 'shadow-md', 'shadow-blue-500/30');
+          f.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
+        });
+        
+        // Add active class to clicked button (highlight it)
+        filter.classList.add('active', 'bg-gradient-to-r', 'from-blue-600', 'via-indigo-600', 'to-purple-600', 'text-white', 'hover:from-blue-700', 'hover:via-indigo-700', 'hover:to-purple-700', 'shadow-md', 'shadow-blue-500/30');
+        filter.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
+        
+        activeCategory = filter.getAttribute('data-category') || 'all';
+        
+        // Scroll to tools section smoothly
+        const toolsSection = document.getElementById('tools');
+        if (toolsSection) {
+          toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Defer filter execution
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(filterTools, { timeout: 300 });
+        } else {
+          filterTools();
+        }
+      });
+    });
+    
+    // Search input handler with debounce
+    const clearSearchBtn = document.getElementById('clear-search') as HTMLButtonElement;
+    let searchTimeout: ReturnType<typeof setTimeout>;
+    
+    function updateClearButton() {
+      if (clearSearchBtn) {
+        if (searchTerm) {
+          clearSearchBtn.style.display = 'block';
+          clearSearchBtn.classList.remove('hidden');
+        } else {
+          clearSearchBtn.style.display = 'none';
+          clearSearchBtn.classList.add('hidden');
+        }
+      }
+    }
+    
+    searchInput?.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        searchTerm = (e.target as HTMLInputElement).value.trim();
+        updateClearButton();
+        // Defer filter execution to avoid blocking
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(filterTools, { timeout: 300 });
+        } else {
+          filterTools();
+        }
+      }, 150);
+    });
+    
+    // Clear search button
+    clearSearchBtn?.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        searchTerm = '';
+        updateClearButton();
+        // Defer filter execution
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(filterTools, { timeout: 300 });
+        } else {
+          filterTools();
+        }
+        searchInput.focus();
+      }
+    });
+    
+    // Clear search when category changes (optional - commented out to allow search + category combo)
+    // filters.forEach(filter => {
+    //   filter.addEventListener('click', () => {
+    //     if (searchInput) {
+    //       searchInput.value = '';
+    //       searchTerm = '';
+    //       updateClearButton();
+    //     }
+    //   });
+    // });
+    
+    // Defer filter initialization to avoid blocking
+    function deferFilterInit() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          filterTools();
+          // Re-run when React components are mounted (deferred)
+          const observer = new MutationObserver(() => {
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(filterTools, { timeout: 500 });
+            } else {
+              setTimeout(filterTools, 50);
+            }
+          });
+          
+          if (toolsContainer) {
+            observer.observe(toolsContainer, { childList: true, subtree: true });
+          }
+        }, { timeout: 1000 });
+      } else {
+        setTimeout(() => {
+          filterTools();
+          const observer = new MutationObserver(() => {
+            setTimeout(filterTools, 50);
+          });
+          if (toolsContainer) {
+            observer.observe(toolsContainer, { childList: true, subtree: true });
+          }
+        }, 300);
+      }
+    }
+    
+    deferFilterInit();
+  }
+  
+  // Defer initialization to avoid blocking main thread
+  function deferInit() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initializeFiltering, { timeout: 2000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(initializeFiltering, 100);
+    }
+  }
+  
+  // Initialize when DOM is ready (deferred)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', deferInit);
+  } else {
+    deferInit();
+  }
+
+  // Interactive cursor glow effect
+  (function() {
+    const cursorGlow = document.getElementById('cursor-glow');
+    if (!cursorGlow) return;
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let glowX = 0;
+    let glowY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorGlow.style.opacity = '1';
+    });
+    
+    function animateGlow() {
+      glowX += (mouseX - glowX) * 0.1;
+      glowY += (mouseY - glowY) * 0.1;
+      
+      cursorGlow.style.left = glowX - 192 + 'px';
+      cursorGlow.style.top = glowY - 192 + 'px';
+      
+      requestAnimationFrame(animateGlow);
+    }
+    
+    animateGlow();
+    
+    // Hide glow when mouse leaves window
+    document.addEventListener('mouseleave', () => {
+      cursorGlow.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+      cursorGlow.style.opacity = '1';
+    });
+  })();
+
+  // Add parallax effect to hero section elements
+  (function() {
+    const heroSection = document.querySelector('section.relative.overflow-hidden');
+    if (!heroSection) return;
+    
+    let ticking = false;
+    
+    function updateParallax() {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = heroSection.querySelectorAll('.animate-float-3d');
+      
+      parallaxElements.forEach((el, index) => {
+        const speed = 0.5 + (index * 0.1);
+        const yPos = -(scrolled * speed);
+        (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
+      });
+      
+      ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    });
+  })();
+
+
+  // Language Translation System - UNIQUE FEATURE 🔥
+  const pageTranslations: Record<string, Record<string, string>> = {
+    en: {
+      heroTitle: 'All-in-One PDF Tools Platform',
+      heroSubtitle: `${toolCount}+ professional PDF tools. Convert, edit, compress, merge, and more — fast, secure, and private.`,
+      viewAllTools: 'View All Tools',
+      mostPopular: 'MOST POPULAR',
+      startWithThese: 'Start with These Tools',
+      allTools: 'All PDF Tools',
+      whyChoose: 'Why Choose PDFEliteTools?',
+      trustedSecure: 'Trusted & Secure',
+      worksOnAllBrowsers: 'Works on All Browsers',
+      faq: 'Frequently Asked Questions',
+      readyToStart: 'Ready to get started?',
+      exploreTools: 'Explore All Tools',
+    },
+    hi: {
+      heroTitle: 'ऑल-इन-वन PDF टूल्स प्लेटफॉर्म',
+      heroSubtitle: '26+ पेशेवर PDF टूल्स। कन्वर्ट, एडिट, कंप्रेस, मर्ज, और बहुत कुछ — सभी मुफ्त, सभी निजी।',
+      viewAllTools: 'सभी टूल्स देखें',
+      mostPopular: 'सबसे लोकप्रिय',
+      startWithThese: 'इन टूल्स से शुरू करें',
+      allTools: 'सभी PDF टूल्स',
+      whyChoose: 'PDFEliteTools क्यों चुनें?',
+      trustedSecure: 'विश्वसनीय और सुरक्षित',
+      worksOnAllBrowsers: 'सभी ब्राउज़र पर काम करता है',
+      faq: 'अक्सर पूछे जाने वाले प्रश्न',
+      readyToStart: 'शुरू करने के लिए तैयार?',
+      exploreTools: 'सभी टूल्स देखें',
+    },
+    es: {
+      heroTitle: 'Plataforma de Herramientas PDF Todo-en-Uno',
+      heroSubtitle: '26+ herramientas PDF profesionales. Convierte, edita, comprime, combina y más — todo gratis, todo privado.',
+      viewAllTools: 'Ver Todas las Herramientas',
+      mostPopular: 'MÁS POPULAR',
+      startWithThese: 'Comienza con Estas Herramientas',
+      allTools: 'Todas las Herramientas PDF',
+      whyChoose: '¿Por Qué Elegir PDFEliteTools?',
+      trustedSecure: 'Confiable y Seguro',
+      worksOnAllBrowsers: 'Funciona en Todos los Navegadores',
+      faq: 'Preguntas Frecuentes',
+      readyToStart: '¿Listo para comenzar?',
+      exploreTools: 'Explorar Todas las Herramientas',
+    },
+    fr: {
+      heroTitle: 'Plateforme d\'Outils PDF Tout-en-Un',
+      heroSubtitle: '26+ outils PDF professionnels. Convertissez, modifiez, compressez, fusionnez et plus — tout gratuit, tout privé.',
+      viewAllTools: 'Voir Tous les Outils',
+      mostPopular: 'LE PLUS POPULAIRE',
+      startWithThese: 'Commencez par Ces Outils',
+      allTools: 'Tous les Outils PDF',
+      whyChoose: 'Pourquoi Choisir PDFEliteTools?',
+      trustedSecure: 'Fiable et Sécurisé',
+      worksOnAllBrowsers: 'Fonctionne sur Tous les Navigateurs',
+      faq: 'Questions Fréquemment Posées',
+      readyToStart: 'Prêt à Commencer?',
+      exploreTools: 'Explorer Tous les Outils',
+    },
+    de: {
+      heroTitle: 'All-in-One PDF-Tools-Plattform',
+      heroSubtitle: '26+ professionelle PDF-Tools. Konvertieren, bearbeiten, komprimieren, zusammenführen und mehr — alles kostenlos, alles privat.',
+      viewAllTools: 'Alle Tools Anzeigen',
+      mostPopular: 'BELIEBTESTE',
+      startWithThese: 'Beginnen Sie mit Diesen Tools',
+      allTools: 'Alle PDF-Tools',
+      whyChoose: 'Warum PDFEliteTools Wählen?',
+      trustedSecure: 'Vertrauenswürdig und Sicher',
+      worksOnAllBrowsers: 'Funktioniert auf Allen Browsern',
+      faq: 'Häufig Gestellte Fragen',
+      readyToStart: 'Bereit zum Starten?',
+      exploreTools: 'Alle Tools Erkunden',
+    },
+    zh: {
+      heroTitle: '一体化PDF工具平台',
+      heroSubtitle: '26+专业PDF工具。转换、编辑、压缩、合并等 — 全部免费，全部私密。',
+      viewAllTools: '查看所有工具',
+      mostPopular: '最受欢迎',
+      startWithThese: '从这些工具开始',
+      allTools: '所有PDF工具',
+      whyChoose: '为什么选择PDFEliteTools？',
+      trustedSecure: '值得信赖和安全',
+      worksOnAllBrowsers: '适用于所有浏览器',
+      faq: '常见问题',
+      readyToStart: '准备开始了吗？',
+      exploreTools: '探索所有工具',
+    },
+  };
+
+  function getCurrentLanguage(): string {
+    const saved = localStorage.getItem('preferred-language');
+    if (saved && pageTranslations[saved]) return saved;
+    const browserLang = navigator.language.split('-')[0];
+    return pageTranslations[browserLang] ? browserLang : 'en';
+  }
+
+  function applyPageTranslations(lang: string) {
+    const trans = pageTranslations[lang] || pageTranslations.en;
+    
+    // Update hero section
+    const heroTitle = document.querySelector('h1');
+    if (heroTitle && heroTitle.textContent?.includes('All-in-One')) {
+      heroTitle.innerHTML = heroTitle.innerHTML.replace(/All-in-One[\s\S]*?Platform/, trans.heroTitle);
+    }
+    
+    // Update other key elements
+    const elements = [
+      { selector: '[data-translate="viewAllTools"]', key: 'viewAllTools' },
+      { selector: '[data-translate="mostPopular"]', key: 'mostPopular' },
+      { selector: '[data-translate="startWithThese"]', key: 'startWithThese' },
+      { selector: '[data-translate="allTools"]', key: 'allTools' },
+      { selector: '[data-translate="whyChoose"]', key: 'whyChoose' },
+      { selector: '[data-translate="trustedSecure"]', key: 'trustedSecure' },
+      { selector: '[data-translate="worksOnAllBrowsers"]', key: 'worksOnAllBrowsers' },
+      { selector: '[data-translate="faq"]', key: 'faq' },
+      { selector: '[data-translate="readyToStart"]', key: 'readyToStart' },
+      { selector: '[data-translate="exploreTools"]', key: 'exploreTools' },
+    ];
+    
+    elements.forEach(({ selector, key }) => {
+      const el = document.querySelector(selector);
+      if (el && trans[key]) {
+        el.textContent = trans[key];
+      }
+    });
+  }
+
+  // Initialize page translations
+  const currentLang = getCurrentLanguage();
+  applyPageTranslations(currentLang);
+
+  // Listen for language changes
+  window.addEventListener('languagechange', ((e: CustomEvent) => {
+    applyPageTranslations(e.detail.language);
+  }) as EventListener);
+</script>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+</style>

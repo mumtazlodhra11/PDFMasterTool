@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="AI Smart Compressor - Intelligently compress PDF while preserving text quality | PDFMasterTool"
+  title="AI Smart Compressor - Intelligently compress PDF while preserving text quality | PDFEliteTools"
   description="Intelligently compress PDF while preserving text quality"
   canonical="/tools/ai-smart-compress"
 >
@@ -17,12 +17,12 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolName="AI Smart Compressor"
     toolDescription="Intelligently compress PDF while preserving text quality"
     toolIcon="🧠"
-    acceptedFormats={".pdf"}
-    maxFileSize={150}
+    acceptedFormats={['.pdf']}
+    maxFileSize={100}
     maxFiles={1}
     multiple={false}
     toolType="ai-smart-compress"
-    outputFileName="pdf"
+    outputFileName={(name) => name}
   >
     <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
       <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Coming Soon</h3>

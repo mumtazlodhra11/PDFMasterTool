@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="PDF to PowerPoint - Convert PDF to PPT Online | PDFMasterTool"
+  title="PDF to PowerPoint - Convert PDF to PPT Online | PDFEliteTools"
   description="Convert PDF to PowerPoint presentation (PPTX) with editable slides. High-quality PDF to PPT conversion preserving layout and images."
   canonical="/tools/pdf-to-ppt"
 >
@@ -22,7 +22,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={5}
     multiple={true}
     toolType="pdf-to-ppt"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '.pptx')}
   
   >
     <div class="space-y-6">
@@ -131,6 +131,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

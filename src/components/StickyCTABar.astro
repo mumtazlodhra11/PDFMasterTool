@@ -1,0 +1,90 @@
+---
+// Sticky CTA Bar Component for Affiliate Conversions
+---
+
+<div id="sticky-cta-bar" class="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-2xl transform translate-y-full transition-transform duration-300 ease-in-out">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+    <div class="flex-1">
+      <p class="text-sm sm:text-base font-semibold">
+        Need professional PDF editing? Try Adobe Acrobat Pro Free Trial
+      </p>
+    </div>
+    <a 
+      href="https://www.adobe.com/acrobat/free-trial-download.html" 
+      target="_blank"
+      rel="nofollow sponsored"
+      class="px-6 py-2.5 bg-white text-blue-600 font-bold rounded-xl hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl whitespace-nowrap"
+    >
+      Try Adobe Acrobat →
+    </a>
+    <button 
+      id="close-sticky-cta"
+      class="text-white hover:text-gray-200 p-2"
+      aria-label="Close"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Show sticky CTA after 3 seconds
+  document.addEventListener('DOMContentLoaded', function() {
+    const stickyBar = document.getElementById('sticky-cta-bar');
+    const closeBtn = document.getElementById('close-sticky-cta');
+    
+    if (stickyBar) {
+      // Check if user has dismissed it before
+      const dismissed = localStorage.getItem('sticky-cta-dismissed');
+      if (!dismissed) {
+        setTimeout(() => {
+          stickyBar.classList.remove('translate-y-full');
+        }, 3000);
+      }
+      
+      // Close button functionality
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          stickyBar.classList.add('translate-y-full');
+          localStorage.setItem('sticky-cta-dismissed', 'true');
+          // Show again after 24 hours
+          setTimeout(() => {
+            localStorage.removeItem('sticky-cta-dismissed');
+          }, 24 * 60 * 60 * 1000);
+        });
+      }
+    }
+  });
+</script>
+
+<style>
+  #sticky-cta-bar {
+    backdrop-filter: blur(10px);
+  }
+  
+  @media (max-width: 640px) {
+    #sticky-cta-bar {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    #sticky-cta-bar > div {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+

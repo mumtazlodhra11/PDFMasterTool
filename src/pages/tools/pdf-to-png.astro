@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="PDF to PNG - Convert PDF to PNG Images | PDFMasterTool"
+  title="PDF to PNG - Convert PDF to PNG Images | PDFEliteTools"
   description="Convert PDF pages to high-quality PNG images with transparency support. Fast, secure, and free."
   canonical="/tools/pdf-to-png"
 >
@@ -21,8 +21,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFileSize={50}
     maxFiles={1}
     multiple={false}
-    toolType="pdf-to-jpg"
-    outputFileName="converted.png"
+    toolType="pdf-to-png"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '.png')}
   >
     <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
       <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Features</h3>
@@ -57,4 +57,6 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 

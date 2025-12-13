@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Edit Metadata - View and edit PDF metadata and properties | PDFMasterTool"
+  title="Edit Metadata - View and edit PDF metadata and properties | PDFEliteTools"
   description="View and edit PDF metadata and properties"
   canonical="/tools/pdf-metadata"
 >
@@ -17,16 +17,41 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolName="Edit Metadata"
     toolDescription="View and edit PDF metadata and properties"
     toolIcon="📋"
-    acceptedFormats={".pdf"}
+    acceptedFormats={['.pdf']}
     maxFileSize={100}
     maxFiles={1}
     multiple={false}
     toolType="pdf-metadata"
-    outputFileName="pdf"
+    outputFileName={(name) => name}
   >
     <div class="glass p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50">
-      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Coming Soon</h3>
-      <p class="text-gray-600 dark:text-gray-400">This tool is under development and will be available soon!</p>
+      <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Features</h3>
+      <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+        <li class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>View existing metadata</span>
+        </li>
+        <li class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>Edit title, author, subject, keywords</span>
+        </li>
+        <li class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>Update creator and producer</span>
+        </li>
+        <li class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span>Automatic modification date update</span>
+        </li>
+      </ul>
     </div>
   </ToolTemplate>
 

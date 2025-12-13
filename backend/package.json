@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "description": "Unified file conversion backend for Cloud Run",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "cross-env NODE_ENV=development node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "form-data": "^4.0.4",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "undici": "^7.16.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}

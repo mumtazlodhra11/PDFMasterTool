@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="Fill PDF Forms - Complete PDF Forms Online | PDFMasterTool"
+  title="Fill PDF Forms - Complete PDF Forms Online | PDFEliteTools"
   description="Fill out PDF forms online quickly and easily. Add text to fillable fields, checkboxes, and dropdowns. Save and download completed forms."
   canonical="/tools/fill-forms"
 >
@@ -22,7 +22,7 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     maxFiles={1}
     multiple={false}
     toolType="fill-forms"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '_filled.pdf')}
   
   
   >
@@ -163,6 +163,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

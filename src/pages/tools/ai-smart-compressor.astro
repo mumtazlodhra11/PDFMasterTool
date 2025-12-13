@@ -2,11 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { ToolTemplate } from '@/components/ToolTemplate';
+import ToolTemplate from '@/components/ToolTemplate';
 ---
 
 <BaseLayout
-  title="AI Smart Compressor - Intelligent PDF Compression | PDFMasterTool"
+  title="AI Smart Compressor - Intelligent PDF Compression | PDFEliteTools"
   description="AI-powered PDF compression that maintains quality. Smart compression removes only unnecessary data. Reduce PDF file size by up to 90%."
   canonical="/tools/ai-smart-compressor"
 >
@@ -18,11 +18,11 @@ import { ToolTemplate } from '@/components/ToolTemplate';
     toolDescription="AI-powered intelligent compression that maintains quality while reducing file size"
     toolIcon="🤖"
     acceptedFormats={['.pdf']}
-    maxFileSize={150}
+    maxFileSize={100}
     maxFiles={5}
     multiple={true}
     toolType="ai-smart-compressor"
-    outputFileName="converted.pdf"
+    outputFileName={(name) => name.replace(/\.pdf$/i, '_compressed.pdf')}
   
   >
     <div class="space-y-6">
@@ -183,6 +183,8 @@ import { ToolTemplate } from '@/components/ToolTemplate';
 
   <Footer />
 </BaseLayout>
+
+
 
 
 

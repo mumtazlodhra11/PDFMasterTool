@@ -1,0 +1,230 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="FAQ - Frequently Asked Questions | PDFEliteTools"
+  description="Find answers to common questions about PDFEliteTools. Learn about privacy, file processing, features, and more."
+  canonical="/faq"
+>
+  <Navbar />
+
+  <div class="min-h-screen bg-white dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-black mb-4">
+            <span class="gradient-text">Frequently Asked Questions</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400">
+            Everything you need to know about PDFEliteTools
+          </p>
+        </div>
+
+        <!-- FAQ Categories -->
+        <div class="space-y-8">
+          <!-- Privacy & Security -->
+          <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+              <span>🔒</span>
+              Privacy & Security
+            </h2>
+            <div class="space-y-4">
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Are my files uploaded to servers?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Most tools run fully in your browser using client-side processing. Your files never leave your device, ensuring complete privacy. Only heavy conversions that require more processing power use our secure Cloud Run backend temporarily, and files are deleted immediately after processing. We never store your files.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  How secure is PDFEliteTools?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  PDFEliteTools uses HTTPS encryption for all connections. Client-side tools process files entirely in your browser, so your data never leaves your device. For cloud-based processing, files are encrypted in transit and deleted immediately after processing. We don't track your usage or store any personal information.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Do you collect or store my personal information?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  No. We don't require registration, login, or any personal information. We don't track your usage, store your files, or collect any data about you. Your privacy is our top priority.
+                </p>
+              </details>
+            </div>
+          </section>
+
+          <!-- Usage & Features -->
+          <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+              <span>⚙️</span>
+              Usage & Features
+            </h2>
+            <div class="space-y-4">
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Are there watermarks or sign-up required?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  No watermarks ever. No account or sign-up needed. All tools are completely free to use without any limitations or restrictions. You can use all features without creating an account.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  What file sizes are supported?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Most tools support up to 150MB files, which is higher than most competitors (typically 20-50MB). For very large files, we recommend using the compress tool first to reduce file size before processing.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  How fast are the conversions?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Client-side tools are instant - they process files directly in your browser. Backend conversions are optimized and typically complete in seconds, depending on file size and complexity. Most operations finish within 10-30 seconds.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Which browsers are supported?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  PDFEliteTools works on all modern browsers including Chrome, Firefox, Edge, Safari, and Opera. We recommend using the latest version of your browser for the best experience.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Can I use PDFEliteTools on mobile devices?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Yes! PDFEliteTools is fully responsive and works on mobile devices, tablets, and desktops. Some tools like Mobile Scanner are specifically designed for mobile use. However, for best results with large files, we recommend using a desktop browser.
+                </p>
+              </details>
+            </div>
+          </section>
+
+          <!-- Technical Support -->
+          <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+              <span>🛠️</span>
+              Technical Support
+            </h2>
+            <div class="space-y-4">
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  What should I do if a tool isn't working?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  First, try refreshing the page and clearing your browser cache. Make sure you're using a supported browser and that your file meets the size requirements. If the issue persists, check our <a href="/support" class="text-primary-600 dark:text-primary-400 hover:underline">Support Center</a> or <a href="/contact" class="text-primary-600 dark:text-primary-400 hover:underline">contact us</a> for assistance.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Can I process password-protected PDFs?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Some tools can work with password-protected PDFs if you enter the password when prompted. However, certain operations may require the PDF to be unlocked first. Use our Unlock PDF tool if you need to remove password protection.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Why is my file taking longer to process?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Processing time depends on file size, complexity, and the type of operation. Large files, files with many pages, or complex operations like OCR may take longer. If processing seems stuck, try refreshing the page and uploading the file again.
+                </p>
+              </details>
+            </div>
+          </section>
+
+          <!-- Pricing & Limits -->
+          <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+              <span>💰</span>
+              Pricing & Limits
+            </h2>
+            <div class="space-y-4">
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Is PDFEliteTools really free?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Yes! All tools are 100% free forever with no hidden costs, no premium tiers, and no limitations. We don't require payment, subscriptions, or accounts. Everything is free to use.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Are there any usage limits?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  No, there are no usage limits. You can process as many files as you need, as often as you want. The only limit is the file size (150MB per file), which is higher than most competitors.
+                </p>
+              </details>
+
+              <details class="glass p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                <summary class="font-semibold cursor-pointer text-gray-900 dark:text-white text-lg mb-3">
+                  Will you add premium features in the future?
+                </summary>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Our goal is to keep all features free. We may display ads to support the service, but all tools and features will remain free to use. We believe in providing accessible PDF tools for everyone.
+                </p>
+              </details>
+            </div>
+          </section>
+        </div>
+
+        <!-- Still Have Questions -->
+        <div class="mt-16 glass p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 text-center">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Still Have Questions?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            Can't find the answer you're looking for? We're here to help!
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/support" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors">
+              Visit Support Center
+            </a>
+            <a href="/contact" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors">
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 {
-  "name": "PDFMasterTool - 30 AI-Powered PDF Tools",
-  "short_name": "PDFMasterTool",
+  "name": "PDFEliteTools - 43+ AI-Powered PDF Tools",
+  "short_name": "PDFEliteTools",
   "description": "Next-gen PDF platform with 30 tools powered by AI and WebAssembly. Privacy-first, ad-free, no login required.",
   "start_url": "/",
   "scope": "/",
@@ -72,7 +72,7 @@
     }
   ],
   "features": [
-    "30 PDF Tools",
+    "43+ PDF Tools",
     "AI-Powered OCR",
     "Offline Support",
     "Privacy-First",
@@ -80,6 +80,8 @@
   ],
   "prefer_related_applications": false
 }
+
+
 
 
 
