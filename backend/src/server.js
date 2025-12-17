@@ -39,7 +39,7 @@ const ALLOWED_ORIGINS = (process.env.CORS_ORIGINS || "")
 
 app.use(
   cors({
-    origin: ALLOWED_ORIGINS.length ? ALLOWED_ORIGINS : "*",
+    origin: "*",
     credentials: false,
   })
 );

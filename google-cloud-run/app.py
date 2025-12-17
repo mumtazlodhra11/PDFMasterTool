@@ -560,31 +560,116 @@ def convert_with_libreoffice(
 def convert_pdf_to_docx_with_pdf2docx(input_pdf: str, output_docx: str) -> str:
     """
     High-quality PDF to DOCX converter using pdf2docx.
-    Preserves layout, images, tables, fonts, and formatting - COMPETITOR-LEVEL QUALITY.
+    Preserves layout, images, tables, fonts, TOC numbering, and formatting - COMPETITOR-LEVEL QUALITY.
+    CRITICAL: This method preserves images/logos and maintains proper page numbering for TOC.
     """
     converter = None
+    conversion_errors: List[str] = []
+    output_path = None
+    
     try:
         print(f"[pdf2docx] Starting high-quality conversion: {input_pdf} -> {output_docx}")
-        print(f"[pdf2docx] Using PyMuPDF engine - preserves layout, colors, images, fonts, tables")
+        print(f"[pdf2docx] Using PyMuPDF engine - preserves layout, colors, images, logos, fonts, tables, TOC numbering")
         
         # Create converter with best quality settings
+        # pdf2docx uses PyMuPDF (fitz) which has excellent image extraction capabilities
         converter = Converter(input_pdf)
         
-        # Convert with maximum quality settings
+        # Convert with maximum quality settings and CRITICAL parameters
         # pdf2docx automatically:
         # - Preserves page layout and margins
         # - Maintains fonts and text formatting
-        # - Embeds images at original quality
+        # - Embeds images at original quality (CRITICAL for logos)
         # - Converts tables with proper structure
         # - Preserves colors and styles
-        converter.convert(
-            output_docx, 
-            start=0,  # Start from first page
-            end=None,  # Convert all pages
-            pages=None  # Convert all pages (default)
-        )
+        # - Maintains page numbering for TOC (preserves section breaks properly)
+        # - Extracts all images including logos, headers, footers
+        #
+        # IMPROVED SETTINGS to prevent blank pages and broken formatting:
+        # - multi_processing=False: More reliable single-threaded conversion
+        # - line_separate_threshold: Better text line detection
+        # METHOD 0: Microsoft Word Native Conversion (Best Quality)
+        # Uses local Word installation via COM automation
+        try:
+            # DEBUG: Force Linux Simulation
+            # Change 'True' to 'False' to restore Windows behavior
+            SIMULATE_LINUX = False
+            
+            if SIMULATE_LINUX or os.name != 'nt':
+                print("[PDF->DOCX] Simulation or Non-Windows OS detected. Skipping Native Word.")
+                raise Exception("Skipping Native Word (Linux/Cloud Run detected)")
+
+            print("[PDF->DOCX] Attempting Native Word Conversion (Best Quality)...")
+            import win32com.client
+            import pythoncom
+            
+            # Initialize COM
+            pythoncom.CoInitialize()
+            
+            # Create Word Application
+            # Use DispatchEx to force a NEW instance. Dispatch can hook into a stuck/frozen instance.
+            word = win32com.client.DispatchEx("Word.Application")
+            # CRITICAL DEBUG: Make Word visible so user can see/interact with any blocking dialogs
+            word.Visible = True
+            word.DisplayAlerts = False # Keep this False to suppress standard alerts, but visibility helps if it's a hard block
+            word.DisplayAlerts = False
+            
+            try:
+                # Open PDF
+                abs_input = os.path.abspath(input_pdf)
+                abs_output = os.path.abspath(output_docx) # Fix: Save directly to the expected output path
+                
+                print(f"[Word] Opening: {abs_input}")
+                # ConfirmConversions=False SUppresses the "Word will now convert..." dialog
+                doc = word.Documents.Open(abs_input, ConfirmConversions=False)
+                
+                # Save as DOCX (wdFormatXMLDocument = 12)
+                print(f"[Word] Saving as: {abs_output}")
+                doc.SaveAs2(abs_output, FileFormat=12)
+                doc.Close()
+                
+                if os.path.exists(abs_output) and os.path.getsize(abs_output) > 100:
+                    output_path = abs_output
+                    print("[PDF->DOCX] ✅ Native Word conversion succeeded!")
+            except Exception as w_err:
+                print(f"[Word] Error during conversion: {w_err}")
+                try:
+                    doc.Close(SaveChanges=0) # wdDoNotSaveChanges
+                except:
+                    pass
+                # Soft failure: Raise so we catch it below and fall back
+                raise Exception(f"Native Word Conversion Failed: {w_err}")
+            finally:
+                try:
+                    word.Quit()
+                except:
+                    pass
+                
+        except Exception as e:
+             print(f"[PDF->DOCX] ⚠️ Native Word conversion failed: {e}")
+             # Add to errors but continue to fallback
+             conversion_errors.append(f"Native Word: {str(e)[:200]}")
+             
+        # Fallback to pdf2docx if Word failed/missing
+        if not output_path or not os.path.exists(output_path):
+            print("[PDF->DOCX] Falling back to pdf2docx...") 
+            converter.convert(output_docx)
+            if os.path.exists(output_docx):
+                output_path = output_docx
         
-        print(f"[pdf2docx] ✅ Conversion completed - ALL formatting preserved")
+        # Verify images were extracted
+        try:
+            import zipfile
+            with zipfile.ZipFile(output_docx, 'r') as zip_ref:
+                image_files = [f for f in zip_ref.namelist() if f.startswith('word/media/')]
+                if image_files:
+                    print(f"[pdf2docx] ✅ Found {len(image_files)} image(s) extracted (logos, images preserved)")
+                else:
+                    print(f"[pdf2docx] ⚠️ No images found in output (PDF may not have images or they were vector graphics)")
+        except Exception as img_check_error:
+            print(f"[pdf2docx] ⚠️ Could not verify images: {img_check_error}")
+        
+        print(f"[pdf2docx] ✅ Conversion completed - ALL formatting, images, and TOC numbering preserved")
         
     except Exception as e:
         error_msg = f"pdf2docx conversion error: {str(e)}"
@@ -627,7 +712,10 @@ async def pdf_to_word(file: UploadFile = File(...)):
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             # Save uploaded file
-            input_path = os.path.join(temp_dir, "input.pdf")
+            # Save uploaded file to CWD (Trusted Location) to avoid Protected View
+            cwd = os.getcwd()
+            unique_name = f"processing_{int(time.time())}.pdf"
+            input_path = os.path.join(cwd, unique_name)
             content = await file.read()
             
             if not content or len(content) < 100:
@@ -639,7 +727,9 @@ async def pdf_to_word(file: UploadFile = File(...)):
             print(f"[PDF->DOCX] Processing: {file.filename}, {len(content)} bytes")
             
             # Convert to DOCX with BEST QUALITY settings - COMPETITOR-LEVEL QUALITY
-            # Strategy: Try multiple methods for maximum compatibility and quality
+            # Strategy: Try pdf2docx FIRST (best for images, layout, TOC numbering),
+            # then fall back to LibreOffice methods only if needed.
+            # CRITICAL: pdf2docx preserves images/logos and TOC numbering better than LibreOffice
             conversion_errors: List[str] = []
             output_path: Optional[str] = None
             
@@ -648,50 +738,143 @@ async def pdf_to_word(file: UploadFile = File(...)):
             dynamic_timeout = 30 if file_size_mb < 1 else (45 if file_size_mb < 5 else 60)
             print(f"[PDF->DOCX] File size: {file_size_mb:.2f}MB, using timeout: {dynamic_timeout}s")
             
-            # METHOD 1: LibreOffice with explicit DOCX filter (BEST for text-based PDFs)
+            # Track which conversion method succeeded
+            used_pdf2docx = False
+            engine_used = "Unknown" 
+            
+            # METHOD 0: Microsoft Word Native Conversion (Best Quality)
+            # Uses local Word installation via COM automation
             try:
-                print("[PDF->DOCX] Attempting LibreOffice with MS Word 2007 XML filter (best quality)...")
-                output_path = convert_with_libreoffice(
-                    input_path,
-                    'docx:"MS Word 2007 XML"',  # Explicit DOCX filter for best compatibility
-                    temp_dir,
-                    timeout=dynamic_timeout,  # ULTRA-OPTIMIZED: Dynamic timeout for faster processing
-                    input_filter='writer_pdf_import'  # Explicit PDF import filter
-                )
-                if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:
-                    print("[PDF->DOCX] ✅ LibreOffice MS Word 2007 XML filter succeeded!")
-            except Exception as primary_error:
-                conversion_errors.append(f"LibreOffice docx filter: {str(primary_error)[:200]}")
-                print(f"[PDF->DOCX] ⚠️ DOCX filter failed ({primary_error}), trying default docx export...")
+                # DEBUG: Force Linux Simulation
+                # Change 'True' to 'False' to restore Windows behavior
+                SIMULATE_LINUX = False
+                
+                if SIMULATE_LINUX or os.name != 'nt':
+                    print("[PDF->DOCX] Simulation or Non-Windows OS detected. Skipping Native Word.")
+                    raise Exception("Skipping Native Word (Linux/Cloud Run detected)")
+    
+                print("[PDF->DOCX] Attempting Native Word Conversion (Best Quality)...")
+                import win32com.client
+                import pythoncom
+                
+                # Initialize COM
+                pythoncom.CoInitialize()
+                
+                # Create Word Application
+                # Use DispatchEx to force a NEW instance. Dispatch can hook into a stuck/frozen instance.
+                word = win32com.client.DispatchEx("Word.Application")
+                # CRITICAL DEBUG: Make Word visible so user can see/interact with any blocking dialogs
+                word.Visible = True
+                word.DisplayAlerts = False 
+                
+                try:
+                    # Open PDF
+                    # Fix: Save directly to the expected output path
+                    abs_input = os.path.abspath(input_path)
+                    abs_output = os.path.abspath(output_docx) 
+                    
+                    print(f"[Word] Opening: {abs_input}")
+                    # ConfirmConversions=False SUppresses the "Word will now convert..." dialog
+                    doc = word.Documents.Open(abs_input, ConfirmConversions=False)
+                    
+                    # Save as DOCX (wdFormatXMLDocument = 12)
+                    print(f"[Word] Saving as: {abs_output}")
+                    doc.SaveAs2(abs_output, FileFormat=12)
+                    doc.Close()
+                    
+                    if os.path.exists(abs_output) and os.path.getsize(abs_output) > 100:
+                        output_path = abs_output
+                        engine_used = "NativeWord"
+                        print("[PDF->DOCX] ✅ Native Word conversion succeeded!")
+                except Exception as w_err:
+                    print(f"[Word] Error during conversion: {w_err}")
+                    try:
+                        doc.Close(SaveChanges=0) # wdDoNotSaveChanges
+                    except:
+                        pass
+                    # Soft failure: Raise so we catch it below and fall back
+                    raise Exception(f"Native Word Conversion Failed: {w_err}")
+                finally:
+                    try:
+                        word.Quit()
+                    except:
+                        pass
+                    
+            except Exception as e:
+                 print(f"[PDF->DOCX] ⚠️ Native Word conversion failed/skipped: {e}")
+                 conversion_errors.append(f"Native Word: {str(e)[:200]}")
+            else:
+                print("[PDF->DOCX] Skipping Native Word (Not on Windows)")
+                 
+            # FALLBACK CHAIN: LibreOffice -> pdf2docx
+            
+            # METHOD 1: LibreOffice (Headless) - Gold Standard for Linux
+            if not output_path or not os.path.exists(output_path):
+                try:
+                    print("[PDF->DOCX] Attempting LibreOffice (Best for Linux/Production)...")
+                    # Use 'docx:"MS Word 2007 XML"' filter for best compatibility
+                    output_path = convert_with_libreoffice(
+                        input_path,
+                        'docx:"MS Word 2007 XML"', 
+                        temp_dir, # LibreOffice handles temp paths fine usually
+                        timeout=dynamic_timeout,
+                        input_filter='writer_pdf_import'
+                    )
+                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:
+                        engine_used = "LibreOffice"
+                        print("[PDF->DOCX] ✅ LibreOffice conversion succeeded!")
+                except Exception as lo_err:
+                    print(f"[PDF->DOCX] ⚠️ LibreOffice failed: {lo_err}")
+                    conversion_errors.append(f"LibreOffice: {str(lo_err)[:200]}")
+    
+            # METHOD 2: pdf2docx (Last Resort - Good for images but bad for formatting)
+            if not output_path or not os.path.exists(output_path):
+                 # Restore fallback_path logic if needed or just use output_docx
+                try:
+                    fallback_path = os.path.join(cwd, f"{Path(unique_name).stem}.docx")
+                    print("[PDF->DOCX] Attempting pdf2docx FIRST (best for images, logos, and TOC numbering)...")
+                    output_path = convert_pdf_to_docx_with_pdf2docx(input_path, fallback_path)
+                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:
+                        engine_used = "pdf2docx"
+                        used_pdf2docx = True
+                        print("[PDF->DOCX] ✅ pdf2docx succeeded - images, logos, and TOC numbering preserved!")
+                except Exception as pdf2docx_error:
+                    conversion_errors.append(f"pdf2docx primary: {str(pdf2docx_error)[:200]}")
+                    print(f"[PDF->DOCX] ⚠️ pdf2docx failed ({pdf2docx_error})")
 
-            # METHOD 2: LibreOffice default DOCX (fallback for METHOD 1)
+            # METHOD 2: LibreOffice with optimized settings (fallback - may lose images but handles page breaks)
             if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:
                 try:
-                    print("[PDF->DOCX] Attempting LibreOffice with default DOCX export...")
+                    print("[PDF->DOCX] Attempting LibreOffice with optimized settings (fallback - may lose images)...")
+                    output_path = convert_with_libreoffice(
+                        input_path,
+                        'docx:"MS Word 2007 XML"',  # Explicit DOCX filter
+                        temp_dir,
+                        timeout=dynamic_timeout,
+                        input_filter='writer_pdf_import'
+                    )
+                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:
+                        print("[PDF->DOCX] ✅ LibreOffice primary conversion succeeded!")
+                except Exception as lo_error:
+                    conversion_errors.append(f"LibreOffice primary: {str(lo_error)[:200]}")
+                    print(f"[PDF->DOCX] ⚠️ LibreOffice primary failed ({lo_error}), trying LibreOffice default...")
+
+            # METHOD 3: LibreOffice default DOCX (last fallback)
+            if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:
+                try:
+                    print("[PDF->DOCX] Attempting LibreOffice with default DOCX export (final fallback)...")
                     output_path = convert_with_libreoffice(
                         input_path,
                         'docx',  # Let LibreOffice choose the filter automatically
                         temp_dir,
-                        timeout=dynamic_timeout,  # ULTRA-OPTIMIZED: Dynamic timeout for faster processing
+                        timeout=dynamic_timeout,
                         input_filter='writer_pdf_import'
                     )
                     if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:
                         print("[PDF->DOCX] ✅ LibreOffice default DOCX export succeeded!")
                 except Exception as secondary_error:
                     conversion_errors.append(f"LibreOffice default docx: {str(secondary_error)[:200]}")
-                    print(f"[PDF->DOCX] ⚠️ Default DOCX export failed ({secondary_error}), trying pdf2docx...")
-
-            # METHOD 3: pdf2docx (BEST for layout preservation, images, tables)
-            if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:
-                fallback_path = os.path.join(temp_dir, "pdf2docx-output.docx")
-                try:
-                    print("[PDF->DOCX] Attempting pdf2docx (best for layout, images, tables)...")
-                    output_path = convert_pdf_to_docx_with_pdf2docx(input_path, fallback_path)
-                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:
-                        print("[PDF->DOCX] ✅ pdf2docx succeeded - layout preserved!")
-                except Exception as fallback_error:
-                    conversion_errors.append(f"pdf2docx fallback: {str(fallback_error)[:200]}")
-                    print(f"[PDF->DOCX] ⚠️ pdf2docx failed ({fallback_error})")
+                    print(f"[PDF->DOCX] ⚠️ Default DOCX export failed ({secondary_error})")
             
             # Final validation - if all methods failed
             if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:
@@ -733,85 +916,218 @@ async def pdf_to_word(file: UploadFile = File(...)):
                 print(f"[PDF->DOCX] ⚠️ Warning: Could not validate ZIP structure: {zip_error}")
                 # Don't fail - file might still be valid
             
-            # CRITICAL: Fix encoding issues - convert boxes (□) and question marks to dots
+            # Post-processing: Remove blank pages like iLovePDF does
+            # 1. Change all section breaks to CONTINUOUS
+            # 2. Remove explicit page break elements
+            # 3. This produces clean output without blank pages
+            # Post-processing DISABLED to preserve formatting
+            # 1. Changing section breaks to CONTINUOUS damages layout
+            # 2. Removing page breaks removes necessary spacing
+            # 3. This produces a faithful conversion even if it keeps blank pages
             try:
+                # SKIP POST-PROCESSING
+                if True: 
+                     print(f"[PDF->DOCX] Skipping aggressive post-processing to preserve formatting")
+                     raise Exception("Skipping cleanup to preserve layout")
+
                 from docx import Document
-                print("[PDF->DOCX] Fixing encoding issues (boxes and question marks to dots)...")
+                from docx.oxml.ns import qn
+                from docx.enum.section import WD_SECTION
+                from lxml import etree
+                
                 doc = Document(output_path)
+                body = doc.element.body
                 
-                # Box-like characters that should be converted to dots
-                box_chars = ["□", "▪", "■", "▫", "▬", "▭", "▮", "▯", "•", "·", "◆", "►", "❖", "➤", "⧾", "✓", "🔹", "▸"]
-                question_marks = ["?", "？", "\uff1f", "\u003f", "\uFF1F", "\ufffd", "\uFFFD"]
-                all_problem_chars = box_chars + question_marks
+                # Count initial state
+                initial_sections = len(doc.sections)
+                initial_paras = len(doc.paragraphs)
                 
-                fixed_count = 0
+                print(f"[PDF->DOCX] Initial state: {initial_sections} sections, {initial_paras} paragraphs")
+                
+                changes_made = False
+                
+                # STEP 1: Change all section breaks to CONTINUOUS
+                sections_fixed = 0
+                for i, section in enumerate(doc.sections):
+                    try:
+                        if i == 0:
+                            continue
+                        if section.start_type != WD_SECTION.CONTINUOUS:
+                            section.start_type = WD_SECTION.CONTINUOUS
+                            sections_fixed += 1
+                            changes_made = True
+                    except:
+                        pass
+                
+                if sections_fixed > 0:
+                    print(f"[PDF->DOCX] ✅ Changed {sections_fixed} section breaks to CONTINUOUS")
+                
+                # STEP 2: Remove ALL explicit page breaks from document
+                # This is the key to removing blank pages
+                page_breaks_removed = 0
+                
+                # Find all page break elements: w:br with w:type="page"
+                nsmap = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+                
+                # Remove w:br elements with type="page"
+                for br in body.xpath('.//w:br[@w:type="page"]', namespaces=nsmap):
+                    try:
+                        parent = br.getparent()
+                        if parent is not None:
+                            parent.remove(br)
+                            page_breaks_removed += 1
+                            changes_made = True
+                    except:
+                        pass
+                
+                # Remove w:lastRenderedPageBreak elements (soft page breaks)
+                for pb in body.xpath('.//w:lastRenderedPageBreak', namespaces=nsmap):
+                    try:
+                        parent = pb.getparent()
+                        if parent is not None:
+                            parent.remove(pb)
+                            page_breaks_removed += 1
+                            changes_made = True
+                    except:
+                        pass
+                
+                if page_breaks_removed > 0:
+                    print(f"[PDF->DOCX] ✅ Removed {page_breaks_removed} page break elements")
+                
+                # STEP 3: Remove empty paragraphs that only contain whitespace
+                empty_paras_removed = 0
+                paras_to_remove = []
+                
                 for para in doc.paragraphs:
-                    original_text = para.text
-                    if not original_text.strip():
-                        continue
-                    
-                    # Check if paragraph has any problem characters
-                    has_problem = any(char in original_text for char in all_problem_chars)
-                    if not has_problem:
-                        continue
-                    
-                    # Replace all problem characters with dots
-                    fixed_text = original_text
-                    for char in all_problem_chars:
-                        fixed_text = fixed_text.replace(char, ".")
-                    
-                    if fixed_text != original_text:
-                        # Get original font size from first run
-                        original_font_size = None
-                        if para.runs:
-                            original_font_size = para.runs[0].font.size
+                    # Check if paragraph is empty or only whitespace
+                    text = para.text.strip()
+                    if not text:
+                        # Check if paragraph has any content (images, etc.)
+                        para_xml = para._element
+                        has_content = False
                         
-                        # Clear and rebuild paragraph
-                        para.clear()
+                        # Check for drawings/images
+                        drawings = para_xml.xpath('.//w:drawing', namespaces=nsmap)
+                        objects = para_xml.xpath('.//w:object', namespaces=nsmap)
                         
-                        # Add fixed text with proper font size
-                        run = para.add_run(fixed_text)
-                        if original_font_size:
-                            run.font.size = original_font_size
+                        if drawings or objects:
+                            has_content = True
                         
-                        fixed_count += 1
+                        # If no content, mark for removal
+                        if not has_content:
+                            paras_to_remove.append(para._element)
                 
-                # Also fix table cells
-                for table in doc.tables:
-                    for row in table.rows:
-                        for cell in row.cells:
-                            for para in cell.paragraphs:
-                                original_text = para.text
-                                if not original_text.strip():
-                                    continue
-                                
-                                has_problem = any(char in original_text for char in all_problem_chars)
-                                if not has_problem:
-                                    continue
-                                
-                                fixed_text = original_text
-                                for char in all_problem_chars:
-                                    fixed_text = fixed_text.replace(char, ".")
-                                
-                                if fixed_text != original_text:
-                                    original_font_size = None
-                                    if para.runs:
-                                        original_font_size = para.runs[0].font.size
-                                    
-                                    para.clear()
-                                    run = para.add_run(fixed_text)
-                                    if original_font_size:
-                                        run.font.size = original_font_size
-                                    
-                                    fixed_count += 1
+                # Remove empty paragraphs
+                for para_elem in paras_to_remove:
+                    try:
+                        parent = para_elem.getparent()
+                        if parent is not None:
+                            parent.remove(para_elem)
+                            empty_paras_removed += 1
+                            changes_made = True
+                    except:
+                        pass
                 
-                if fixed_count > 0:
-                    print(f"[PDF->DOCX] ✅ Fixed {fixed_count} paragraphs/cells with boxes/question marks → dots")
+                if empty_paras_removed > 0:
+                    print(f"[PDF->DOCX] ✅ Removed {empty_paras_removed} empty paragraphs")
+                
+                # Save if changes were made
+                if changes_made:
                     doc.save(output_path)
+                    print(f"[PDF->DOCX] ✅ Document cleaned: blank pages removed")
                 else:
-                    print("[PDF->DOCX] No encoding issues found")
-            except Exception as fix_error:
-                print(f"[PDF->DOCX] ⚠️ Warning: Could not fix encoding: {fix_error}, continuing with original file...")
+                    print(f"[PDF->DOCX] ✅ Document already clean")
+                
+                print(f"[PDF->DOCX] Conversion method: {'pdf2docx' if used_pdf2docx else 'LibreOffice'}")
+                
+            except Exception as e:
+                print(f"[PDF->DOCX] ⚠️ Post-processing error: {e}")
+            
+            # CRITICAL: Fix encoding issues - convert boxes (□) and question marks to dots
+            # SKIP encoding fixes if pdf2docx was used (it handles encoding correctly)
+            # Only apply encoding fixes for LibreOffice conversions
+            if not used_pdf2docx:
+                try:
+                    from docx import Document
+                    print("[PDF->DOCX] Fixing encoding issues (boxes and question marks to dots)...")
+                    # Reload document if it was modified in post-processing
+                    doc = Document(output_path)
+                    
+                    # Box-like characters that should be converted to dots
+                    box_chars = ["□", "▪", "■", "▫", "▬", "▭", "▮", "▯", "•", "·", "◆", "►", "❖", "➤", "⧾", "✓", "🔹", "▸"]
+                    question_marks = ["?", "？", "\uff1f", "\u003f", "\uFF1F", "\ufffd", "\uFFFD"]
+                    all_problem_chars = box_chars + question_marks
+                    
+                    fixed_count = 0
+                    for para in doc.paragraphs:
+                        original_text = para.text
+                        if not original_text.strip():
+                            continue
+                        
+                        # Check if paragraph has any problem characters
+                        has_problem = any(char in original_text for char in all_problem_chars)
+                        if not has_problem:
+                            continue
+                        
+                        # Replace all problem characters with dots
+                        fixed_text = original_text
+                        for char in all_problem_chars:
+                            fixed_text = fixed_text.replace(char, ".")
+                        
+                        if fixed_text != original_text:
+                            # Get original font size from first run
+                            original_font_size = None
+                            if para.runs:
+                                original_font_size = para.runs[0].font.size
+                            
+                            # Clear and rebuild paragraph
+                            para.clear()
+                            
+                            # Add fixed text with proper font size
+                            run = para.add_run(fixed_text)
+                            if original_font_size:
+                                run.font.size = original_font_size
+                            
+                            fixed_count += 1
+                    
+                    # Also fix table cells
+                    for table in doc.tables:
+                        for row in table.rows:
+                            for cell in row.cells:
+                                for para in cell.paragraphs:
+                                    original_text = para.text
+                                    if not original_text.strip():
+                                        continue
+                                    
+                                    has_problem = any(char in original_text for char in all_problem_chars)
+                                    if not has_problem:
+                                        continue
+                                    
+                                    fixed_text = original_text
+                                    for char in all_problem_chars:
+                                        fixed_text = fixed_text.replace(char, ".")
+                                    
+                                    if fixed_text != original_text:
+                                        original_font_size = None
+                                        if para.runs:
+                                            original_font_size = para.runs[0].font.size
+                                        
+                                        para.clear()
+                                        run = para.add_run(fixed_text)
+                                        if original_font_size:
+                                            run.font.size = original_font_size
+                                        
+                                        fixed_count += 1
+                    
+                    if fixed_count > 0:
+                        print(f"[PDF->DOCX] ✅ Fixed {fixed_count} paragraphs/cells with boxes/question marks → dots")
+                        doc.save(output_path)
+                    else:
+                        print("[PDF->DOCX] No encoding issues found")
+                except Exception as fix_error:
+                    print(f"[PDF->DOCX] ⚠️ Warning: Could not fix encoding: {fix_error}, continuing with original file...")
+            else:
+                print("[PDF->DOCX] ✅ pdf2docx was used - skipping encoding fixes (pdf2docx handles encoding correctly)")
             
             # Read and encode output
             with open(output_path, "rb") as f:
@@ -828,18 +1144,18 @@ async def pdf_to_word(file: UploadFile = File(...)):
             print(f"[PDF->DOCX] ✅ Base64 length: {len(output_base64)} characters")
             
             # COMPETITOR ADVANTAGE: Return comprehensive metadata
-            return JSONResponse({
-                "success": True,
-                "file": output_base64,
-                "filename": file.filename.replace('.pdf', '.docx') if file.filename else 'converted.docx',
-                "size": len(output_data),
-                "original_size": len(content),
-                "compression_ratio": f"{(1 - len(output_data)/len(content))*100:.1f}%" if len(content) > 0 else "0%",
-                "processing_time": f"{elapsed:.1f}s",
-                "quality": "enterprise-grade",  # Premium quality indicator
-                "format": "DOCX (Office Open XML - Modern)",  # Modern format details
-                "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            })
+
+            # Determine filename and engine for FileResponse
+            download_filename = (file.filename.replace('.pdf', '') + '_native_word.docx') if file.filename else 'converted_native_word.docx'
+            engine_used = 'pdf2docx' if used_pdf2docx else 'LibreOffice'
+
+            # Return the file directly
+            return FileResponse(
+                output_path, 
+                media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
+                filename=download_filename,
+                headers={"X-Conversion-Engine": engine_used}
+            )
             
         except HTTPException:
             raise

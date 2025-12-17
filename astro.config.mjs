@@ -32,11 +32,8 @@ export default defineConfig({
 
   vite: {
     define: {
-      // Ensure production mode
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      'import.meta.env.MODE': JSON.stringify('production'),
-      'import.meta.env.PROD': 'true',
-      'import.meta.env.DEV': 'false',
+      // Only set production mode in build, not in dev
+      // In dev mode, Astro will automatically set these correctly
     },
     build: {
       cssCodeSplit: true,

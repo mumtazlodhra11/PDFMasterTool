@@ -4,10 +4,10 @@
   "description": "43+ PDF tools - Better than iLovePDF - 100% FREE, Privacy-first, Ad-free, No-login",
   "type": "module",
   "scripts": {
-    "dev": "astro dev --port 4321",
-    "start": "astro dev --port 4321",
+    "dev": "astro dev",
+    "start": "astro dev",
     "build": "cross-env NODE_ENV=production astro build",
-    "preview": "cross-env NODE_ENV=production astro preview --port 4321 --host",
+    "preview": "cross-env NODE_ENV=production astro preview",
     "preview:compressed": "node preview-server.js",
     "astro": "astro",
     "check": "astro check --watch",
@@ -56,6 +56,7 @@
     "eslint-plugin-astro": "^1.2.3",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
+    "terser": "^5.44.1",
     "typescript": "^5.5.4"
   },
   "keywords": [

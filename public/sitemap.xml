@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc>https://pdfelitetools.com</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/pricing</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/about</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/contact</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/privacy</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/terms</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/security</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/faq</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/blog</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/word-to-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/word-to-pdf.jpg</image:loc>
+      <image:title>Word to PDF</image:title>
+      <image:caption>Convert Word documents (DOCX, DOC) to high-quality PDF format</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/powerpoint-to-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/powerpoint-to-pdf.jpg</image:loc>
+      <image:title>PowerPoint to PDF</image:title>
+      <image:caption>Convert PowerPoint presentations to PDF with perfect slide preservation</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/excel-to-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/excel-to-pdf.jpg</image:loc>
+      <image:title>Excel to PDF</image:title>
+      <image:caption>Convert Excel spreadsheets to professional PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/image-to-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/image-to-pdf.jpg</image:loc>
+      <image:title>Image to PDF</image:title>
+      <image:caption>Convert images (JPG, PNG, WebP, HEIC) to PDF format</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/html-to-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/html-to-pdf.jpg</image:loc>
+      <image:title>HTML to PDF</image:title>
+      <image:caption>Convert HTML pages and websites to PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-word</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-word.jpg</image:loc>
+      <image:title>PDF to Word</image:title>
+      <image:caption>Convert PDF to editable Word documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-powerpoint</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-powerpoint.jpg</image:loc>
+      <image:title>PDF to PowerPoint</image:title>
+      <image:caption>Convert PDF presentations to editable PowerPoint slides</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-excel</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-excel.jpg</image:loc>
+      <image:title>PDF to Excel</image:title>
+      <image:caption>Extract tables from PDF to editable Excel spreadsheets</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-jpg</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-jpg.jpg</image:loc>
+      <image:title>PDF to JPG</image:title>
+      <image:caption>Convert PDF pages to high-quality JPG images</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-pdfa</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-pdfa.jpg</image:loc>
+      <image:title>PDF to PDF/A</image:title>
+      <image:caption>Convert regular PDF to archival PDF/A format</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/merge-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/merge-pdf.jpg</image:loc>
+      <image:title>Merge PDF</image:title>
+      <image:caption>Combine multiple PDF files into a single document</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/split-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/split-pdf.jpg</image:loc>
+      <image:title>Split PDF</image:title>
+      <image:caption>Split large PDF into smaller files or extract specific pages</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/reorder-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/reorder-pdf.jpg</image:loc>
+      <image:title>Reorder Pages</image:title>
+      <image:caption>Rearrange PDF pages with drag-and-drop interface</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/remove-pages</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/remove-pages.jpg</image:loc>
+      <image:title>Remove Pages</image:title>
+      <image:caption>Delete unwanted pages from PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/add-page-numbers</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/add-page-numbers.jpg</image:loc>
+      <image:title>Add Page Numbers</image:title>
+      <image:caption>Add customizable page numbers to your PDF</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/password-protect</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/password-protect.jpg</image:loc>
+      <image:title>Password Protect PDF</image:title>
+      <image:caption>Add password protection and encryption to PDF files</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/unlock-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/unlock-pdf.jpg</image:loc>
+      <image:title>Unlock PDF</image:title>
+      <image:caption>Remove password protection from PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/watermark-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/watermark-pdf.jpg</image:loc>
+      <image:title>Watermark PDF</image:title>
+      <image:caption>Add text or image watermarks to PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/compress-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/compress-pdf.jpg</image:loc>
+      <image:title>Compress PDF</image:title>
+      <image:caption>Reduce PDF file size while maintaining quality</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/repair-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/repair-pdf.jpg</image:loc>
+      <image:title>Repair PDF</image:title>
+      <image:caption>Fix corrupted or damaged PDF files</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/edit-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/edit-pdf.jpg</image:loc>
+      <image:title>Edit PDF</image:title>
+      <image:caption>Edit PDF text, images, and shapes directly</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/annotate-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/annotate-pdf.jpg</image:loc>
+      <image:title>Highlight &amp; Annotate</image:title>
+      <image:caption>Add highlights, annotations, and comments to PDF</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/rotate-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/rotate-pdf.jpg</image:loc>
+      <image:title>Rotate Pages</image:title>
+      <image:caption>Rotate PDF pages 90°, 180°, or 270° degrees</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/header-footer</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/header-footer.jpg</image:loc>
+      <image:title>Add Header/Footer</image:title>
+      <image:caption>Add custom headers and footers to PDF pages</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/esign-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/esign-pdf.jpg</image:loc>
+      <image:title>eSign PDF</image:title>
+      <image:caption>Add electronic signatures to PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/fill-pdf-forms</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/fill-pdf-forms.jpg</image:loc>
+      <image:title>Fill PDF Forms</image:title>
+      <image:caption>Fill out PDF forms with auto field detection</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/ai-ocr</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/ai-ocr.jpg</image:loc>
+      <image:title>OCR (Tesseract)</image:title>
+      <image:caption>Convert scanned PDFs to searchable text with Tesseract.js (FREE!)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/ai-summarizer</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/ai-summarizer.jpg</image:loc>
+      <image:title>AI Summarizer</image:title>
+      <image:caption>Extract key insights and summaries from PDF documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/ai-translator</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/ai-translator.jpg</image:loc>
+      <image:title>AI Translator</image:title>
+      <image:caption>Translate PDF content to multiple languages with AI</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/ai-smart-compress</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/ai-smart-compress.jpg</image:loc>
+      <image:title>AI Smart Compressor</image:title>
+      <image:caption>Intelligently compress PDF while preserving text quality</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-compare</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-compare.jpg</image:loc>
+      <image:title>PDF Comparison</image:title>
+      <image:caption>Compare two PDFs and highlight differences</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-quiz</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-quiz.jpg</image:loc>
+      <image:title>PDF to Quiz</image:title>
+      <image:caption>Generate interactive quizzes from PDF content (Coming Soon!)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-voice-reader</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-voice-reader.jpg</image:loc>
+      <image:title>PDF Voice Reader</image:title>
+      <image:caption>Convert PDF text to speech with natural voice (Beta - Uses browser TTS)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-analytics</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-analytics.jpg</image:loc>
+      <image:title>PDF Analytics</image:title>
+      <image:caption>Get detailed analytics and insights from PDF documents (Coming Soon!)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/smart-redaction</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/smart-redaction.jpg</image:loc>
+      <image:title>Smart Redaction</image:title>
+      <image:caption>Automatically detect and redact sensitive information (Coming Soon!)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/smart-organizer</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/smart-organizer.jpg</image:loc>
+      <image:title>Smart Organizer</image:title>
+      <image:caption>Auto-categorize and organize PDFs (Coming Soon!)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/mobile-scanner</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/mobile-scanner.jpg</image:loc>
+      <image:title>Mobile Scanner</image:title>
+      <image:caption>Scan physical documents (papers, forms, receipts) with your phone/tablet camera and convert to PDF instantly - No physical scanner needed!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-ocr-extract</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-ocr-extract.jpg</image:loc>
+      <image:title>Extract Text (OCR)</image:title>
+      <image:caption>Extract all text from PDF including scanned documents (Tesseract.js)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-to-png</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-to-png.jpg</image:loc>
+      <image:title>PDF to PNG</image:title>
+      <image:caption>Convert PDF pages to PNG images with transparency</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/crop-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/crop-pdf.jpg</image:loc>
+      <image:title>Crop PDF</image:title>
+      <image:caption>Crop PDF pages to custom dimensions</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/pdf-metadata</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/pdf-metadata.jpg</image:loc>
+      <image:title>Edit Metadata</image:title>
+      <image:caption>View and edit PDF metadata and properties</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/tools/flatten-pdf</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pdfelitetools.com/og-images/flatten-pdf.jpg</image:loc>
+      <image:title>Flatten PDF</image:title>
+      <image:caption>Flatten interactive PDF forms and annotations</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/blog/pdf-tips</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/blog/tutorials</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/blog/product-updates</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pdfelitetools.com/blog/comparisons</loc>
+    <lastmod>2025-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

@@ -91,7 +91,7 @@ function getCategoryButtonClass(categoryId: string): string {
   <Navbar />
   
   <!-- Hero Section - Professional & Elegant -->
-  <section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-950/30 dark:via-blue-950/30 dark:to-gray-900">
+  <section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-950/30 dark:via-blue-950/30 dark:to-gray-900" data-tool-count={toolCount}>
     <!-- Animated Background Elements - Professional -->
     <div class="absolute inset-0 overflow-hidden">
       <!-- Large animated gradient orbs - Professional Colors -->
@@ -1469,6 +1469,10 @@ function getCategoryButtonClass(categoryId: string): string {
 
 
   // Language Translation System - UNIQUE FEATURE 🔥
+  // Get toolCount from data attribute
+  const heroSection = document.querySelector('section[data-tool-count]');
+  const toolCount = heroSection ? parseInt(heroSection.getAttribute('data-tool-count') || '26') : 26;
+  
   const pageTranslations: Record<string, Record<string, string>> = {
     en: {
       heroTitle: 'All-in-One PDF Tools Platform',

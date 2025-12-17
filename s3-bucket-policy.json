@@ -3,10 +3,10 @@
   "Statement": [
     {
       "Sid": "PublicReadGetObject",
-      "Resource": "arn:aws:s3:::pdfelitetools.com/*",
-      "Principal": "*",
       "Action": "s3:GetObject",
-      "Effect": "Allow"
+      "Resource": "arn:aws:s3:::pdfelitetools.com/*",
+      "Effect": "Allow",
+      "Principal": "*"
     }
   ]
 }
