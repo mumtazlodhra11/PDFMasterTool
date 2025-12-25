@@ -4,7 +4,10 @@ import toolsData from '@/config/tools.json';
 const { tools } = toolsData;
 
 export const GET: APIRoute = async () => {
-  const siteUrl = 'https://pdfelitetools.com';
+  // CRITICAL: Always use non-www canonical URL for sitemap
+  // This matches the site config and prevents redirect issues
+  // Ensures Google indexes non-www version
+  const siteUrl = 'https://pdfelitetools.com'; // Non-www only
   const currentDate = new Date().toISOString().split('T')[0];
 
   // Static pages with optimized priorities

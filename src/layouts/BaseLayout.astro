@@ -20,7 +20,7 @@ interface Props {
 const {
   title = 'PDFEliteTools - 26+ AI-Powered PDF Tools | Privacy-First, 100% Free',
   description = 'Next-gen PDF platform with 26+ tools powered by AI and WebAssembly. Convert, edit, compress, merge PDFs instantly. No login, no ads, privacy-first. 100% free forever.',
-  canonical = Astro.url.pathname,
+  canonical,
   ogImage = '/og-image.jpg',
   keywords = 'PDF tools, PDF converter, merge PDF, split PDF, compress PDF, PDF to Word, Word to PDF, PDF editor, free PDF tools, online PDF tools, PDF tools online, PDFEliteTools',
   author = 'PDFEliteTools',
@@ -30,8 +30,45 @@ const {
   breadcrumbs
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
-const fullUrl = `${siteUrl}${canonical}`;
+// CRITICAL: Always use non-www canonical URL
+// This prevents "Page with redirect" errors in Google Search Console
+let siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
+// Remove www if present (normalize to non-www)
+if (siteUrl.includes('www.')) {
+  siteUrl = siteUrl.replace('www.', '');
+}
+
+// CRITICAL FIX FOR SEO: Ensure canonical URL always matches the ACTUAL page URL
+// This prevents "Alternate page with proper canonical tag" errors in Google Search Console
+// Always use the actual current page URL, not a manually specified canonical
+const actualPathname = Astro.url.pathname;
+let canonicalPath = canonical || actualPathname;
+
+// Normalize: remove trailing slash unless it's root (to match trailingSlash: 'ignore')
+if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
+  canonicalPath = canonicalPath.slice(0, -1);
+}
+// Ensure it starts with /
+if (!canonicalPath.startsWith('/')) {
+  canonicalPath = '/' + canonicalPath;
+}
+
+// CRITICAL: If canonical was manually set, verify it matches the actual URL
+// If not, use the actual URL to prevent canonical tag pointing to wrong page
+if (canonical && canonical !== actualPathname) {
+  // Log warning in dev mode
+  if (import.meta.env.DEV) {
+    console.warn(`[SEO] Canonical mismatch: specified="${canonical}", actual="${actualPathname}". Using actual URL.`);
+  }
+  // Use actual URL to prevent "Alternate page" errors
+  canonicalPath = actualPathname;
+  // Remove trailing slash if present
+  if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
+    canonicalPath = canonicalPath.slice(0, -1);
+  }
+}
+
+const fullUrl = `${siteUrl}${canonicalPath}`;
 ---
 
 <!DOCTYPE html>

@@ -13,7 +13,12 @@ if (typeof window !== 'undefined') {
   });
 }
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
+// CRITICAL: Always use non-www canonical URL
+let siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://pdfelitetools.com';
+// Remove www if present (normalize to non-www)
+if (siteUrl.includes('www.')) {
+  siteUrl = siteUrl.replace('www.', '');
+}
 
 // FAQ data for structured data
 const faqs = [
@@ -91,7 +96,7 @@ function getCategoryButtonClass(categoryId: string): string {
   <Navbar />
   
   <!-- Hero Section - Professional & Elegant -->
-  <section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-950/30 dark:via-blue-950/30 dark:to-gray-900">
+  <section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-950/30 dark:via-blue-950/30 dark:to-gray-900" data-tool-count={toolCount}>
     <!-- Animated Background Elements - Professional -->
     <div class="absolute inset-0 overflow-hidden">
       <!-- Large animated gradient orbs - Professional Colors -->
@@ -330,7 +335,7 @@ function getCategoryButtonClass(categoryId: string): string {
       </div>
       
       <!-- Clean Category Filter -->
-      <div class="mb-8 sticky top-20 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 pb-4 pt-4 shadow-sm">
+      <div class="mb-8 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 pb-4 pt-4 shadow-sm -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap gap-2 justify-center items-center" id="category-filters" style="display: flex !important; visibility: visible !important;">
           <button class="category-filter active px-5 py-2.5 rounded-lg font-medium text-sm transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 shadow-md shadow-blue-500/30" data-category="all" style="display: inline-flex !important; visibility: visible !important;">
             All ({toolCount})
@@ -1469,6 +1474,10 @@ function getCategoryButtonClass(categoryId: string): string {
 
 
   // Language Translation System - UNIQUE FEATURE 🔥
+  // Get toolCount from data attribute
+  const heroSection = document.querySelector('section[data-tool-count]');
+  const toolCount = heroSection ? parseInt(heroSection.getAttribute('data-tool-count') || '26') : 26;
+  
   const pageTranslations: Record<string, Record<string, string>> = {
     en: {
       heroTitle: 'All-in-One PDF Tools Platform',
