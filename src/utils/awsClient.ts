@@ -15,13 +15,13 @@ const NODE_BACKEND_URL = import.meta.env.PUBLIC_NODE_BACKEND_URL || import.meta.
 // IMPORTANT: If environment variable has wrong/old URL, it will cause CORS errors
 // Default to the correct service URL
 const DEFAULT_PYTHON_URL = "https://pdf-converter-607448904463.europe-west1.run.app";
-// For local development, use localhost:9001 if available
-const LOCAL_PYTHON_URL = import.meta.env.DEV ? "http://localhost:9001" : null;
+// For local development, use localhost:8001 if available (changed from 9001 due to port conflict)
+const LOCAL_PYTHON_URL = import.meta.env.DEV ? "http://localhost:8001" : null;
 const PYTHON_BACKEND_URL = LOCAL_PYTHON_URL || import.meta.env.PUBLIC_PYTHON_BACKEND_URL || import.meta.env.PUBLIC_CLOUD_RUN_URL || DEFAULT_PYTHON_URL;
 
 // Validate URL - if it contains old/wrong service name, use default
-const PYTHON_BACKEND_URL_FINAL = PYTHON_BACKEND_URL.includes('pdf-converter-python-my7a6p7ima') 
-  ? DEFAULT_PYTHON_URL 
+const PYTHON_BACKEND_URL_FINAL = PYTHON_BACKEND_URL.includes('pdf-converter-python-my7a6p7ima')
+  ? DEFAULT_PYTHON_URL
   : PYTHON_BACKEND_URL;
 
 // URL validation (console logs removed for production)
@@ -52,7 +52,7 @@ function getS3Client(): S3Client {
 export async function uploadToS3(file: File, key?: string): Promise<string> {
   const client = getS3Client();
   const uploadKey = key || generateS3Key(file.name);
-  
+
   const fileBuffer = await file.arrayBuffer();
   const command = new PutObjectCommand({
     Bucket: S3_BUCKET,
@@ -91,7 +91,7 @@ export async function getS3DownloadUrl(key: string): Promise<string> {
     Bucket: S3_BUCKET,
     Key: key,
   });
-  
+
   const url = await getSignedUrl(client, command, { expiresIn: 3600 });
   return url;
 }
@@ -107,16 +107,16 @@ async function testServiceConnectivity(baseUrl: string): Promise<{ accessible: b
     console.log('[Cloud Run] Testing connectivity to:', baseUrl);
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-    
+
     const response = await fetch(`${baseUrl}/`, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
       signal: controller.signal
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     if (response.ok) {
       const data = await response.json();
       console.log('[Cloud Run] ✅ Connectivity test passed:', data);
@@ -128,9 +128,9 @@ async function testServiceConnectivity(baseUrl: string): Promise<{ accessible: b
   } catch (error: any) {
     console.error('[Cloud Run] ❌ Connectivity test error:', error);
     const errorMsg = error instanceof Error ? error.message : String(error);
-    return { 
-      accessible: false, 
-      error: errorMsg.includes('aborted') ? 'Timeout (service not responding)' : errorMsg 
+    return {
+      accessible: false,
+      error: errorMsg.includes('aborted') ? 'Timeout (service not responding)' : errorMsg
     };
   }
 }
@@ -180,7 +180,7 @@ export async function callCloudRunConverter(
     'flatten-pdf': 'flatten-pdf',
     'password-protect': 'password-protect',
   };
-  
+
   const endpoint = endpointMap[toolType];
   if (!endpoint) {
     throw new Error(`Unknown tool type: ${toolType}. Supported: ${Object.keys(endpointMap).join(', ')}`);
@@ -194,7 +194,7 @@ export async function callCloudRunConverter(
   const useNodeBackend = officeToPdfConversions.includes(toolType) && toolType !== 'excel-to-pdf';
   const backendUrl = useNodeBackend ? NODE_BACKEND_URL : PYTHON_BACKEND_URL_FINAL;
   const apiUrl = `${backendUrl}/convert/${endpoint}`;
-  
+
   console.log(`[Cloud Run] Using ${useNodeBackend ? 'Node.js' : 'Python'} backend for ${toolType}`);
   if (toolType === 'excel-to-pdf') {
     console.log(`[Cloud Run] ✅ Using Python backend for excel-to-pdf (has Excel print settings modification for chart split prevention)`);
@@ -207,15 +207,15 @@ export async function callCloudRunConverter(
   // Create FormData with file
   const formData = new FormData();
   formData.append('file', file);
-  
+
   // Add CORS headers for live site
   const headers: HeadersInit = {};
-  
+
   // Get current origin for CORS
   if (typeof window !== 'undefined') {
     headers['Origin'] = window.location.origin;
   }
-  
+
   // For password-protect, add password and permission options
   if (toolType === 'password-protect') {
     if (options?.userPassword) {
@@ -228,7 +228,7 @@ export async function callCloudRunConverter(
     formData.append('allow_copying', (options?.permissions?.allowCopying !== false).toString());
     formData.append('allow_editing', (options?.permissions?.allowEditing === true).toString());
   }
-  
+
   // For Excel to PDF, add conversion options
   if (toolType === 'excel-to-pdf' && options) {
     console.log('[Excel->PDF] 📊 Options being sent to backend:', {
@@ -239,7 +239,7 @@ export async function callCloudRunConverter(
       pageSize: options.pageSize,
       allOptions: options
     });
-    
+
     if (options.pageSize) formData.append('page_size', options.pageSize);
     if (options.orientation) formData.append('orientation', options.orientation);
     if (options.sheetSelection) formData.append('sheet_selection', options.sheetSelection);
@@ -257,7 +257,7 @@ export async function callCloudRunConverter(
     if (options.repeatColumns !== undefined) formData.append('repeat_columns', options.repeatColumns.toString());
     if (options.showGridlines !== undefined) formData.append('show_gridlines', options.showGridlines.toString());
     if (options.showRowColHeaders !== undefined) formData.append('show_row_col_headers', options.showRowColHeaders.toString());
-    
+
     // Chart handling options - CRITICAL FOR CHART SPLIT PREVENTION
     if (options.preventChartSplit !== undefined) {
       formData.append('prevent_chart_split', options.preventChartSplit.toString());
@@ -268,7 +268,7 @@ export async function callCloudRunConverter(
     }
     if (options.scaleChartsToFit !== undefined) formData.append('scale_charts_to_fit', options.scaleChartsToFit.toString());
     if (options.chartQuality) formData.append('chart_quality', options.chartQuality);
-    
+
     console.log('[Excel->PDF] 📋 Final FormData entries for chart options:', {
       prevent_chart_split: formData.get('prevent_chart_split'),
       scale_charts_to_fit: formData.get('scale_charts_to_fit'),
@@ -276,7 +276,7 @@ export async function callCloudRunConverter(
       orientation: formData.get('orientation')
     });
   }
-  
+
   // For eSign PDF, add signature image and position if provided in options
   if (toolType === 'esign-pdf') {
     if (options?.signatureFile) {
@@ -292,7 +292,7 @@ export async function callCloudRunConverter(
     } else {
       console.warn('[eSign] ⚠️ Position coordinates not provided!', { nx: options?.nx, ny: options?.ny });
     }
-    
+
     // Add normalized size parameters (0-1 range)
     if (options?.nw !== undefined && options?.nw > 0) {
       formData.append('nw', options.nw.toString());
@@ -300,13 +300,13 @@ export async function callCloudRunConverter(
     if (options?.nh !== undefined && options?.nh > 0) {
       formData.append('nh', options.nh.toString());
     }
-    
+
     // Page number (1-based, default to 1)
     const pageNum = (options?.page && options.page > 0) ? Math.floor(options.page) : 1;
     formData.append('page', pageNum.toString());
-    console.log('[eSign] Sending normalized coordinates to backend:', { 
-      nx: options?.nx, 
-      ny: options?.ny, 
+    console.log('[eSign] Sending normalized coordinates to backend:', {
+      nx: options?.nx,
+      ny: options?.ny,
       nw: options?.nw,
       nh: options?.nh,
       page: pageNum,
@@ -320,7 +320,12 @@ export async function callCloudRunConverter(
   try {
     console.log('[Cloud Run] Starting request to:', apiUrl);
     console.log('[Cloud Run] File:', file.name, `(${(file.size / 1024).toFixed(2)}KB)`);
-    console.log('[Cloud Run] FormData entries:', Array.from(formData.entries()).map(([k, v]) => [k, v instanceof File ? `${v.name} (${v.size} bytes)` : v]));
+    try {
+      const formDataEntries = Array.from(formData.entries()).map(([k, v]) => [k, v instanceof File ? `${v.name} (${v.size} bytes)` : v]);
+      console.log('[Cloud Run] FormData entries:', formDataEntries);
+    } catch (e) {
+      console.log('[Cloud Run] FormData entries: (unable to log entries)');
+    }
 
     // Progress: Uploading file
     onProgress?.({ progress: 10, status: 'uploading', message: 'Uploading file to server...' });
@@ -332,17 +337,22 @@ export async function callCloudRunConverter(
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
     console.log(`[Cloud Run] Timeout set to ${timeoutMs / 1000}s (file size: ${fileSizeMB.toFixed(2)}MB)`);
-    
+
     // For FormData, don't set Content-Type - browser will set it automatically with boundary
     // This is important for CORS preflight to work correctly
     console.log('[Cloud Run] Making fetch request...');
     console.log('[Cloud Run] Request URL:', apiUrl);
     console.log('[Cloud Run] Request method: POST');
-    console.log('[Cloud Run] FormData size:', formData.entries ? Array.from(formData.entries()).length : 'unknown');
-    
+    try {
+      const formDataSize = formData.entries ? Array.from(formData.entries()).length : 'unknown';
+      console.log('[Cloud Run] FormData size:', formDataSize);
+    } catch (e) {
+      console.log('[Cloud Run] FormData size: unknown');
+    }
+
     // Progress: Processing
     onProgress?.({ progress: 30, status: 'processing', message: 'Processing file on server...' });
-    
+
     // Simple fetch - let browser handle CORS automatically for FormData
     const fetchStartTime = Date.now();
     console.log('[Cloud Run] Sending POST request to:', apiUrl);
@@ -370,7 +380,7 @@ export async function callCloudRunConverter(
         error: fetchError
       });
       const errorMsg = fetchError instanceof Error ? fetchError.message : String(fetchError);
-      
+
       if (fetchError.name === 'AbortError') {
         throw new Error(
           `❌ Request timeout! The service took too long to respond.\n\n` +
@@ -379,7 +389,7 @@ export async function callCloudRunConverter(
           `Please try again in a few moments.`
         );
       }
-      
+
       if (errorMsg.includes('Failed to fetch') || errorMsg.includes('NetworkError') || errorMsg.includes('Network request failed') || errorMsg.includes('ERR_')) {
         console.error('[Cloud Run] ❌ POST request failed with network error');
         console.error('[Cloud Run] Error details:', {
@@ -387,10 +397,10 @@ export async function callCloudRunConverter(
           message: fetchError.message,
           stack: fetchError.stack
         });
-        
+
         // Check if it's a CORS error
         const isCorsError = errorMsg.includes('CORS') || errorMsg.includes('cross-origin') || errorMsg.includes('Access-Control');
-        
+
         throw new Error(
           `❌ Network Error: Cannot send POST request to Cloud Run service\n\n` +
           `URL: ${apiUrl}\n` +
@@ -412,11 +422,11 @@ export async function callCloudRunConverter(
       }
       throw fetchError;
     });
-    
+
     clearTimeout(timeoutId);
 
     console.log('[Cloud Run] ✅ Fetch completed, status:', response.status);
-    
+
     // Progress: Downloading result
     onProgress?.({ progress: 80, status: 'processing', message: 'Downloading converted file...' });
 
@@ -434,21 +444,28 @@ export async function callCloudRunConverter(
       } catch {
         errorText = response.statusText || 'Unknown error';
       }
-      
+
       console.error('[Cloud Run] ❌ Error response:', response.status, errorText);
       throw new Error(`Conversion failed (${response.status}): ${errorText}`);
     }
 
     // Cloud Run returns JSON with base64 file
     let result;
+    let textResponse = '';
     try {
-      result = await response.json();
+      textResponse = await response.text();
+      try {
+        result = JSON.parse(textResponse);
+      } catch (e) {
+        // If it's not JSON, throw to the outer catch block
+        throw new Error('Invalid JSON');
+      }
     } catch (parseError) {
       console.error('[Cloud Run] ❌ Failed to parse JSON response:', parseError);
-      const textResponse = await response.text();
+      // textResponse is already read, so we can use it safely
       throw new Error(`Invalid response from server: ${textResponse.substring(0, 200)}`);
     }
-    
+
     if (!result.success) {
       const errorMsg = result.error || result.detail || result.message || 'Conversion failed';
       console.error('[Cloud Run] ❌ Conversion failed:', errorMsg);
@@ -459,20 +476,20 @@ export async function callCloudRunConverter(
     // Node.js backend returns: result.output.data
     // Python backend returns: result.file
     let base64Data = result.output?.data || result.file || result.fileContent || '';
-    
+
     // Log base64 data info
     const originalBase64Length = base64Data.length;
     console.log(`[Cloud Run] Base64 data received: ${originalBase64Length} characters (${(originalBase64Length / 1024 / 1024).toFixed(2)} MB)`);
     console.log(`[Cloud Run] Expected file size from server: ${result.output?.size || result.size || 'unknown'} bytes`);
-    
+
     // Clean base64 string (remove whitespace, newlines, data URL prefix if present)
     base64Data = base64Data.replace(/^data:.*?;base64,/, '').replace(/\s/g, '').replace(/\n/g, '').replace(/\r/g, '');
-    
+
     const cleanedBase64Length = base64Data.length;
     if (cleanedBase64Length !== originalBase64Length) {
       console.log(`[Cloud Run] Base64 cleaned: ${originalBase64Length} → ${cleanedBase64Length} characters`);
     }
-    
+
     if (!base64Data) {
       console.error('[Cloud Run] ❌ No file data in response. Response structure:', {
         hasOutput: !!result.output,
@@ -483,67 +500,67 @@ export async function callCloudRunConverter(
       });
       throw new Error('No file data received from server');
     }
-    
+
     // Check if base64 data seems truncated (should be multiple of 4 for valid base64)
     if (base64Data.length % 4 !== 0) {
       console.warn(`[Cloud Run] ⚠️ Base64 length (${base64Data.length}) is not a multiple of 4 - might be truncated!`);
     }
-    
+
     // Validate base64 string (should only contain base64 chars)
     if (!/^[A-Za-z0-9+/=]+$/.test(base64Data)) {
       console.error('[Cloud Run] ❌ Invalid base64 data detected');
       throw new Error('Invalid file data received from server (base64 encoding error)');
     }
-    
-      // Progress: Decoding result
-      onProgress?.({ progress: 90, status: 'processing', message: 'Preparing file for download...' });
-      
-      // Decode using direct atob + Uint8Array method (more reliable than data URL)
-      try {
-        // Method 1: Direct binary decode (most reliable)
-        const binaryString = atob(base64Data);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-        
-        console.log(`[Cloud Run] Decoded binary size: ${bytes.length} bytes`);
-        
-        // Progress: Complete
-        onProgress?.({ progress: 100, status: 'completed', message: 'Conversion complete!' });
-      
+
+    // Progress: Decoding result
+    onProgress?.({ progress: 90, status: 'processing', message: 'Preparing file for download...' });
+
+    // Decode using direct atob + Uint8Array method (more reliable than data URL)
+    try {
+      // Method 1: Direct binary decode (most reliable)
+      const binaryString = atob(base64Data);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      console.log(`[Cloud Run] Decoded binary size: ${bytes.length} bytes`);
+
+      // Progress: Complete
+      onProgress?.({ progress: 100, status: 'completed', message: 'Conversion complete!' });
+
       // Determine content type from filename OR file bytes (more reliable)
       // Node.js backend returns: result.output.mimetype
       // Python backend returns: result.format or result.mimetype
       let contentType = result.output?.mimetype || result.format || result.mimetype || 'application/octet-stream';
-      
+
       // For HTML to PDF conversion, ensure content type is PDF
       if (toolType === 'html-to-pdf' || toolType === 'htm-to-pdf') {
         contentType = 'application/pdf';
       }
-      
+
       // Validate PDF file integrity after decoding
       if (contentType === 'application/pdf' || (result.output?.filename || result.filename || '').endsWith('.pdf')) {
         const pdfHeader = String.fromCharCode(...bytes.slice(0, 4));
         const pdfFooter = String.fromCharCode(...bytes.slice(-10));
         const expectedSize = result.output?.size || result.size;
-        
+
         console.log(`[Cloud Run] PDF validation: Header="${pdfHeader}", Size=${bytes.length} bytes, Expected=${expectedSize || 'unknown'}, Footer ends with EOF=${pdfFooter.includes('%%EOF')}`);
-        
+
         if (pdfHeader !== '%PDF') {
           console.error('[Cloud Run] ❌ Invalid PDF: missing PDF header!');
           throw new Error('Invalid PDF file received: missing PDF header');
         }
-        
+
         if (expectedSize && Math.abs(bytes.length - expectedSize) > 100) {
           console.warn(`[Cloud Run] ⚠️ PDF size mismatch: received ${bytes.length} bytes, expected ${expectedSize} bytes`);
         }
-        
+
         if (!pdfFooter.includes('%%EOF')) {
           console.warn('[Cloud Run] ⚠️ PDF might be incomplete: missing EOF marker');
         }
       }
-      
+
       // First, try to detect from file bytes (magic numbers) as fallback
       const firstBytes = bytes.slice(0, 8);
       if (firstBytes.length >= 4 && contentType === 'application/octet-stream') {
@@ -566,7 +583,7 @@ export async function callCloudRunConverter(
           }
         }
       }
-      
+
       // Fallback to filename-based detection if bytes didn't match
       if (contentType === 'application/octet-stream') {
         const filename = result.output?.filename || result.filename || '';
@@ -580,7 +597,7 @@ export async function callCloudRunConverter(
           contentType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
         }
       }
-      
+
       // Create blob directly from bytes
       const typedBlob = new Blob([bytes], { type: contentType }) as Blob & {
         fileName?: string;
@@ -597,9 +614,9 @@ export async function callCloudRunConverter(
         quality: result.quality,
         format: result.format,
       };
-      
+
       console.log('[Cloud Run] ✅ Decoded file:', typedBlob.size, 'bytes, type:', contentType);
-      
+
       // Additional validation for DOCX files (PDF to Word)
       if (toolType === 'pdf-to-word' && contentType.includes('wordprocessingml')) {
         // Validate DOCX structure (should start with PK - ZIP signature)
@@ -610,16 +627,16 @@ export async function callCloudRunConverter(
         }
         console.log('[Cloud Run] ✅ DOCX file validated: ZIP signature found');
       }
-      
+
       // Validate blob size
       if (typedBlob.size === 0) {
         throw new Error('Received empty file from server');
       }
-      
+
       if (typedBlob.size < 100) {
         console.warn('[Cloud Run] Very small file size:', typedBlob.size, 'bytes - file might be corrupted');
       }
-      
+
       // For DOCX files, verify ZIP structure immediately
       if (contentType.includes('wordprocessingml') || contentType.includes('docx')) {
         const headArray = bytes.slice(0, 2);
@@ -628,7 +645,7 @@ export async function callCloudRunConverter(
           throw new Error('Corrupted DOCX received (invalid ZIP header). Please try converting again.');
         }
       }
-      
+
       // For PDF files, verify PDF header
       if (contentType.includes('pdf')) {
         const pdfHeader = new TextDecoder().decode(bytes.slice(0, 4));
@@ -637,7 +654,7 @@ export async function callCloudRunConverter(
           throw new Error('Corrupted PDF received (invalid PDF header). Please try converting again.');
         }
       }
-      
+
       return typedBlob;
     } catch (decodeError) {
       console.error('[Cloud Run] ❌ Base64 decode error:', decodeError);

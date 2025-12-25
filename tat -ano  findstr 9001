@@ -1,0 +1,239 @@
+[1mdiff --git a/google-cloud-run/app.py b/google-cloud-run/app.py[m
+[1mindex 6f7c257..81bf77a 100644[m
+[1m--- a/google-cloud-run/app.py[m
+[1m+++ b/google-cloud-run/app.py[m
+[36m@@ -639,7 +639,8 @@[m [masync def pdf_to_word(file: UploadFile = File(...)):[m
+             print(f"[PDF->DOCX] Processing: {file.filename}, {len(content)} bytes")[m
+             [m
+             # Convert to DOCX with BEST QUALITY settings - COMPETITOR-LEVEL QUALITY[m
+[31m-            # Strategy: Try multiple methods for maximum compatibility and quality[m
+[32m+[m[32m            # Strategy: Try pdf2docx FIRST (best layout / fewer blank pages),[m
+[32m+[m[32m            # then fall back to LibreOffice methods only if needed.[m
+             conversion_errors: List[str] = [][m
+             output_path: Optional[str] = None[m
+             [m
+[36m@@ -648,26 +649,39 @@[m [masync def pdf_to_word(file: UploadFile = File(...)):[m
+             dynamic_timeout = 30 if file_size_mb < 1 else (45 if file_size_mb < 5 else 60)[m
+             print(f"[PDF->DOCX] File size: {file_size_mb:.2f}MB, using timeout: {dynamic_timeout}s")[m
+             [m
+[31m-            # METHOD 1: LibreOffice with explicit DOCX filter (BEST for text-based PDFs)[m
+[31m-            try:[m
+[31m-                print("[PDF->DOCX] Attempting LibreOffice with MS Word 2007 XML filter (best quality)...")[m
+[31m-                output_path = convert_with_libreoffice([m
+[31m-                    input_path,[m
+[31m-                    'docx:"MS Word 2007 XML"',  # Explicit DOCX filter for best compatibility[m
+[31m-                    temp_dir,[m
+[31m-                    timeout=dynamic_timeout,  # ULTRA-OPTIMIZED: Dynamic timeout for faster processing[m
+[31m-                    input_filter='writer_pdf_import'  # Explicit PDF import filter[m
+[31m-                )[m
+[31m-                if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:[m
+[31m-                    print("[PDF->DOCX] ✅ LibreOffice MS Word 2007 XML filter succeeded!")[m
+[31m-            except Exception as primary_error:[m
+[31m-                conversion_errors.append(f"LibreOffice docx filter: {str(primary_error)[:200]}")[m
+[31m-                print(f"[PDF->DOCX] ⚠️ DOCX filter failed ({primary_error}), trying default docx export...")[m
+[32m+[m[32m            # METHOD 1: pdf2docx (BEST for layout preservation, images, tables)[m
+[32m+[m[32m            if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:[m
+[32m+[m[32m                try:[m
+[32m+[m[32m                    fallback_path = os.path.join(temp_dir, "pdf2docx-output.docx")[m
+[32m+[m[32m                    print("[PDF->DOCX] Attempting pdf2docx (primary engine - best for layout, fewer blank pages)...")[m
+[32m+[m[32m                    output_path = convert_pdf_to_docx_with_pdf2docx(input_path, fallback_path)[m
+[32m+[m[32m                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:[m
+[32m+[m[32m                        print("[PDF->DOCX] ✅ pdf2docx succeeded - layout preserved!")[m
+[32m+[m[32m                except Exception as pdf2docx_error:[m
+[32m+[m[32m                    conversion_errors.append(f"pdf2docx primary: {str(pdf2docx_error)[:200]}")[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ⚠️ pdf2docx primary engine failed ({pdf2docx_error}), trying LibreOffice...")[m
+[32m+[m
+[32m+[m[32m            # METHOD 2: LibreOffice with explicit DOCX filter (BEST for text-based PDFs)[m
+[32m+[m[32m            if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:[m
+[32m+[m[32m                try:[m
+[32m+[m[32m                    print("[PDF->DOCX] Attempting LibreOffice with MS Word 2007 XML filter (fallback)...")[m
+[32m+[m[32m                    output_path = convert_with_libreoffice([m
+[32m+[m[32m                        input_path,[m
+[32m+[m[32m                        'docx:"MS Word 2007 XML"',  # Explicit DOCX filter for best compatibility[m
+[32m+[m[32m                        temp_dir,[m
+[32m+[m[32m                        timeout=dynamic_timeout,  # ULTRA-OPTIMIZED: Dynamic timeout for faster processing[m
+[32m+[m[32m                        input_filter='writer_pdf_import'  # Explicit PDF import filter[m
+[32m+[m[32m                    )[m
+[32m+[m[32m                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:[m
+[32m+[m[32m                        print("[PDF->DOCX] ✅ LibreOffice MS Word 2007 XML filter succeeded!")[m
+[32m+[m[32m                except Exception as primary_error:[m
+[32m+[m[32m                    conversion_errors.append(f"LibreOffice docx filter: {str(primary_error)[:200]}")[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ⚠️ DOCX filter failed ({primary_error}), trying default docx export...")[m
+ [m
+[31m-            # METHOD 2: LibreOffice default DOCX (fallback for METHOD 1)[m
+[32m+[m[32m            # METHOD 3: LibreOffice default DOCX (last fallback)[m
+             if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:[m
+                 try:[m
+[31m-                    print("[PDF->DOCX] Attempting LibreOffice with default DOCX export...")[m
+[32m+[m[32m                    print("[PDF->DOCX] Attempting LibreOffice with default DOCX export (final fallback)...")[m
+                     output_path = convert_with_libreoffice([m
+                         input_path,[m
+                         'docx',  # Let LibreOffice choose the filter automatically[m
+[36m@@ -679,19 +693,7 @@[m [masync def pdf_to_word(file: UploadFile = File(...)):[m
+                         print("[PDF->DOCX] ✅ LibreOffice default DOCX export succeeded!")[m
+                 except Exception as secondary_error:[m
+                     conversion_errors.append(f"LibreOffice default docx: {str(secondary_error)[:200]}")[m
+[31m-                    print(f"[PDF->DOCX] ⚠️ Default DOCX export failed ({secondary_error}), trying pdf2docx...")[m
+[31m-[m
+[31m-            # METHOD 3: pdf2docx (BEST for layout preservation, images, tables)[m
+[31m-            if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:[m
+[31m-                fallback_path = os.path.join(temp_dir, "pdf2docx-output.docx")[m
+[31m-                try:[m
+[31m-                    print("[PDF->DOCX] Attempting pdf2docx (best for layout, images, tables)...")[m
+[31m-                    output_path = convert_pdf_to_docx_with_pdf2docx(input_path, fallback_path)[m
+[31m-                    if output_path and os.path.exists(output_path) and os.path.getsize(output_path) > 100:[m
+[31m-                        print("[PDF->DOCX] ✅ pdf2docx succeeded - layout preserved!")[m
+[31m-                except Exception as fallback_error:[m
+[31m-                    conversion_errors.append(f"pdf2docx fallback: {str(fallback_error)[:200]}")[m
+[31m-                    print(f"[PDF->DOCX] ⚠️ pdf2docx failed ({fallback_error})")[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ⚠️ Default DOCX export failed ({secondary_error})")[m
+             [m
+             # Final validation - if all methods failed[m
+             if not output_path or not os.path.exists(output_path) or os.path.getsize(output_path) < 100:[m
+[36m@@ -733,10 +735,146 @@[m [masync def pdf_to_word(file: UploadFile = File(...)):[m
+                 print(f"[PDF->DOCX] ⚠️ Warning: Could not validate ZIP structure: {zip_error}")[m
+                 # Don't fail - file might still be valid[m
+             [m
+[32m+[m[32m            # CRITICAL: Post-process DOCX to fix blank pages and numbering issues - AGGRESSIVE FIX[m
+[32m+[m[32m            try:[m
+[32m+[m[32m                from docx import Document[m
+[32m+[m[32m                from docx.oxml.ns import qn[m
+[32m+[m[32m                from docx.oxml import OxmlElement[m
+[32m+[m[32m                from docx.shared import Pt[m
+[32m+[m[32m                import xml.etree.ElementTree as ET[m
+[32m+[m[32m                print("[PDF->DOCX] Post-processing: Aggressively fixing blank pages, section breaks, and numbering...")[m
+[32m+[m[32m                doc = Document(output_path)[m
+[32m+[m[41m                [m
+[32m+[m[32m                # Step 1: AGGRESSIVE blank page removal - Remove empty paragraphs and page breaks[m
+[32m+[m[32m                blank_pages_removed = 0[m
+[32m+[m[32m                paragraphs_to_remove = [][m
+[32m+[m[32m                body = doc.element.body[m
+[32m+[m[41m                [m
+[32m+[m[32m                # Get all paragraphs from XML directly for more control[m
+[32m+[m[32m                all_paras = body.xpath('.//w:p')[m
+[32m+[m[41m                [m
+[32m+[m[32m                for para_elem in all_paras:[m
+[32m+[m[32m                    try:[m
+[32m+[m[32m                        # Get paragraph text content[m
+[32m+[m[32m                        para_text = ''.join([t.text for t in para_elem.xpath('.//w:t') if t.text]).strip()[m
+[32m+[m[41m                        [m
+[32m+[m[32m                        # Check if paragraph has any runs with actual content[m
+[32m+[m[32m                        runs = para_elem.xpath('.//w:r')[m
+[32m+[m[32m                        has_text_content = False[m
+[32m+[m[32m                        has_only_page_break = False[m
+[32m+[m[41m                        [m
+[32m+[m[32m                        for run in runs:[m
+[32m+[m[32m                            # Check for text content[m
+[32m+[m[32m                            text_nodes = run.xpath('.//w:t')[m
+[32m+[m[32m                            for text_node in text_nodes:[m
+[32m+[m[32m                                if text_node.text and text_node.text.strip():[m
+[32m+[m[32m                                    has_text_content = True[m
+[32m+[m[32m                                    break[m
+[32m+[m[41m                            [m
+[32m+[m[32m                            # Check for page breaks[m
+[32m+[m[32m                            br_nodes = run.xpath('.//w:br')[m
+[32m+[m[32m                            page_break_nodes = run.xpath('.//w:lastRenderedPageBreak')[m
+[32m+[m[32m                            if (br_nodes or page_break_nodes) and not has_text_content:[m
+[32m+[m[32m                                has_only_page_break = True[m
+[32m+[m[41m                        [m
+[32m+[m[32m                        # Mark for removal if:[m
+[32m+[m[32m                        # 1. No text content AND only page breaks, OR[m
+[32m+[m[32m                        # 2. Completely empty paragraph[m
+[32m+[m[32m                        if (not para_text and not has_text_content) or (has_only_page_break and not has_text_content):[m
+[32m+[m[32m                            paragraphs_to_remove.append(para_elem)[m
+[32m+[m[32m                    except Exception as e:[m
+[32m+[m[32m                        print(f"[PDF->DOCX] Warning checking paragraph: {e}")[m
+[32m+[m[32m                        continue[m
+[32m+[m[41m                [m
+[32m+[m[32m                # Remove marked paragraphs[m
+[32m+[m[32m                for para_elem in paragraphs_to_remove:[m
+[32m+[m[32m                    try:[m
+[32m+[m[32m                        parent = para_elem.getparent()[m
+[32m+[m[32m                        if parent is not None:[m
+[32m+[m[32m                            parent.remove(para_elem)[m
+[32m+[m[32m                            blank_pages_removed += 1[m
+[32m+[m[32m                    except Exception as e:[m
+[32m+[m[32m                        print(f"[PDF->DOCX] Warning removing paragraph: {e}")[m
+[32m+[m[32m                        pass[m
+[32m+[m[41m                [m
+[32m+[m[32m                if blank_pages_removed > 0:[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ✅ Removed {blank_pages_removed} blank/empty paragraphs with page breaks")[m
+[32m+[m[41m                [m
+[32m+[m[32m                # Step 2: Fix section breaks - Remove unnecessary section breaks and ensure continuous numbering[m
+[32m+[m[32m                section_breaks_fixed = 0[m
+[32m+[m[32m                try:[m
+[32m+[m[32m                    # Get all section properties[m
+[32m+[m[32m                    sections = body.xpath('.//w:sectPr')[m
+[32m+[m[41m                    [m
+[32m+[m[32m                    if len(sections) > 1:[m
+[32m+[m[32m                        # Keep first section's properties, modify others to continue numbering[m
+[32m+[m[32m                        first_sect = sections[0][m
+[32m+[m[41m                        [m
+[32m+[m[32m                        for i, sect in enumerate(sections[1:], 1):[m
+[32m+[m[32m                            try:[m
+[32m+[m[32m                                # Remove pgNumType start attribute to continue from previous[m
+[32m+[m[32m                                pg_num_type = sect.find(qn('w:pgNumType'))[m
+[32m+[m[32m                                if pg_num_type is not None:[m
+[32m+[m[32m                                    # Remove start attribute to continue numbering[m
+[32m+[m[32m                                    start_attr = pg_num_type.get(qn('w:start'))[m
+[32m+[m[32m                                    if start_attr:[m
+[32m+[m[32m                                        pg_num_type.attrib.pop(qn('w:start'), None)[m
+[32m+[m[41m                                [m
+[32m+[m[32m                                # Copy page numbering settings from first section[m
+[32m+[m[32m                                if first_sect is not None:[m
+[32m+[m[32m                                    first_pg_num = first_sect.find(qn('w:pgNumType'))[m
+[32m+[m[32m                                    if first_pg_num is not None and pg_num_type is None:[m
+[32m+[m[32m                                        # Create pgNumType if it doesn't exist[m
+[32m+[m[32m                                        pg_num_type = OxmlElement(qn('w:pgNumType'))[m
+[32m+[m[32m                                        sect.append(pg_num_type)[m
+[32m+[m[41m                                [m
+[32m+[m[32m                                section_breaks_fixed += 1[m
+[32m+[m[32m                            except Exception as e:[m
+[32m+[m[32m                                print(f"[PDF->DOCX] Warning fixing section {i}: {e}")[m
+[32m+[m[32m                                pass[m
+[32m+[m[41m                        [m
+[32m+[m[32m                        if section_breaks_fixed > 0:[m
+[32m+[m[32m                            print(f"[PDF->DOCX] ✅ Fixed {section_breaks_fixed} section breaks for continuous numbering")[m
+[32m+[m[32m                except Exception as sect_error:[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ⚠️ Warning: Could not fix section breaks: {sect_error}")[m
+[32m+[m[41m                [m
+[32m+[m[32m                # Step 3: Remove page breaks from runs that have content (keep content, remove break)[m
+[32m+[m[32m                page_breaks_removed = 0[m
+[32m+[m[32m                try:[m
+[32m+[m[32m                    all_runs = body.xpath('.//w:r')[m
+[32m+[m[32m                    for run in all_runs:[m
+[32m+[m[32m                        # Check if run has both text and page break[m
+[32m+[m[32m                        has_text = any(t.text and t.text.strip() for t in run.xpath('.//w:t'))[m
+[32m+[m[32m                        br_nodes = run.xpath('.//w:br')[m
+[32m+[m[32m                        page_break_nodes = run.xpath('.//w:lastRenderedPageBreak')[m
+[32m+[m[41m                        [m
+[32m+[m[32m                        # If run has text content AND page break, remove the page break[m
+[32m+[m[32m                        if has_text and (br_nodes or page_break_nodes):[m
+[32m+[m[32m                            for br in br_nodes + page_break_nodes:[m
+[32m+[m[32m                                try:[m
+[32m+[m[32m                                    br.getparent().remove(br)[m
+[32m+[m[32m                                    page_breaks_removed += 1[m
+[32m+[m[32m                                except:[m
+[32m+[m[32m                                    pass[m
+[32m+[m[41m                    [m
+[32m+[m[32m                    if page_breaks_removed > 0:[m
+[32m+[m[32m                        print(f"[PDF->DOCX] ✅ Removed {page_breaks_removed} page breaks from content paragraphs")[m
+[32m+[m[32m                except Exception as br_error:[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ⚠️ Warning: Could not remove page breaks: {br_error}")[m
+[32m+[m[41m                [m
+[32m+[m[32m                # Save the post-processed document[m
+[32m+[m[32m                if blank_pages_removed > 0 or section_breaks_fixed > 0 or page_breaks_removed > 0:[m
+[32m+[m[32m                    doc.save(output_path)[m
+[32m+[m[32m                    print(f"[PDF->DOCX] ✅ Post-processing complete: {blank_pages_removed} blank paragraphs removed, {section_breaks_fixed} section breaks fixed, {page_breaks_removed} page breaks removed")[m
+[32m+[m[32m            except Exception as post_error:[m
+[32m+[m[32m                print(f"[PDF->DOCX] ⚠️ Warning: Post-processing failed: {post_error}, continuing with original file...")[m
+[32m+[m[41m            [m
+             # CRITICAL: Fix encoding issues - convert boxes (□) and question marks to dots[m
+[32m+[m[32m            # Note: Document already loaded in post-processing above, reload if needed[m
+             try:[m
+                 from docx import Document[m
+                 print("[PDF->DOCX] Fixing encoding issues (boxes and question marks to dots)...")[m
+[32m+[m[32m                # Reload document if it was modified in post-processing[m
+                 doc = Document(output_path)[m
+                 [m
+                 # Box-like characters that should be converted to dots[m
